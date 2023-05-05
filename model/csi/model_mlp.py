@@ -237,6 +237,7 @@ def run_mlp(data_train_x,
         result_time_train.append(var_time_1 - var_time_0)
         result_time_test.append(var_time_2 - var_time_1)
         #
+        print(result_acc)
         print(result)
     #
     ##
