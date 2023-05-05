@@ -6,7 +6,7 @@ preset = {
     "path": {
         "data_x": "data/csi/amp",
         "data_y": "data/annotation.csv",
-        "save": "result_activity_strf_classroom_245.json"
+        "save": "result_activity_mlp_classroom_5.json"
     },
     #
     ##
@@ -21,8 +21,8 @@ preset = {
     "task": "activity",                                     # identity, activity, location
     #
     ##
-    "mlp": {
-        "lr": 1e-3,
+    "nn": {
+        "lr": 1e-4,
         "epoch": 200,
         "batch_size": 128,
         "threshold": 0.5,

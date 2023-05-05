@@ -4,7 +4,7 @@ import torch
 import numpy as np
 #
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from sklearn.metrics import classification_report, precision_score
+from sklearn.metrics import classification_report, precision_score, accuracy_score
 #
 ##
 from preset import preset
@@ -28,7 +28,8 @@ class MLP(torch.nn.Module):
         ##
         self.layer_0 = torch.nn.Linear(var_dim_input, 256)
         self.layer_1 = torch.nn.Linear(256, 128)
-        self.layer_2 = torch.nn.Linear(128, var_dim_output)
+        self.layer_2 = torch.nn.Linear(128, 64)
+        self.layer_3 = torch.nn.Linear(64, var_dim_output)
         #
         ##
         torch.nn.init.xavier_uniform_(self.layer_0.weight)
@@ -65,6 +66,10 @@ class MLP(torch.nn.Module):
         var_t = self.layer_dropout(var_t)
         #
         var_t = self.layer_2(var_t)
+        var_t = self.layer_relu(var_t)
+        var_t = self.layer_dropout(var_t)
+        #
+        var_t = self.layer_3(var_t)
         #
         var_output = var_t
         #
@@ -102,7 +107,7 @@ def run_mlp(data_train_x,
     #
     data_train_loader = torch.utils.data.DataLoader(dataset = data_train_set, 
                                                     shuffle = True,
-                                                    batch_size = preset["mlp"]["batch_size"])
+                                                    batch_size = preset["nn"]["batch_size"])
     #
     ##
     #--------------------------------------------------------------------------------------------------------------#
@@ -110,10 +115,10 @@ def run_mlp(data_train_x,
     #--------------------------------------------------------------------------------------------------------------#
     #
     ##
-    result_precision = []
+    result_accuracy = []
     result_time_train = []
     result_time_test = []
-    result_dict = {}
+    result = {}
     #
     ##
     for var_r in range(var_repeat):
@@ -125,16 +130,16 @@ def run_mlp(data_train_x,
         model_mlp = MLP(var_dim_x, var_dim_y).to(device)
         #
         optimizer = torch.optim.Adam(model_mlp.parameters(), 
-                                     lr = preset["mlp"]["lr"], 
+                                     lr = preset["nn"]["lr"],
                                      weight_decay = 1e-3)
         #
         loss = torch.nn.BCEWithLogitsLoss()
         #
         var_time_0 = time.time()
         #
-        var_epochs = preset["mlp"]["epoch"]
+        var_epochs = preset["nn"]["epoch"]
         #
-        var_best_map = 0
+        var_best_accuracy = 0
         var_best_weight = None
         #
         ##
@@ -172,37 +177,35 @@ def run_mlp(data_train_x,
                 #
                 var_loss_test = loss(predict_test_y, torch.from_numpy(data_test_y).float().to(device))
                 #
-                predict_train_y = (torch.sigmoid(predict_train_y) > preset["mlp"]["threshold"]).float()
-                predict_test_y = (torch.sigmoid(predict_test_y) > preset["mlp"]["threshold"]).float()
+                predict_train_y = (torch.sigmoid(predict_train_y) > preset["nn"]["threshold"]).float()
+                predict_test_y = (torch.sigmoid(predict_test_y) > preset["nn"]["threshold"]).float()
                 #
                 ##
                 data_batch_y = data_batch_y.detach().cpu().numpy()
-                #
                 predict_train_y = predict_train_y.detach().cpu().numpy()
                 predict_test_y = predict_test_y.detach().cpu().numpy()
                 #
                 ##
-                var_map_train = precision_score(data_batch_y.reshape(-1, var_shape_y[-1]).astype(int), 
-                                                predict_train_y.reshape(-1, var_shape_y[-1]).astype(int), 
-                                                average = "macro",
-                                                zero_division = 0)
-                #
-                var_map_test = precision_score(data_test_y.reshape(-1, var_shape_y[-1]).astype(int), 
-                                               predict_test_y.reshape(-1, var_shape_y[-1]).astype(int), 
-                                               average = "macro",
-                                               zero_division = 0)
-                #
-                print(f"Epoch {var_epoch}/{var_epochs}",
-                      "- Loss %.6f"%var_loss_train.cpu(),
-                      "- mAP %.6f"%var_map_train,
-                      "- Test Loss %.6f"%var_loss_test.cpu(),
-                      "- Test mAP %.6f"%var_map_test)
+                data_batch_y_c = data_batch_y.reshape(-1, var_shape_y[-1]).astype(int)
+                predict_train_y_c = predict_train_y.reshape(-1, var_shape_y[-1]).astype(int)
+                var_accuracy_train = accuracy_score(data_batch_y_c, predict_train_y_c)
                 #
                 ##
-                if var_map_test > var_best_map:
+                data_test_y_c = data_test_y.reshape(-1, var_shape_y[-1]).astype(int)
+                predict_test_y_c = predict_test_y.reshape(-1, var_shape_y[-1]).astype(int)
+                var_accuracy_test = accuracy_score(data_test_y_c, predict_test_y_c)
+                #
+                ##
+                print(f"Epoch {var_epoch}/{var_epochs}",
+                      "- Loss %.6f"%var_loss_train.cpu(),
+                      "- Accuracy %.6f"%var_accuracy_train,
+                      "- Test Loss %.6f"%var_loss_test.cpu(),
+                      "- Test Accuracy %.6f"%var_accuracy_test)
+                #
+                ##
+                if var_accuracy_test > var_best_accuracy:
                     #
-                    var_best_map = var_map_test
-                    #
+                    var_best_accuracy = var_accuracy_test
                     var_best_weight = copy.deepcopy(model_mlp.state_dict())
         #
         ##
@@ -211,29 +214,34 @@ def run_mlp(data_train_x,
         model_mlp.load_state_dict(var_best_weight)
         #
         predict_test_y = model_mlp(torch.from_numpy(data_test_x).to(device))
-        predict_test_y = (torch.sigmoid(predict_test_y) > preset["mlp"]["threshold"]).float()
+        predict_test_y = (torch.sigmoid(predict_test_y) > preset["nn"]["threshold"]).float()
         predict_test_y = predict_test_y.detach().cpu().numpy()
         #
         var_time_2 = time.time()
         #
         ##
-        result = classification_report(data_test_y.reshape(-1, var_shape_y[-1]).astype(int), 
-                                       predict_test_y.reshape(-1, var_shape_y[-1]).astype(int), 
-                                       digits = 6, 
-                                       zero_division = 0, 
-                                       output_dict = True)
+        data_test_y_c = data_test_y.reshape(-1, var_shape_y[-1]).astype(int)
+        predict_test_y_c = predict_test_y.reshape(-1, var_shape_y[-1]).astype(int)
+        result_acc = accuracy_score(data_test_y_c, predict_test_y_c)
         #
-        print(result)
+        ##
+        result_dict = classification_report(data_test_y_c, 
+                                            predict_test_y_c, 
+                                            digits = 6, 
+                                            zero_division = 0, 
+                                            output_dict = True)
         #
-        result_dict["repeat_" + str(var_r)] = result
+        result["repeat_" + str(var_r)] = result_dict
         #
-        result_precision.append(result["macro avg"]["precision"])
+        result_accuracy.append(result_acc)
         result_time_train.append(var_time_1 - var_time_0)
         result_time_test.append(var_time_2 - var_time_1)
+        #
+        print(result)
     #
     ##
-    result_dict["mAP"] = {"avg": np.mean(result_precision), "std": np.std(result_precision)}
-    result_dict["time_train"] = {"avg": np.mean(result_time_train), "std": np.std(result_time_train)}
-    result_dict["time_test"] = {"avg": np.mean(result_time_test), "std": np.std(result_time_test)}
+    result["accuracy"] = {"avg": np.mean(result_accuracy), "std": np.std(result_accuracy)}
+    result["time_train"] = {"avg": np.mean(result_time_train), "std": np.std(result_time_train)}
+    result["time_test"] = {"avg": np.mean(result_time_test), "std": np.std(result_time_test)}
     #
-    return result_dict
+    return result

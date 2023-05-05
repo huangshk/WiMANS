@@ -37,17 +37,15 @@ def main_0():
                                                                             shuffle = True, 
                                                                             random_state = 39)
     #
-    result_dict = run_rf(data_train_x, data_train_y, data_test_x, data_test_y)
-    # result_dict = run_mlp(data_train_x, data_train_y, data_test_x, data_test_y)
+    # result_dict = run_rf(data_train_x, data_train_y, data_test_x, data_test_y)
+    result = run_mlp(data_train_x, data_train_y, data_test_x, data_test_y)
     #
-    result_dict["data"] = preset["data"]
-    # result_dict["mlp"] = preset["mlp"]
+    result["data"] = preset["data"]
+    result["nn"] = preset["nn"]
     #
-    print(result_dict)
-    #
-    ##
+    print(result)
     var_file = open(preset["path"]["save"], 'w')
-    json.dump(result_dict, var_file, indent = 4)
+    json.dump(result, var_file, indent = 4)
 
 #
 ##
