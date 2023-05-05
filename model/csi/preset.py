@@ -6,19 +6,19 @@ preset = {
     "path": {
         "data_x": "data/csi/amp",
         "data_y": "data/annotation.csv",
-        "result": "result"
+        "save": "result_activity_strf_classroom_245.json"
     },
     #
     ##
     "data": {
         "num_users": ["0", "1", "2", "3", "4", "5"],        # "0", "1", "2", "3", "4", "5"
-        "wifi_band": ["5"],                                 # "2.4", "5"
+        "wifi_band": ["5"],                          # "2.4", "5"
         "environment": ["classroom"],                       # "classroom", "meeting_room", "empty_room"
         "length": 3000,
     },
     #
     ##
-    "task": "location",                                     # identity, activity, location
+    "task": "activity",                                     # identity, activity, location
     #
     ##
     "mlp": {

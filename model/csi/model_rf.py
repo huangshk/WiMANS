@@ -4,7 +4,7 @@ import numpy as np
 from scipy import signal
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, accuracy_score
 #
 ##
 def run_rf(data_train_x, 
@@ -48,10 +48,10 @@ def run_rf(data_train_x,
     #--------------------------------------------------------------------------------------------------------------#
     #
     ##
-    result_precision = []
+    result_accuracy = []
     result_time_train = []
     result_time_test = []
-    result_dict = {}
+    result = {}
     #
     ##
     for var_r in range(var_repeat):
@@ -63,30 +63,37 @@ def run_rf(data_train_x,
         #
         ## model training
         var_time_0 = time.time()
+        #
         model_rf.fit(data_train_ft_x, data_train_y)
+        #
         var_time_1 = time.time()
         #
+        ## model predict
+        #
         predict_test_y = model_rf.predict(data_test_ft_x)
+        #
         var_time_2 = time.time()
         #
-        ## model predict
         predict_test_y = predict_test_y.reshape(data_test_y.shape)
         #
-        result = classification_report(data_test_y.reshape(-1, data_test_y.shape[-1]), 
-                                       predict_test_y.reshape(-1, predict_test_y.shape[-1]), 
-                                       digits = 6, 
-                                       zero_division = 0, 
-                                       output_dict = True)
+        ## by_class
+        data_test_y_c = data_test_y.reshape(-1, data_test_y.shape[-1])
+        predict_test_y_c = predict_test_y.reshape(-1, predict_test_y.shape[-1])
         #
-        result_dict["repeat_" + str(var_r)] = result
+        result_acc = accuracy_score(data_test_y_c, predict_test_y_c)
         #
-        result_precision.append(result["macro avg"]["precision"])
+        result_dict = classification_report(data_test_y_c, predict_test_y_c, 
+                                            digits = 6, zero_division = 0, output_dict = True)
+        #
+        result["repeat_" + str(var_r)] = result_dict
+        #
+        result_accuracy.append(result_acc)
         result_time_train.append(var_time_1 - var_time_0)
         result_time_test.append(var_time_2 - var_time_1)
         #
-    result_dict["mAP"] = {"avg": np.mean(result_precision), "std": np.std(result_precision)}
-    result_dict["time_train"] = {"avg": np.mean(result_time_train), "std": np.std(result_time_train)}
-    result_dict["time_test"] = {"avg": np.mean(result_time_test), "std": np.std(result_time_test)}
+    result["accuracy"] = {"avg": np.mean(result_accuracy), "std": np.std(result_accuracy)}
+    result["time_train"] = {"avg": np.mean(result_time_train), "std": np.std(result_time_train)}
+    result["time_test"] = {"avg": np.mean(result_time_test), "std": np.std(result_time_test)}
     #
-    return result_dict
+    return result
 

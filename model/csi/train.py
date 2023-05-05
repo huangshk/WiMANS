@@ -16,6 +16,9 @@ from model_mlp import run_mlp
 def main_0():
     #
     ##
+    print(preset)
+    #
+    ##
     data_pd_y = load_data_y(preset["path"]["data_y"],
                             var_environment = preset["data"]["environment"], 
                             var_wifi_band = preset["data"]["wifi_band"], 
@@ -34,22 +37,198 @@ def main_0():
                                                                             shuffle = True, 
                                                                             random_state = 39)
     #
-    # result_dict = run_rf(data_train_x, data_train_y, data_test_x, data_test_y)
-    result_dict = run_mlp(data_train_x, data_train_y, data_test_x, data_test_y)
+    result_dict = run_rf(data_train_x, data_train_y, data_test_x, data_test_y)
+    # result_dict = run_mlp(data_train_x, data_train_y, data_test_x, data_test_y)
     #
     result_dict["data"] = preset["data"]
-    result_dict["mlp"] = preset["mlp"]
+    # result_dict["mlp"] = preset["mlp"]
     #
     print(result_dict)
     #
-    var_file_name = "result_location_mlp_classroom_5.json"
-    var_file = open(var_file_name, 'w')
-    json.dump(result_dict, var_file, indent = 4)  
-
+    ##
+    var_file = open(preset["path"]["save"], 'w')
+    json.dump(result_dict, var_file, indent = 4)
 
 #
 ##
 if __name__ == "__main__":
+
     #
     ##
+    preset["task"] = "activity"
+    preset["data"]["environment"] = ["meeting_room"]
+    preset["data"]["wifi_band"] = ["2.4", "5"]
+    preset["path"]["save"] = "result_activity_strf_meeting_245.json"
     main_0()
+
+    #
+    ##
+    preset["task"] = "activity"
+    preset["data"]["environment"] = ["empty_room"]
+    preset["data"]["wifi_band"] = ["2.4"]
+    preset["path"]["save"] = "result_activity_strf_empty_24.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "activity"
+    preset["data"]["environment"] = ["empty_room"]
+    preset["data"]["wifi_band"] = ["5"]
+    preset["path"]["save"] = "result_activity_strf_empty_5.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "activity"
+    preset["data"]["environment"] = ["empty_room"]
+    preset["data"]["wifi_band"] = ["2.4", "5"]
+    preset["path"]["save"] = "result_activity_strf_empty_245.json"
+    main_0()
+
+
+
+
+
+
+
+
+
+
+    #
+    ##
+    preset["task"] = "location"
+    preset["data"]["environment"] = ["classroom"]
+    preset["data"]["wifi_band"] = ["2.4"]
+    preset["path"]["save"] = "result_location_strf_classroom_24.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "location"
+    preset["data"]["environment"] = ["classroom"]
+    preset["data"]["wifi_band"] = ["5"]
+    preset["path"]["save"] = "result_location_strf_classroom_5.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "location"
+    preset["data"]["environment"] = ["classroom"]
+    preset["data"]["wifi_band"] = ["2.4", "5"]
+    preset["path"]["save"] = "result_location_strf_classroom_245.json"
+    main_0()
+
+    #
+    ##
+    preset["task"] = "location"
+    preset["data"]["environment"] = ["meeting_room"]
+    preset["data"]["wifi_band"] = ["2.4"]
+    preset["path"]["save"] = "result_location_strf_meeting_24.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "location"
+    preset["data"]["environment"] = ["meeting_room"]
+    preset["data"]["wifi_band"] = ["5"]
+    preset["path"]["save"] = "result_location_strf_meeting_5.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "location"
+    preset["data"]["environment"] = ["meeting_room"]
+    preset["data"]["wifi_band"] = ["2.4", "5"]
+    preset["path"]["save"] = "result_location_strf_meeting_245.json"
+    main_0()
+
+    #
+    ##
+    preset["task"] = "location"
+    preset["data"]["environment"] = ["empty_room"]
+    preset["data"]["wifi_band"] = ["2.4"]
+    preset["path"]["save"] = "result_location_strf_empty_24.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "location"
+    preset["data"]["environment"] = ["empty_room"]
+    preset["data"]["wifi_band"] = ["5"]
+    preset["path"]["save"] = "result_location_strf_empty_5.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "location"
+    preset["data"]["environment"] = ["empty_room"]
+    preset["data"]["wifi_band"] = ["2.4", "5"]
+    preset["path"]["save"] = "result_location_strf_empty_245.json"
+    main_0()
+
+
+
+
+
+
+
+
+
+    #
+    ##
+    preset["task"] = "identity"
+    preset["data"]["environment"] = ["classroom"]
+    preset["data"]["wifi_band"] = ["2.4"]
+    preset["path"]["save"] = "result_identity_strf_classroom_24.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "identity"
+    preset["data"]["environment"] = ["classroom"]
+    preset["data"]["wifi_band"] = ["5"]
+    preset["path"]["save"] = "result_identity_strf_classroom_5.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "identity"
+    preset["data"]["environment"] = ["classroom"]
+    preset["data"]["wifi_band"] = ["2.4", "5"]
+    preset["path"]["save"] = "result_identity_strf_classroom_245.json"
+    main_0()
+
+    #
+    ##
+    preset["task"] = "identity"
+    preset["data"]["environment"] = ["meeting_room"]
+    preset["data"]["wifi_band"] = ["2.4"]
+    preset["path"]["save"] = "result_identity_strf_meeting_24.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "identity"
+    preset["data"]["environment"] = ["meeting_room"]
+    preset["data"]["wifi_band"] = ["5"]
+    preset["path"]["save"] = "result_identity_strf_meeting_5.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "identity"
+    preset["data"]["environment"] = ["meeting_room"]
+    preset["data"]["wifi_band"] = ["2.4", "5"]
+    preset["path"]["save"] = "result_identity_strf_meeting_245.json"
+    main_0()
+    
+    #
+    ##
+    preset["task"] = "identity"
+    preset["data"]["environment"] = ["empty_room"]
+    preset["data"]["wifi_band"] = ["2.4"]
+    preset["path"]["save"] = "result_identity_strf_empty_24.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "identity"
+    preset["data"]["environment"] = ["empty_room"]
+    preset["data"]["wifi_band"] = ["5"]
+    preset["path"]["save"] = "result_identity_strf_empty_5.json"
+    main_0()
+    #
+    ##
+    preset["task"] = "identity"
+    preset["data"]["environment"] = ["empty_room"]
+    preset["data"]["wifi_band"] = ["2.4", "5"]
+    preset["path"]["save"] = "result_identity_strf_empty_245.json"
+    main_0()
+
