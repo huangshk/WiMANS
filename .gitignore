@@ -1,0 +1,8 @@
+*.png
+*.jpg
+*.out
+*.json
+
+data/
+result/
+__pycache__/
