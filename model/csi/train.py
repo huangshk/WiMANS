@@ -11,6 +11,7 @@ from load_data import load_data_x, load_data_y, encode_data_y
 from model_rf import run_rf
 from model_mlp import run_mlp
 from model_lstm import run_lstm
+from model_cnn_1d import run_cnn_1d
 
 #
 ##
@@ -40,7 +41,8 @@ def main_0():
     #
     # result_dict = run_rf(data_train_x, data_train_y, data_test_x, data_test_y)
     # result = run_mlp(data_train_x, data_train_y, data_test_x, data_test_y)
-    result = run_lstm(data_train_x, data_train_y, data_test_x, data_test_y)
+    # result = run_lstm(data_train_x, data_train_y, data_test_x, data_test_y)
+    result = run_cnn_1d(data_train_x, data_train_y, data_test_x, data_test_y)
     #
     result["data"] = preset["data"]
     result["nn"] = preset["nn"]
