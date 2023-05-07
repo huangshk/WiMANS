@@ -62,7 +62,7 @@ class CNN_1D(torch.nn.Module):
         # torch.nn.init.xavier_uniform_(self.layer_linear_2.weight)
         #
         ##
-        self.layer_dropout = torch.nn.Dropout(0.1)  # best 0
+        self.layer_dropout = torch.nn.Dropout(0.2)  # best 0
         #
         # self.layer_norm = torch.nn.LayerNorm(var_dim_input)
         self.layer_norm = torch.nn.BatchNorm1d(var_dim_input)
