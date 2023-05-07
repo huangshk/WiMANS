@@ -26,15 +26,16 @@ class MLP(torch.nn.Module):
         super(MLP, self).__init__()
         #
         ##
-        self.layer_0 = torch.nn.Linear(var_dim_input, 256)
-        self.layer_1 = torch.nn.Linear(256, 128)
-        self.layer_2 = torch.nn.Linear(128, 64)
-        self.layer_3 = torch.nn.Linear(64, var_dim_output)
+        self.layer_0 = torch.nn.Linear(var_dim_input, 512)
+        self.layer_1 = torch.nn.Linear(512, 256)
+        self.layer_2 = torch.nn.Linear(256, 128)
+        self.layer_3 = torch.nn.Linear(128, var_dim_output)
         #
         ##
         torch.nn.init.xavier_uniform_(self.layer_0.weight)
         torch.nn.init.xavier_uniform_(self.layer_1.weight)
         torch.nn.init.xavier_uniform_(self.layer_2.weight)
+        torch.nn.init.xavier_uniform_(self.layer_3.weight)
         #
         ##
         # self.layer_relu = torch.nn.Tanh()
@@ -70,6 +71,7 @@ class MLP(torch.nn.Module):
         var_t = self.layer_dropout(var_t)
         #
         var_t = self.layer_3(var_t)
+        var_t = self.layer_dropout(var_t)
         #
         var_output = var_t
         #

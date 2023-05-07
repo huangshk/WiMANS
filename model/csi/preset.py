@@ -22,7 +22,7 @@ preset = {
     #
     ##
     "nn": {
-        "lr": 1e-4,
+        "lr": 1e-3, # 1e-3
         "epoch": 200,
         "batch_size": 128,
         "threshold": 0.5,
