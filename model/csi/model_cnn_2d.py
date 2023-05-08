@@ -54,7 +54,6 @@ class CNN_2D(torch.nn.Module):
         torch.nn.init.xavier_uniform_(self.layer_cnn_2d_0.weight)
         torch.nn.init.xavier_uniform_(self.layer_cnn_2d_1.weight)
         torch.nn.init.xavier_uniform_(self.layer_cnn_2d_2.weight)
-        # torch.nn.init.xavier_uniform_(self.layer_cnn_2d_3.weight)
         torch.nn.init.xavier_uniform_(self.layer_linear_0.weight)
         #
         ##
