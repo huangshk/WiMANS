@@ -26,27 +26,17 @@ class LSTMer(torch.nn.Module):
         super(LSTMer, self).__init__()
         #
         ##
-        # self.layer_pooling = torch.nn.AvgPool1d(100, 100)
+        self.layer_pooling = torch.nn.AvgPool1d(10, 10)
         #
-        ##
         self.layer_lstm = torch.nn.LSTM(input_size = var_dim_input,
-                                        hidden_size = 256, 
+                                        hidden_size = 512, 
                                         batch_first = True)
         #
-        ##
-        # self.layer_linear_0 = torch.nn.Linear(512, 128)
-        # self.layer_linear_1 = torch.nn.Linear(128, 64)
-        self.layer_linear_2 = torch.nn.Linear(256, var_dim_output)
+        self.layer_linear_2 = torch.nn.Linear(512, var_dim_output)
         #
-        # torch.nn.init.ones_(self.layer_linear.weight)
         self.layer_relu = torch.nn.ReLU()
-        # self.layer_relu = torch.nn.Sigmoid()
         #
-        ##
-        # self.layer_dropout = torch.nn.Dropout(0.2)
-        #
-        # self.layer_norm = torch.nn.LayerNorm(256)
-        # self.layer_norm = torch.nn.LazyBatchNorm1d()
+        self.layer_norm = torch.nn.BatchNorm1d(var_dim_input)
 
     #
     ##
@@ -56,36 +46,16 @@ class LSTMer(torch.nn.Module):
         ##
         var_t = var_input
         #
-        # var_t = torch.permute(var_t, (0, 2, 1))
-        # var_t = self.layer_pooling(var_t)
-        # var_t = self.layer_norm(var_t)
-        # var_t = torch.permute(var_t, (0, 2, 1))
+        var_t = torch.permute(var_t, (0, 2, 1))
+        var_t = self.layer_norm(var_t)
+        var_t = self.layer_pooling(var_t)
+        var_t = torch.permute(var_t, (0, 2, 1))
         #
         var_t, _ = self.layer_lstm(var_t)
-        
-        # var_t = self.layer_relu(var_t)
-
-        # var_t = torch.mean(var_t, dim = -2)
+        #
         var_t = var_t[:, -1, :]
-        
-        # var_t = self.layer_dropout(var_t)
-        # var_t = self.layer_relu(var_t)
-
-        # var_t = self.layer_linear_0(var_t)
-        # var_t = self.layer_relu(var_t)
-
-        # var_t = self.layer_linear_1(var_t)
-        # var_t = self.layer_relu(var_t)
-
+        #
         var_t = self.layer_linear_2(var_t)
-        # var_t = self.layer_relu(var_t)
-        # var_t = self.layer_dropout(var_t)
-        #
-        # var_t = self.layer_1(var_t)
-        # var_t = self.layer_relu(var_t)
-        # var_t = self.layer_dropout(var_t)
-        #
-        # var_t = self.layer_2(var_t)
         #
         var_output = var_t
         #
@@ -150,7 +120,7 @@ def run_lstm(data_train_x,
                                      lr = preset["nn"]["lr"],
                                      weight_decay = 0)
         #
-        loss = torch.nn.BCEWithLogitsLoss()
+        loss = torch.nn.BCEWithLogitsLoss(pos_weight = torch.tensor([6] * var_dim_y).to(device))
         #
         var_time_0 = time.time()
         #
@@ -254,7 +224,7 @@ def run_lstm(data_train_x,
         result_time_train.append(var_time_1 - var_time_0)
         result_time_test.append(var_time_2 - var_time_1)
         #
-        print("repeat_" + str(var_r))
+        print("repeat_" + str(var_r), result_accuracy)
         print(result)
     #
     ##
