@@ -32,24 +32,24 @@ class CNN_2D(torch.nn.Module):
         #
         ##
         self.layer_cnn_2d_0 = torch.nn.Conv2d(in_channels = var_dim_input, 
-                                              out_channels = 64,
+                                              out_channels = 32,
                                               kernel_size = (27, 27),
                                               stride = (7, 7))
         #
-        self.layer_cnn_2d_1 = torch.nn.Conv2d(in_channels = 64, 
-                                              out_channels = 128,
+        self.layer_cnn_2d_1 = torch.nn.Conv2d(in_channels = 32, 
+                                              out_channels = 64,
                                               kernel_size = (15, 15),
                                               stride = (3, 3))
         #
-        self.layer_cnn_2d_2 = torch.nn.Conv2d(in_channels = 128, 
-                                              out_channels = 256,
-                                              kernel_size = (3, 3),
+        self.layer_cnn_2d_2 = torch.nn.Conv2d(in_channels = 64, 
+                                              out_channels = 128,
+                                              kernel_size = (7, 7),
                                               stride = (1, 1))
         #
         ##
-        self.layer_linear_0 = torch.nn.Linear(256, var_dim_output)
+        self.layer_linear_0 = torch.nn.Linear(128, var_dim_output)
         
-        self.layer_relu = torch.nn.ReLU()
+        self.layer_relu = torch.nn.LeakyReLU()
         
         torch.nn.init.xavier_uniform_(self.layer_cnn_2d_0.weight)
         torch.nn.init.xavier_uniform_(self.layer_cnn_2d_1.weight)
@@ -61,9 +61,9 @@ class CNN_2D(torch.nn.Module):
         self.layer_dropout = torch.nn.Dropout(0.1)
         #
         self.layer_norm_0 = torch.nn.BatchNorm2d(var_dim_input)
-        self.layer_norm_1 = torch.nn.BatchNorm2d(64)
-        self.layer_norm_2 = torch.nn.BatchNorm2d(128)
-        self.layer_norm_3 = torch.nn.BatchNorm2d(256)
+        self.layer_norm_1 = torch.nn.BatchNorm2d(32)
+        self.layer_norm_2 = torch.nn.BatchNorm2d(64)
+        self.layer_norm_3 = torch.nn.BatchNorm2d(128)
 
     #
     ##

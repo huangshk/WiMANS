@@ -50,8 +50,8 @@ def main_0():
     result["nn"] = preset["nn"]
     #
     print(result)
-    var_file = open(preset["path"]["save"], 'w')
-    json.dump(result, var_file, indent = 4)
+    # var_file = open(preset["path"]["save"], 'w')
+    # json.dump(result, var_file, indent = 4)
 
 #
 ##
