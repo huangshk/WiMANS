@@ -12,6 +12,7 @@ from model_rf import run_rf
 from model_mlp import run_mlp
 from model_lstm import run_lstm
 from model_cnn_1d import run_cnn_1d
+from model_cnn_2d import run_cnn_2d
 
 #
 ##
@@ -39,10 +40,11 @@ def main_0():
                                                                             shuffle = True, 
                                                                             random_state = 39)
     #
-    # result_dict = run_rf(data_train_x, data_train_y, data_test_x, data_test_y)
+    # result = run_rf(data_train_x, data_train_y, data_test_x, data_test_y)
     # result = run_mlp(data_train_x, data_train_y, data_test_x, data_test_y)
     # result = run_lstm(data_train_x, data_train_y, data_test_x, data_test_y)
-    result = run_cnn_1d(data_train_x, data_train_y, data_test_x, data_test_y)
+    # result = run_cnn_1d(data_train_x, data_train_y, data_test_x, data_test_y)
+    result = run_cnn_2d(data_train_x, data_train_y, data_test_x, data_test_y)
     #
     result["data"] = preset["data"]
     result["nn"] = preset["nn"]
@@ -56,71 +58,71 @@ def main_0():
 if __name__ == "__main__":
     #
     ##
+    main_0()
+
+    #
+    ##
+    # preset["task"] = "location"
+    # preset["data"]["environment"] = ["classroom"]
+    # preset["data"]["wifi_band"] = ["2.4"]
+    # preset["path"]["save"] = "result_location_cnn1d_classroom_24.json"
+    # main_0()
+    
+    # #
+    # preset["task"] = "location"
+    # preset["data"]["environment"] = ["classroom"]
+    # preset["data"]["wifi_band"] = ["5"]
+    # preset["path"]["save"] = "result_location_cnn1d_classroom_5.json"
+    # main_0()
+    
+    # #
+    # preset["task"] = "location"
+    # preset["data"]["environment"] = ["classroom"]
+    # preset["data"]["wifi_band"] = ["2.4", "5"]
+    # preset["path"]["save"] = "result_location_cnn1d_classroom_245.json"
     # main_0()
 
-    #
-    ##
-    preset["task"] = "location"
-    preset["data"]["environment"] = ["classroom"]
-    preset["data"]["wifi_band"] = ["2.4"]
-    preset["path"]["save"] = "result_location_cnn1d_classroom_24.json"
-    main_0()
-    
-    #
-    preset["task"] = "location"
-    preset["data"]["environment"] = ["classroom"]
-    preset["data"]["wifi_band"] = ["5"]
-    preset["path"]["save"] = "result_location_cnn1d_classroom_5.json"
-    main_0()
-    
-    #
-    preset["task"] = "location"
-    preset["data"]["environment"] = ["classroom"]
-    preset["data"]["wifi_band"] = ["2.4", "5"]
-    preset["path"]["save"] = "result_location_cnn1d_classroom_245.json"
-    main_0()
+    # #
+    # ##
+    # preset["task"] = "location"
+    # preset["data"]["environment"] = ["meeting_room"]
+    # preset["data"]["wifi_band"] = ["2.4"]
+    # preset["path"]["save"] = "result_location_cnn1d_meeting_24.json"
+    # main_0()
+    # #
+    # ##
+    # preset["task"] = "location"
+    # preset["data"]["environment"] = ["meeting_room"]
+    # preset["data"]["wifi_band"] = ["5"]
+    # preset["path"]["save"] = "result_location_cnn1d_meeting_5.json"
+    # main_0()
+    # #
+    # ##
+    # preset["task"] = "location"
+    # preset["data"]["environment"] = ["meeting_room"]
+    # preset["data"]["wifi_band"] = ["2.4", "5"]
+    # preset["path"]["save"] = "result_location_cnn1d_meeting_245.json"
+    # main_0()
 
-    #
-    ##
-    preset["task"] = "location"
-    preset["data"]["environment"] = ["meeting_room"]
-    preset["data"]["wifi_band"] = ["2.4"]
-    preset["path"]["save"] = "result_location_cnn1d_meeting_24.json"
-    main_0()
-    #
-    ##
-    preset["task"] = "location"
-    preset["data"]["environment"] = ["meeting_room"]
-    preset["data"]["wifi_band"] = ["5"]
-    preset["path"]["save"] = "result_location_cnn1d_meeting_5.json"
-    main_0()
-    #
-    ##
-    preset["task"] = "location"
-    preset["data"]["environment"] = ["meeting_room"]
-    preset["data"]["wifi_band"] = ["2.4", "5"]
-    preset["path"]["save"] = "result_location_cnn1d_meeting_245.json"
-    main_0()
-
-    #
-    ##
-    preset["task"] = "location"
-    preset["data"]["environment"] = ["empty_room"]
-    preset["data"]["wifi_band"] = ["2.4"]
-    preset["path"]["save"] = "result_location_cnn1d_empty_24.json"
-    main_0()
-    #
-    ##
-    preset["task"] = "location"
-    preset["data"]["environment"] = ["empty_room"]
-    preset["data"]["wifi_band"] = ["5"]
-    preset["path"]["save"] = "result_location_cnn1d_empty_5.json"
-    main_0()
-    #
-    ##
-    preset["task"] = "location"
-    preset["data"]["environment"] = ["empty_room"]
-    preset["data"]["wifi_band"] = ["2.4", "5"]
-    preset["path"]["save"] = "result_location_cnn1d_empty_245.json"
-    main_0()
+    # #
+    # ##
+    # preset["task"] = "location"
+    # preset["data"]["environment"] = ["empty_room"]
+    # preset["data"]["wifi_band"] = ["2.4"]
+    # preset["path"]["save"] = "result_location_cnn1d_empty_24.json"
+    # main_0()
+    # #
+    # ##
+    # preset["task"] = "location"
+    # preset["data"]["environment"] = ["empty_room"]
+    # preset["data"]["wifi_band"] = ["5"]
+    # preset["path"]["save"] = "result_location_cnn1d_empty_5.json"
+    # main_0()
+    # #
+    # ##
+    # preset["task"] = "location"
+    # preset["data"]["environment"] = ["empty_room"]
+    # preset["data"]["wifi_band"] = ["2.4", "5"]
+    # preset["path"]["save"] = "result_location_cnn1d_empty_245.json"
+    # main_0()
 

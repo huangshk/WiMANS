@@ -12,7 +12,7 @@ preset = {
     ##
     "data": {
         "num_users": ["0", "1", "2", "3", "4", "5"],        # "0", "1", "2", "3", "4", "5"
-        "wifi_band": ["5"],                                 # "2.4", "5"
+        "wifi_band": ["2.4"],                               # "2.4", "5"
         "environment": ["classroom"],                       # "classroom", "meeting_room", "empty_room"
         "length": 3000,
     },
@@ -22,7 +22,7 @@ preset = {
     #
     ##
     "nn": {
-        "lr": 1e-4, # 1e-3
+        "lr": 1e-3, # 1e-3
         "epoch": 200,
         "batch_size": 128,
         "threshold": 0.5,
