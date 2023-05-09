@@ -12,6 +12,7 @@ from preset import preset
 #
 ##
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+torch.set_float32_matmul_precision("high")
 
 #
 ##
@@ -57,7 +58,7 @@ class CNN_2D(torch.nn.Module):
         torch.nn.init.xavier_uniform_(self.layer_linear_0.weight)
         #
         ##
-        self.layer_dropout = torch.nn.Dropout(0.1)
+        self.layer_dropout = torch.nn.Dropout(0.2)
         #
         self.layer_norm_0 = torch.nn.BatchNorm2d(var_dim_input)
         self.layer_norm_1 = torch.nn.BatchNorm2d(32)
@@ -155,7 +156,8 @@ def run_cnn_2d(data_train_x,
     #
     data_train_loader = torch.utils.data.DataLoader(dataset = data_train_set, 
                                                     shuffle = True,
-                                                    batch_size = preset["nn"]["batch_size"])
+                                                    batch_size = preset["nn"]["batch_size"], 
+                                                    pin_memory = True)
     #
     ##
     #--------------------------------------------------------------------------------------------------------------#
@@ -176,6 +178,7 @@ def run_cnn_2d(data_train_x,
         #
         ##
         model_cnn_2d = CNN_2D(var_dim_x, var_dim_y).to(device)
+        model_cnn_2d = torch.compile(model_cnn_2d)
         #
         optimizer = torch.optim.Adam(model_cnn_2d.parameters(), 
                                      lr = preset["nn"]["lr"],
@@ -194,6 +197,8 @@ def run_cnn_2d(data_train_x,
         for var_epoch in range(var_epochs):
             #
             ##
+            var_time_e0 = time.time()
+            #
             model_cnn_2d.train()
             for data_batch in data_train_loader:
                 #
@@ -206,7 +211,7 @@ def run_cnn_2d(data_train_x,
                 #
                 var_loss_train = loss(predict_train_y, data_batch_y.float())
                 #
-                optimizer.zero_grad()
+                optimizer.zero_grad(set_to_none = True)
                 #
                 var_loss_train.backward()
                 #
@@ -242,51 +247,60 @@ def run_cnn_2d(data_train_x,
                 data_test_y_c = data_test_y.reshape(-1, var_shape_y[-1]).astype(int)
                 predict_test_y_c = predict_test_y.reshape(-1, var_shape_y[-1]).astype(int)
                 var_accuracy_test = accuracy_score(data_test_y_c, predict_test_y_c)
+            #
+            ##
+            if var_accuracy_test > var_best_accuracy:
                 #
-                ##
-                print(f"Epoch {var_epoch}/{var_epochs}",
-                      "- Loss %.6f"%var_loss_train.cpu(),
-                      "- Accuracy %.6f"%var_accuracy_train,
-                      "- Test Loss %.6f"%var_loss_test.cpu(),
-                      "- Test Accuracy %.6f"%var_accuracy_test)
-                #
-                ##
-                if var_accuracy_test > var_best_accuracy:
-                    #
-                    var_best_accuracy = var_accuracy_test
-                    var_best_weight = copy.deepcopy(model_cnn_2d.state_dict())
+                var_best_accuracy = var_accuracy_test
+                var_best_weight = copy.deepcopy(model_cnn_2d.state_dict())
+            #
+            ##
+            print(f"Epoch {var_epoch}/{var_epochs}",
+                  "- %.6fs"%(time.time() - var_time_e0),
+                  "- Loss %.6f"%var_loss_train.cpu(),
+                  "- Accuracy %.6f"%var_accuracy_train,
+                  "- Test Loss %.6f"%var_loss_test.cpu(),
+                  "- Test Accuracy %.6f"%var_accuracy_test)
+            
+        
         #
         ##
-        var_time_1 = time.time()
-        #
-        model_cnn_2d.load_state_dict(var_best_weight)
-        #
-        predict_test_y = model_cnn_2d(torch.from_numpy(data_test_x).to(device))
-        predict_test_y = (torch.sigmoid(predict_test_y) > preset["nn"]["threshold"]).float()
-        predict_test_y = predict_test_y.detach().cpu().numpy()
-        #
-        var_time_2 = time.time()
+        model_cnn_2d.eval()
         #
         ##
-        data_test_y_c = data_test_y.reshape(-1, var_shape_y[-1]).astype(int)
-        predict_test_y_c = predict_test_y.reshape(-1, var_shape_y[-1]).astype(int)
-        result_acc = accuracy_score(data_test_y_c, predict_test_y_c)
-        #
-        ##
-        result_dict = classification_report(data_test_y_c, 
-                                            predict_test_y_c, 
-                                            digits = 6, 
-                                            zero_division = 0, 
-                                            output_dict = True)
-        #
-        result["repeat_" + str(var_r)] = result_dict
-        #
-        result_accuracy.append(result_acc)
-        result_time_train.append(var_time_1 - var_time_0)
-        result_time_test.append(var_time_2 - var_time_1)
-        #
-        print("repeat_" + str(var_r), result_accuracy)
-        print(result)
+        with torch.no_grad():
+            #
+            ##
+            var_time_1 = time.time()
+            #
+            model_cnn_2d.load_state_dict(var_best_weight)
+            #
+            predict_test_y = model_cnn_2d(torch.from_numpy(data_test_x).to(device))
+            predict_test_y = (torch.sigmoid(predict_test_y) > preset["nn"]["threshold"]).float()
+            predict_test_y = predict_test_y.detach().cpu().numpy()
+            #
+            var_time_2 = time.time()
+            #
+            ##
+            data_test_y_c = data_test_y.reshape(-1, var_shape_y[-1]).astype(int)
+            predict_test_y_c = predict_test_y.reshape(-1, var_shape_y[-1]).astype(int)
+            result_acc = accuracy_score(data_test_y_c, predict_test_y_c)
+            #
+            ##
+            result_dict = classification_report(data_test_y_c, 
+                                                predict_test_y_c, 
+                                                digits = 6, 
+                                                zero_division = 0, 
+                                                output_dict = True)
+            #
+            result["repeat_" + str(var_r)] = result_dict
+            #
+            result_accuracy.append(result_acc)
+            result_time_train.append(var_time_1 - var_time_0)
+            result_time_test.append(var_time_2 - var_time_1)
+            #
+            print("repeat_" + str(var_r), result_accuracy)
+            print(result)
     #
     ##
     result["accuracy"] = {"avg": np.mean(result_accuracy), "std": np.std(result_accuracy)}
