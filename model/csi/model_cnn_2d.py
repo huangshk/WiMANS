@@ -1,6 +1,7 @@
 import time
 import copy
 import torch
+import torch._dynamo
 import numpy as np
 #
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
@@ -11,11 +12,9 @@ from preset import preset
 
 #
 ##
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 torch.set_float32_matmul_precision("high")
-
-import torch._dynamo
 torch._dynamo.config.cache_size_limit = 65536
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 #
 ##
@@ -28,11 +27,6 @@ class CNN_2D(torch.nn.Module):
         #
         ##
         super(CNN_2D, self).__init__()
-        #
-        ##
-        # self.layer_pooling_0 = torch.nn.AvgPool2d(kernel_size = (10, 1), stride = (10, 1))
-        # self.layer_pooling_1 = torch.nn.AvgPool2d(kernel_size = (5, 5), stride = (2, 2))
-        # self.layer_pooling_2 = torch.nn.MaxPool2d(kernel_size=(3,3), stride=(1,1))
         #
         ##
         self.layer_cnn_2d_0 = torch.nn.Conv2d(in_channels = var_dim_input, 
@@ -52,9 +46,9 @@ class CNN_2D(torch.nn.Module):
         #
         ##
         self.layer_linear_0 = torch.nn.Linear(128, var_dim_output)
-        
+        #
         self.layer_relu = torch.nn.LeakyReLU()
-        
+        #
         torch.nn.init.xavier_uniform_(self.layer_cnn_2d_0.weight)
         torch.nn.init.xavier_uniform_(self.layer_cnn_2d_1.weight)
         torch.nn.init.xavier_uniform_(self.layer_cnn_2d_2.weight)
