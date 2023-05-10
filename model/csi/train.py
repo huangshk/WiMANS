@@ -62,67 +62,67 @@ if __name__ == "__main__":
 
     #
     ##
-    preset["task"] = "identity"
+    preset["task"] = "location"
     preset["data"]["environment"] = ["classroom"]
     preset["data"]["wifi_band"] = ["2.4"]
-    preset["path"]["save"] = "result_identity_cnn2d_classroom_24.json"
+    preset["path"]["save"] = "result_location_cnn2d_classroom_24.json"
     main_0()
     
     #
-    preset["task"] = "identity"
+    preset["task"] = "location"
     preset["data"]["environment"] = ["classroom"]
     preset["data"]["wifi_band"] = ["5"]
-    preset["path"]["save"] = "result_identity_cnn2d_classroom_5.json"
+    preset["path"]["save"] = "result_location_cnn2d_classroom_5.json"
     main_0()
     
     #
-    preset["task"] = "identity"
+    preset["task"] = "location"
     preset["data"]["environment"] = ["classroom"]
     preset["data"]["wifi_band"] = ["2.4", "5"]
-    preset["path"]["save"] = "result_identity_cnn2d_classroom_245.json"
+    preset["path"]["save"] = "result_location_cnn2d_classroom_245.json"
     main_0()
 
     #
     ##
-    preset["task"] = "identity"
+    preset["task"] = "location"
     preset["data"]["environment"] = ["meeting_room"]
     preset["data"]["wifi_band"] = ["2.4"]
-    preset["path"]["save"] = "result_identity_cnn2d_meeting_24.json"
+    preset["path"]["save"] = "result_location_cnn2d_meeting_24.json"
     main_0()
     #
     ##
-    preset["task"] = "identity"
+    preset["task"] = "location"
     preset["data"]["environment"] = ["meeting_room"]
     preset["data"]["wifi_band"] = ["5"]
-    preset["path"]["save"] = "result_identity_cnn2d_meeting_5.json"
+    preset["path"]["save"] = "result_location_cnn2d_meeting_5.json"
     main_0()
     #
     ##
-    preset["task"] = "identity"
+    preset["task"] = "location"
     preset["data"]["environment"] = ["meeting_room"]
     preset["data"]["wifi_band"] = ["2.4", "5"]
-    preset["path"]["save"] = "result_identity_cnn2d_meeting_245.json"
+    preset["path"]["save"] = "result_location_cnn2d_meeting_245.json"
     main_0()
 
     #
     ##
-    preset["task"] = "identity"
+    preset["task"] = "location"
     preset["data"]["environment"] = ["empty_room"]
     preset["data"]["wifi_band"] = ["2.4"]
-    preset["path"]["save"] = "result_identity_cnn2d_empty_24.json"
+    preset["path"]["save"] = "result_location_cnn2d_empty_24.json"
     main_0()
     #
     ##
-    preset["task"] = "identity"
+    preset["task"] = "location"
     preset["data"]["environment"] = ["empty_room"]
     preset["data"]["wifi_band"] = ["5"]
-    preset["path"]["save"] = "result_identity_cnn2d_empty_5.json"
+    preset["path"]["save"] = "result_location_cnn2d_empty_5.json"
     main_0()
     #
     ##
-    preset["task"] = "identity"
+    preset["task"] = "location"
     preset["data"]["environment"] = ["empty_room"]
     preset["data"]["wifi_band"] = ["2.4", "5"]
-    preset["path"]["save"] = "result_identity_cnn2d_empty_245.json"
+    preset["path"]["save"] = "result_location_cnn2d_empty_245.json"
     main_0()
 

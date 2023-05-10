@@ -14,6 +14,9 @@ from preset import preset
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 torch.set_float32_matmul_precision("high")
 
+import torch._dynamo
+torch._dynamo.config.cache_size_limit = 65536
+
 #
 ##
 class CNN_2D(torch.nn.Module):
