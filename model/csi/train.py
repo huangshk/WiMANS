@@ -14,6 +14,7 @@ from model_lstm import run_lstm
 from model_cnn_1d import run_cnn_1d
 from model_cnn_2d import run_cnn_2d
 from model_cnn_lstm import run_cnn_lstm
+from model_ablstm import run_ablstm
 
 #
 ##
@@ -46,7 +47,8 @@ def main_0():
     # result = run_lstm(data_train_x, data_train_y, data_test_x, data_test_y)
     # result = run_cnn_1d(data_train_x, data_train_y, data_test_x, data_test_y)
     # result = run_cnn_2d(data_train_x, data_train_y, data_test_x, data_test_y)
-    result = run_cnn_lstm(data_train_x, data_train_y, data_test_x, data_test_y)
+    # result = run_cnn_lstm(data_train_x, data_train_y, data_test_x, data_test_y)
+    result = run_ablstm(data_train_x, data_train_y, data_test_x, data_test_y)
     #
     result["data"] = preset["data"]
     result["nn"] = preset["nn"]
@@ -64,24 +66,24 @@ if __name__ == "__main__":
 
     #
     ##
-    # preset["task"] = "activity"
-    # preset["data"]["environment"] = ["classroom"]
-    # preset["data"]["wifi_band"] = ["2.4"]
-    # preset["path"]["save"] = "result_activity_cnnlstm_classroom_24.json"
-    # main_0()
+    preset["task"] = "activity"
+    preset["data"]["environment"] = ["classroom"]
+    preset["data"]["wifi_band"] = ["2.4"]
+    preset["path"]["save"] = "result_activity_ablstm_classroom_24.json"
+    main_0()
     
     #
     preset["task"] = "activity"
     preset["data"]["environment"] = ["classroom"]
     preset["data"]["wifi_band"] = ["5"]
-    preset["path"]["save"] = "result_activity_cnnlstm_classroom_5.json"
+    preset["path"]["save"] = "result_activity_ablstm_classroom_5.json"
     main_0()
     
     #
     preset["task"] = "activity"
     preset["data"]["environment"] = ["classroom"]
     preset["data"]["wifi_band"] = ["2.4", "5"]
-    preset["path"]["save"] = "result_activity_cnnlstm_classroom_245.json"
+    preset["path"]["save"] = "result_activity_ablstm_classroom_245.json"
     main_0()
 
     #
@@ -89,21 +91,21 @@ if __name__ == "__main__":
     preset["task"] = "activity"
     preset["data"]["environment"] = ["meeting_room"]
     preset["data"]["wifi_band"] = ["2.4"]
-    preset["path"]["save"] = "result_activity_cnnlstm_meeting_24.json"
+    preset["path"]["save"] = "result_activity_ablstm_meeting_24.json"
     main_0()
     #
     ##
     preset["task"] = "activity"
     preset["data"]["environment"] = ["meeting_room"]
     preset["data"]["wifi_band"] = ["5"]
-    preset["path"]["save"] = "result_activity_cnnlstm_meeting_5.json"
+    preset["path"]["save"] = "result_activity_ablstm_meeting_5.json"
     main_0()
     #
     ##
     preset["task"] = "activity"
     preset["data"]["environment"] = ["meeting_room"]
     preset["data"]["wifi_band"] = ["2.4", "5"]
-    preset["path"]["save"] = "result_activity_cnnlstm_meeting_245.json"
+    preset["path"]["save"] = "result_activity_ablstm_meeting_245.json"
     main_0()
 
     #
@@ -111,20 +113,20 @@ if __name__ == "__main__":
     preset["task"] = "activity"
     preset["data"]["environment"] = ["empty_room"]
     preset["data"]["wifi_band"] = ["2.4"]
-    preset["path"]["save"] = "result_activity_cnnlstm_empty_24.json"
+    preset["path"]["save"] = "result_activity_ablstm_empty_24.json"
     main_0()
     #
     ##
     preset["task"] = "activity"
     preset["data"]["environment"] = ["empty_room"]
     preset["data"]["wifi_band"] = ["5"]
-    preset["path"]["save"] = "result_activity_cnnlstm_empty_5.json"
+    preset["path"]["save"] = "result_activity_ablstm_empty_5.json"
     main_0()
     #
     ##
     preset["task"] = "activity"
     preset["data"]["environment"] = ["empty_room"]
     preset["data"]["wifi_band"] = ["2.4", "5"]
-    preset["path"]["save"] = "result_activity_cnnlstm_empty_245.json"
+    preset["path"]["save"] = "result_activity_ablstm_empty_245.json"
     main_0()
 
