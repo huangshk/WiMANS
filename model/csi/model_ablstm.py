@@ -5,6 +5,7 @@ import torch._dynamo
 import numpy as np
 #
 from sklearn.metrics import classification_report, accuracy_score
+from ptflops import get_model_complexity_info
 #
 from preset import preset
 
@@ -48,10 +49,10 @@ class ABLSTM(torch.nn.Module):
         self.layer_softmax = torch.nn.Softmax(dim = -2)
         #
         ##
-        self.layer_pooling = torch.nn.AvgPool1d(10, 10)
+        self.layer_pooling = torch.nn.AvgPool1d(8, 8)
         #
         self.layer_norm = torch.nn.BatchNorm1d(var_dim_input)
-        self.layer_dropout = torch.nn.Dropout(0.5)  
+        self.layer_dropout = torch.nn.Dropout(0.6)  
     
         
     #
@@ -131,6 +132,13 @@ def run_ablstm(data_train_x,
     #--------------------------------------------------------------------------------------------------------------#
     #
     ##
+    var_macs, var_params = get_model_complexity_info(ABLSTM(var_dim_x, var_dim_y), 
+                                                     data_train_x[0].shape, 
+                                                     as_strings = False)
+    #
+    print("Parameters:", var_params, "- FLOPs:", var_macs * 2)
+    #
+    ##
     result_accuracy = []
     result_time_train = []
     result_time_test = []
@@ -144,12 +152,13 @@ def run_ablstm(data_train_x,
         #
         ##
         model_ablstm = ABLSTM(var_dim_x, var_dim_y).to(device)
+        #                                
         model_ablstm = torch.compile(model_ablstm)
         #
         optimizer = torch.optim.Adam(model_ablstm.parameters(), 
                                      lr = preset["nn"]["lr"])
         #
-        loss = torch.nn.BCEWithLogitsLoss(pos_weight = torch.tensor([2] * var_dim_y).to(device))
+        loss = torch.nn.BCEWithLogitsLoss(pos_weight = torch.tensor([1] * var_dim_y).to(device))
         #
         var_time_0 = time.time()
         #
@@ -261,5 +270,6 @@ def run_ablstm(data_train_x,
     result["accuracy"] = {"avg": np.mean(result_accuracy), "std": np.std(result_accuracy)}
     result["time_train"] = {"avg": np.mean(result_time_train), "std": np.std(result_time_train)}
     result["time_test"] = {"avg": np.mean(result_time_test), "std": np.std(result_time_test)}
+    result["complexity"] = {"parameter": var_params, "flops": var_macs * 2}
     #
     return result
