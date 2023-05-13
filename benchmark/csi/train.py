@@ -1,3 +1,9 @@
+"""
+[file]          train.py
+[description]   
+"""
+#
+##
 import time
 import torch
 import torch._dynamo
@@ -95,7 +101,6 @@ def train(model: Module,
         #
         ##
         if var_accuracy_test > var_best_accuracy:
-            print("hh")
             #
             var_best_accuracy = var_accuracy_test
             var_best_weight = deepcopy(model.state_dict())

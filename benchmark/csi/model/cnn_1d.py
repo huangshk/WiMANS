@@ -1,3 +1,9 @@
+"""
+[file]          cnn_1d.py
+[description]   
+"""
+#
+##
 import time
 import torch
 import numpy as np

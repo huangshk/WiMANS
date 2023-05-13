@@ -1,3 +1,9 @@
+"""
+[file]          run.py
+[description]   
+"""
+#
+##
 import json
 
 from sklearn.model_selection import train_test_split
@@ -39,7 +45,8 @@ def main_0():
     # result = run_cnn_1d(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
     # result = run_cnn_2d(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
     # result = run_cnn_lstm(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
-    result = run_ablstm(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
+    # result = run_ablstm(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
+    result = run_that(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
     #
     result["data"] = preset["data"]
     result["nn"] = preset["nn"]

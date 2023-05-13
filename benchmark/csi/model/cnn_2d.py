@@ -1,3 +1,9 @@
+"""
+[file]          cnn_2d.py
+[description]   
+"""
+#
+##
 import time
 import torch
 import numpy as np
@@ -43,7 +49,7 @@ class CNN_2D(torch.nn.Module):
         #
         self.layer_linear = torch.nn.Linear(128, var_dim_output)
         #
-        self.layer_relu = torch.nn.LeakyReLU()
+        self.layer_leakyrelu = torch.nn.LeakyReLU()
         #
         self.layer_dropout = torch.nn.Dropout(0.2)
         #
@@ -64,17 +70,17 @@ class CNN_2D(torch.nn.Module):
         #
         var_t = self.layer_norm_0(var_t)
         var_t = self.layer_cnn_2d_0(var_t)
-        var_t = self.layer_relu(var_t)
+        var_t = self.layer_leakyrelu(var_t)
         var_t = self.layer_dropout(var_t)
 
         var_t = self.layer_norm_1(var_t)
         var_t = self.layer_cnn_2d_1(var_t)
-        var_t = self.layer_relu(var_t)
+        var_t = self.layer_leakyrelu(var_t)
         var_t = self.layer_dropout(var_t)
 
         var_t = self.layer_norm_2(var_t)
         var_t = self.layer_cnn_2d_2(var_t)
-        var_t = self.layer_relu(var_t)
+        var_t = self.layer_leakyrelu(var_t)
         var_t = self.layer_dropout(var_t)
 
         var_t = self.layer_norm_3(var_t)

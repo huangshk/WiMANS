@@ -1,3 +1,9 @@
+"""
+[file]          cnn_lstm.py
+[description]   
+"""
+#
+##
 import time
 import torch
 import numpy as np
@@ -51,7 +57,7 @@ class CNN_LSTM(torch.nn.Module):
         ##
         self.layer_dropout = torch.nn.Dropout(0.5)      # 0.5
         #
-        self.layer_relu = torch.nn.LeakyReLU()
+        self.layer_leakyrelu = torch.nn.LeakyReLU()
         #
         ##
         torch.nn.init.xavier_uniform_(self.layer_cnn_1d_0.weight)
@@ -71,15 +77,15 @@ class CNN_LSTM(torch.nn.Module):
         var_t = self.layer_norm(var_t)
         #
         var_t = self.layer_cnn_1d_0(var_t)
-        var_t = self.layer_relu(var_t)
+        var_t = self.layer_leakyrelu(var_t)
         var_t = self.layer_norm_0(var_t)
         
         var_t = self.layer_cnn_1d_1(var_t)
-        var_t = self.layer_relu(var_t)
+        var_t = self.layer_leakyrelu(var_t)
         var_t = self.layer_norm_1(var_t)
 
         var_t = self.layer_cnn_1d_2(var_t)
-        var_t = self.layer_relu(var_t)
+        var_t = self.layer_leakyrelu(var_t)
         var_t = self.layer_norm_2(var_t)
         #
         var_t = torch.permute(var_t, (0, 2, 1))

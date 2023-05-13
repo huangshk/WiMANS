@@ -1,3 +1,9 @@
+"""
+[file]          ablstm.py
+[description]   
+"""
+#
+##
 import time
 import torch
 import numpy as np
@@ -33,10 +39,6 @@ class ABLSTM(torch.nn.Module):
         #
         ##
         self.layer_output = torch.nn.Linear(2*512, var_dim_output)
-
-
-        torch.nn.init.xavier_uniform_(self.layer_linear.weight)
-        torch.nn.init.xavier_uniform_(self.layer_output.weight)
         #
         ##
         self.layer_softmax = torch.nn.Softmax(dim = -2)
@@ -46,6 +48,9 @@ class ABLSTM(torch.nn.Module):
         #
         self.layer_norm = torch.nn.BatchNorm1d(var_dim_input)
         self.layer_dropout = torch.nn.Dropout(0.6)  
+
+        torch.nn.init.xavier_uniform_(self.layer_linear.weight)
+        torch.nn.init.xavier_uniform_(self.layer_output.weight)
     
         
     #
@@ -99,10 +104,10 @@ class ABLSTM(torch.nn.Module):
 #
 ##
 def run_ablstm(data_train_x,
-                 data_train_y,
-                 data_test_x,
-                 data_test_y,
-                 var_repeat = 10):
+               data_train_y,
+               data_test_x,
+               data_test_y,
+               var_repeat = 10):
     #
     ##
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

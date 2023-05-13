@@ -1,3 +1,9 @@
+"""
+[file]          strf.py
+[description]   
+"""
+#
+##
 import time
 import numpy as np
 #
