@@ -13,7 +13,7 @@ from sklearn.metrics import classification_report, accuracy_score
 #
 from train import train
 from preset import preset
-
+#
 torch.backends.cudnn.benchmark = True
 
 
@@ -91,6 +91,10 @@ class Gaussian_Position(torch.nn.Module):
 
 
 
+
+
+
+
 ## ------------------------------------------------------------------------------------------ ##
 ## --------------------------------------- Encoder ------------------------------------------ ##
 ## ------------------------------------------------------------------------------------------ ##
@@ -101,7 +105,7 @@ class Encoder(torch.nn.Module):
     ##
     def __init__(self, 
                  var_dim_feature, 
-                 var_num_head = 9,
+                 var_num_head = 10,
                  var_size_cnn = [1, 3, 5]):
         #
         ##
@@ -128,7 +132,7 @@ class Encoder(torch.nn.Module):
                                                         padding = "same"),
                                         torch.nn.BatchNorm1d(var_dim_feature),
                                         torch.nn.Dropout(0.1),
-                                        torch.nn.ReLU())
+                                        torch.nn.LeakyReLU())
             layer_cnn.append(layer)
 
         self.layer_cnn = torch.nn.ModuleList(layer_cnn)
@@ -172,6 +176,11 @@ class Encoder(torch.nn.Module):
 
 
 
+
+
+
+
+
 ## ------------------------------------------------------------------------------------------ ##
 ## ---------------------------------------- THAT -------------------------------------------- ##
 ## ------------------------------------------------------------------------------------------ ##
@@ -179,7 +188,7 @@ class Encoder(torch.nn.Module):
 ##
 class THAT(torch.nn.Module):
     """
-    <description>
+    [description]
     : model to implement THAT
     """
     #
@@ -196,34 +205,34 @@ class THAT(torch.nn.Module):
         #
         ## ---------------------------------------- left ------------------------------------------
         #
-        self.layer_left_pooling = torch.nn.AvgPool1d(kernel_size = 15, stride = 15)
-        self.layer_left_gaussian = Gaussian_Position(var_dim_feature, var_dim_time // 15)
+        self.layer_left_pooling = torch.nn.AvgPool1d(kernel_size = 10, stride = 10)
+        self.layer_left_gaussian = Gaussian_Position(var_dim_feature, var_dim_time // 10)
         #
         var_num_left = 4
         var_dim_left = var_dim_feature
         self.layer_left_encoder = torch.nn.ModuleList([Encoder(var_dim_feature = var_dim_left,
-                                                               var_num_head = 10,
+                                                               var_num_head = 6,
                                                                var_size_cnn = [1, 3, 5])
                                                                for _ in range(var_num_left)])
         #
         self.layer_left_norm = torch.nn.LayerNorm(var_dim_left, eps = 1e-6)
         #
         self.layer_left_cnn_0 =  torch.nn.Conv1d(in_channels = var_dim_left,
-                                                 out_channels = 64,
+                                                 out_channels = 128,
                                                  kernel_size = 8)
         
         self.layer_left_cnn_1 =  torch.nn.Conv1d(in_channels = var_dim_left,
-                                                 out_channels = 64,
+                                                 out_channels = 128,
                                                  kernel_size = 16)
         #
         self.layer_left_dropout = torch.nn.Dropout(0.5)
         #
         ## --------------------------------------- right ------------------------------------------
         #
-        self.layer_right_pooling = torch.nn.AvgPool1d(kernel_size = 15, stride = 15)
+        self.layer_right_pooling = torch.nn.AvgPool1d(kernel_size = 10, stride = 10)
         #
         var_num_right = 1 
-        var_dim_right = var_dim_time // 15
+        var_dim_right = var_dim_time // 10
         self.layer_right_encoder = torch.nn.ModuleList([Encoder(var_dim_feature = var_dim_right,
                                                                 var_num_head = 10,
                                                                 var_size_cnn = [1, 2, 3])
@@ -245,7 +254,7 @@ class THAT(torch.nn.Module):
         self.layer_leakyrelu = torch.nn.LeakyReLU()
         #
         ##
-        self.layer_output = torch.nn.Linear(128 + 32, var_dim_output)
+        self.layer_output = torch.nn.Linear(256 + 32, var_dim_output)
     
 
 
@@ -380,7 +389,7 @@ def run_that(data_train_x,
                                      lr = preset["nn"]["lr"],
                                      weight_decay = 0)
         #
-        loss = torch.nn.BCEWithLogitsLoss(pos_weight = torch.tensor([2] * var_dim_y).to(device))
+        loss = torch.nn.BCEWithLogitsLoss(pos_weight = torch.tensor([6] * var_dim_y).to(device))
         #
         var_time_0 = time.time()
         #

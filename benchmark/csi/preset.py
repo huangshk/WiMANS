@@ -10,7 +10,7 @@ preset = {
     "path": {
         "data_x": "data/csi/amp",
         "data_y": "data/annotation.csv",
-        "save": "result_activity_mlp_classroom_5.json"
+        "save": "result_activity_that_classroom_24.json"
     },
     #
     ##
@@ -26,9 +26,9 @@ preset = {
     #
     ##
     "nn": {
-        "lr": 1e-3, # 1e-3
+        "lr": 1e-4, # 1e-3
         "epoch": 200,
-        "batch_size": 128,
+        "batch_size": 64,
         "threshold": 0.5,
         "repeat": 10,
     },
