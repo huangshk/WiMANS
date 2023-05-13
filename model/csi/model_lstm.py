@@ -3,8 +3,8 @@ import copy
 import torch
 import numpy as np
 #
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.metrics import classification_report, accuracy_score
+from ptflops import get_model_complexity_info
 #
 ##
 from preset import preset
@@ -102,6 +102,13 @@ def run_lstm(data_train_x,
     #--------------------------------------------------------------------------------------------------------------#
     #
     ##
+    var_macs, var_params = get_model_complexity_info(LSTMer(var_dim_x, var_dim_y), 
+                                                     data_train_x[0].shape, 
+                                                     as_strings = False)
+    #
+    print("Parameters:", var_params, "- FLOPs:", var_macs * 2)
+    #
+    ##
     result_accuracy = []
     result_time_train = []
     result_time_test = []
@@ -131,6 +138,9 @@ def run_lstm(data_train_x,
         #
         ##
         for var_epoch in range(var_epochs):
+            #
+            ##
+            var_time_e0 = time.time()
             #
             ##
             model_lstm.train()
@@ -184,6 +194,7 @@ def run_lstm(data_train_x,
                 #
                 ##
                 print(f"Epoch {var_epoch}/{var_epochs}",
+                      "- %.6fs"%(time.time() - var_time_e0),
                       "- Loss %.6f"%var_loss_train.cpu(),
                       "- Accuracy %.6f"%var_accuracy_train,
                       "- Test Loss %.6f"%var_loss_test.cpu(),
