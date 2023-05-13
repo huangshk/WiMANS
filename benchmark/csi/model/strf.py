@@ -5,18 +5,17 @@ from scipy import signal
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score
+
 #
 ##
-def run_rf(data_train_x, 
-           data_train_y,
-           data_test_x,
-           data_test_y,
-           var_repeat = 10):
+def run_strf(data_train_x, 
+             data_train_y,
+             data_test_x,
+             data_test_y,
+             var_repeat = 10):
     #
     ##
-    #--------------------------------------------------------------------------------------------------------------#
-    #------------------------------------------------- Preprocess -------------------------------------------------#
-    #--------------------------------------------------------------------------------------------------------------#
+    ## ============================================ Preprocess ============================================
     #
     ##
     data_train_x = data_train_x.reshape(data_train_x.shape[0], data_train_x.shape[1], -1)
@@ -27,8 +26,10 @@ def run_rf(data_train_x,
     var_standard_encoder = StandardScaler(with_std = None)
     #
     ## shape (samples, time_steps, channels)
-    data_train_x = np.array([var_standard_encoder.fit_transform(data_sample_x) for data_sample_x in data_train_x])
-    data_test_x = np.array([var_standard_encoder.fit_transform(data_sample_x) for data_sample_x in data_test_x])
+    data_train_x = np.array([var_standard_encoder.fit_transform(data_sample_x) 
+                             for data_sample_x in data_train_x])
+    data_test_x = np.array([var_standard_encoder.fit_transform(data_sample_x) 
+                            for data_sample_x in data_test_x])
     #
     data_train_time_x = np.swapaxes(data_train_x[:, :, :], -1, -2)
     data_test_time_x = np.swapaxes(data_test_x[:, :, :], -1, -2)
@@ -43,9 +44,7 @@ def run_rf(data_train_x,
     data_test_ft_x = data_test_ft_x.reshape(data_test_ft_x.shape[0], -1)
     #
     ##
-    #--------------------------------------------------------------------------------------------------------------#
-    #---------------------------------------------- Train & Predict -----------------------------------------------#
-    #--------------------------------------------------------------------------------------------------------------#
+    ## ========================================= Train & Evaluate =========================================
     #
     ##
     result_accuracy = []

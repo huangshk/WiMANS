@@ -1,5 +1,4 @@
 import os
-import sklearn.metrics as metrics
 import numpy as np
 import pandas as pd
 #
