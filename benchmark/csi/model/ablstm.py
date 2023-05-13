@@ -153,7 +153,7 @@ def run_ablstm(data_train_x,
         #
         torch.random.manual_seed(var_r + 39)
         #
-        model_ablstm = ABLSTM(var_dim_x, var_dim_y).to(device)
+        model_ablstm = torch.compile(ABLSTM(var_dim_x, var_dim_y).to(device))
         #
         optimizer = torch.optim.Adam(model_ablstm.parameters(), 
                                      lr = preset["nn"]["lr"],

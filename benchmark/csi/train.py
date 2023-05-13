@@ -31,8 +31,6 @@ def train(model: Module,
     ##
     var_best_accuracy = 0
     var_best_weight = None
-    #                                
-    model = torch.compile(model)
     #
     ##
     for var_epoch in range(var_epochs):
@@ -97,6 +95,7 @@ def train(model: Module,
         #
         ##
         if var_accuracy_test > var_best_accuracy:
+            print("hh")
             #
             var_best_accuracy = var_accuracy_test
             var_best_weight = deepcopy(model.state_dict())

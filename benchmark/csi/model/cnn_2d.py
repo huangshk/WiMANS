@@ -153,7 +153,7 @@ def run_cnn_2d(data_train_x,
         #
         torch.random.manual_seed(var_r + 39)
         #
-        model_cnn_2d = CNN_2D(var_dim_x, var_dim_y).to(device)
+        model_cnn_2d = torch.compile(CNN_2D(var_dim_x, var_dim_y).to(device))
         #
         optimizer = torch.optim.Adam(model_cnn_2d.parameters(), 
                                      lr = preset["nn"]["lr"],

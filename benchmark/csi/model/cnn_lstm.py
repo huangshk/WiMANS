@@ -153,7 +153,7 @@ def run_cnn_lstm(data_train_x,
         #
         torch.random.manual_seed(var_r + 39)
         #
-        model_cnn_lstm = CNN_LSTM(var_dim_x, var_dim_y).to(device)
+        model_cnn_lstm = torch.compile(CNN_LSTM(var_dim_x, var_dim_y).to(device))
         #
         optimizer = torch.optim.Adam(model_cnn_lstm.parameters(), 
                                      lr = preset["nn"]["lr"],

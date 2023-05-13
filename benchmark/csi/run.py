@@ -33,13 +33,13 @@ def main_0():
                                                                             shuffle = True, 
                                                                             random_state = 39)
     #
-    # result = run_strf(data_train_x, data_train_y, data_test_x, data_test_y)
-    # result = run_mlp(data_train_x, data_train_y, data_test_x, data_test_y)
-    # result = run_lstm(data_train_x, data_train_y, data_test_x, data_test_y)
-    # result = run_cnn_1d(data_train_x, data_train_y, data_test_x, data_test_y)
-    # result = run_cnn_2d(data_train_x, data_train_y, data_test_x, data_test_y)
-    # result = run_cnn_lstm(data_train_x, data_train_y, data_test_x, data_test_y)
-    result = run_ablstm(data_train_x, data_train_y, data_test_x, data_test_y)
+    # result = run_strf(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
+    # result = run_mlp(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
+    # result = run_lstm(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
+    # result = run_cnn_1d(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
+    # result = run_cnn_2d(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
+    # result = run_cnn_lstm(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
+    result = run_ablstm(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
     #
     result["data"] = preset["data"]
     result["nn"] = preset["nn"]

@@ -26,6 +26,7 @@ preset = {
         "epoch": 200,
         "batch_size": 128,
         "threshold": 0.5,
+        "repeat": 10,
     },
     #
     ##

@@ -155,7 +155,7 @@ def run_lstm(data_train_x,
         #
         torch.random.manual_seed(var_r + 39)
         #
-        model_lstm = LSTMM(var_dim_x, var_dim_y).to(device)
+        model_lstm = torch.compile(LSTMM(var_dim_x, var_dim_y).to(device))
         #
         optimizer = torch.optim.Adam(model_lstm.parameters(), 
                                      lr = preset["nn"]["lr"],

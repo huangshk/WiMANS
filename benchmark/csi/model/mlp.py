@@ -155,7 +155,7 @@ def run_mlp(data_train_x,
         #
         torch.random.manual_seed(var_r + 39)
         #
-        model_mlp = MLP(var_dim_x, var_dim_y).to(device)
+        model_mlp = torch.compile(MLP(var_dim_x, var_dim_y).to(device))
         #
         optimizer = torch.optim.Adam(model_mlp.parameters(), 
                                      lr = preset["nn"]["lr"],
