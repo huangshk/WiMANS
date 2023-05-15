@@ -8,7 +8,7 @@ preset = {
     #
     ##
     "path": {
-        "data_x": "dataset/csi/amp",
+        "data_x": "dataset/wifi_csi/amp",
         "data_y": "dataset/annotation.csv",
         "save": "result_activity_that_classroom_5.json"
     },
