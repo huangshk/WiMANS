@@ -205,8 +205,8 @@ class THAT(torch.nn.Module):
         #
         ## ---------------------------------------- left ------------------------------------------
         #
-        self.layer_left_pooling = torch.nn.AvgPool1d(kernel_size = 15, stride = 15)
-        self.layer_left_gaussian = Gaussian_Position(var_dim_feature, var_dim_time // 15)
+        self.layer_left_pooling = torch.nn.AvgPool1d(kernel_size = 20, stride = 20)
+        self.layer_left_gaussian = Gaussian_Position(var_dim_feature, var_dim_time // 20)
         #
         var_num_left = 4
         var_dim_left = var_dim_feature
