@@ -4,5 +4,6 @@
 *.json
 
 data/
+dataset/
 result/
 __pycache__/
