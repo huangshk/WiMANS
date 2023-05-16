@@ -9,13 +9,22 @@ from torchvision.models.video import R3D_18_Weights, MViT_V1_B_Weights, S3D_Weig
 
 #
 ##
-def preprocess_resnet(var_path_data_x, 
-                      var_path_data_y,
-                      var_path_cache):
+def preprocess_video(var_path_data_x, 
+                     var_path_data_y,
+                     var_target,
+                     var_path_save):
     #
     ##
-    preprocess = MViT_V1_B_Weights.DEFAULT.transforms()
+    if var_target == "ResNet":
+        transform = R3D_18_Weights.DEFAULT.transforms()
     #
+    elif var_target == "MViTv1":
+        transform = MViT_V1_B_Weights.DEFAULT.transforms()
+    #
+    elif var_target == "S3D":
+        transform = S3D_Weights.DEFAULT.transforms()
+    #
+    ##
     data_pd_y = pd.read_csv(var_path_data_y, dtype = str)
     #
     var_label_list = data_pd_y["label"].to_list()
@@ -30,13 +39,13 @@ def preprocess_resnet(var_path_data_x,
         #
         if data_video.shape[0] != 90: print(var_label, "Warning")
         #
-        data_preprocess = preprocess(data_video)
+        data_preprocess = transform(data_video)
         #
-        data_preprocess = torch.permute(data_preprocess, (1, 0, 2, 3))
+        data_preprocess = torch.permute(data_preprocess, (1, 0, 2, 3))  # TCHW
         #
         print(var_label, data_video.shape, data_preprocess.shape)
         #
-        np.save(os.path.join(var_path_cache, var_label+".npy"), data_preprocess)
+        np.save(os.path.join(var_path_save, var_label + ".npy"), data_preprocess)
         #
         # if var_i >=20: break
     
@@ -47,7 +56,10 @@ def preprocess_resnet(var_path_data_x,
 if __name__ == "__main__":
     #
     var_time = time.time()
-    preprocess_resnet("dataset/video", preset["path"]["data_y"], "/home/hwang/Lab/Project/WiMans/cache/mvit")
+    preprocess_video(preset["path"]["data_x"], 
+                     preset["path"]["data_y"], 
+                     "MViTv1",
+                     "/home/hwang/Lab/Project/WiMans/cache/mvit")
     print("Preprocess Time:", time.time() - var_time)
     #
     # var_time = time.time()

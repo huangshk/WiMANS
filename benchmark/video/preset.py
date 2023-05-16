@@ -9,6 +9,7 @@ preset = {
     ##
     "path": {
         "data_x": "dataset/video",
+        "data_preprocess_x": "dataset/cache/resnet",
         "data_y": "dataset/annotation.csv",
         "save": "result_activity_hh_classroom_24.json"
     },
