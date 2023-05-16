@@ -35,11 +35,14 @@ def main_0(var_pretrain = True):
     data_test_set = VideoDataset(preset["path"]["data_pre_x"], data_test_pd_y, preset["task"])
     #
     ##
+    run_model = run_resnet
+    #
+    ##
     if var_pretrain:
         #
-        result, var_weight = run_resnet(data_train_set, 
-                                        data_test_set,
-                                        var_repeat = preset["nn"]["repeat"])
+        result, var_weight = run_model(data_train_set, 
+                                       data_test_set,
+                                       var_repeat = preset["nn"]["repeat"])
         #
         result["data"] = preset["data"]
         result["nn"] = preset["nn"]
@@ -54,10 +57,10 @@ def main_0(var_pretrain = True):
     ##
     else:
         #
-        result, _ = run_resnet(data_train_set, 
-                               data_test_set,
-                               var_repeat = preset["nn"]["repeat"],
-                               var_weight = preset["path"]["save_model"])
+        result, _ = run_model(data_train_set, 
+                              data_test_set,
+                              var_repeat = preset["nn"]["repeat"],
+                              var_weight = preset["path"]["save_model"])
         #
         result["data"] = preset["data"]
         result["nn"] = preset["nn"]
