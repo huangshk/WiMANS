@@ -11,7 +11,8 @@ preset = {
         "data_x": "dataset/video",
         "data_pre_x": "dataset/cache/resnet",
         "data_y": "dataset/annotation.csv",
-        "save": "result_identity_resnet_classroom.json"
+        "save_result": "result_identity_resnet_classroom.json",
+        "save_model": "model_identity_resnet_classroom.pt",
     },
     #
     ##
@@ -26,10 +27,10 @@ preset = {
     ##
     "nn": {
         "lr": 1e-3, # 1e-3
-        "epoch": 10,
+        "epoch": 1,
         "batch_size": 8,
         "threshold": 0.5,
-        "repeat": 1,
+        "repeat": 10,
     },
     #
     ##

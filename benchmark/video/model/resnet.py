@@ -6,7 +6,7 @@ from torchvision.models.video.resnet import BasicBlock, Conv3DSimple, BasicStem,
 from ptflops import get_model_complexity_info
 from preset import preset
 
-from evaluate import train, test
+from train import train, test
 
 #
 ##
@@ -19,19 +19,12 @@ def create_resnet(var_num_class):
                        BasicStem, 
                        num_classes = var_num_class)
 
-
-
-
-
-
-
-
 #
 ##
 def run_resnet(data_train_set,
                data_test_set,
-               var_weight = None,
-               var_repeat = 1):
+               var_repeat,
+               var_weight = None):
     #
     ##
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -68,7 +61,7 @@ def run_resnet(data_train_set,
         #
         model_resnet = create_resnet(var_y_shape[-1]).to(device)
         #
-        if var_weight is not None:  model_resnet.load_state_dict(var_weight)
+        if var_weight is not None:  model_resnet.load_state_dict(torch.load(var_weight))
         #
         optimizer = torch.optim.Adam(model_resnet.parameters(), 
                                      lr = preset["nn"]["lr"],
@@ -96,8 +89,6 @@ def run_resnet(data_train_set,
         #
         model_resnet.load_state_dict(var_best_weight)
         #
-        if var_weight is None:  torch.save(var_best_weight, "resnet.pt")
-        #
         result_acc, result_dict, _ = test(model_resnet, 
                                           loss, 
                                           data_test_set, 
@@ -123,4 +114,4 @@ def run_resnet(data_train_set,
     result["time_test"] = {"avg": np.mean(result_time_test), "std": np.std(result_time_test)}
     result["complexity"] = {"parameter": var_params, "flops": var_macs * 2}
     #
-    return result
+    return result, var_best_weight
