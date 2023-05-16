@@ -9,9 +9,9 @@ preset = {
     ##
     "path": {
         "data_x": "dataset/video",
-        "data_preprocess_x": "dataset/cache/resnet",
+        "data_pre_x": "dataset/cache/resnet",
         "data_y": "dataset/annotation.csv",
-        "save": "result_activity_hh_classroom_24.json"
+        "save": "result_identity_resnet_classroom.json"
     },
     #
     ##
@@ -26,10 +26,10 @@ preset = {
     ##
     "nn": {
         "lr": 1e-3, # 1e-3
-        "epoch": 400,
-        "batch_size": 16,
+        "epoch": 10,
+        "batch_size": 8,
         "threshold": 0.5,
-        "repeat": 10,
+        "repeat": 1,
     },
     #
     ##

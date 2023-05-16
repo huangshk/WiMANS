@@ -35,17 +35,17 @@ def preprocess_video(var_path_data_x,
         #
         var_path = os.path.join(var_path_data_x, var_label + ".mp4")
         #
-        data_video, _, _ = torchvision.io.read_video(var_path, output_format = "TCHW")
+        data_video_x, _, _ = torchvision.io.read_video(var_path, output_format = "TCHW")
         #
-        if data_video.shape[0] != 90: print(var_label, "Warning")
+        if data_video_x.shape[0] != 90: print(var_label, "Warning!")
         #
-        data_preprocess = transform(data_video)
+        data_pre_x = transform(data_video_x)
         #
-        data_preprocess = torch.permute(data_preprocess, (1, 0, 2, 3))  # TCHW
+        data_pre_x = torch.permute(data_pre_x, (1, 0, 2, 3))  # TCHW
         #
-        print(var_label, data_video.shape, data_preprocess.shape)
+        print(var_label, data_video_x.shape, data_pre_x.shape)
         #
-        np.save(os.path.join(var_path_save, var_label + ".npy"), data_preprocess)
+        np.save(os.path.join(var_path_save, var_label + ".npy"), data_pre_x)
         #
         # if var_i >=20: break
     

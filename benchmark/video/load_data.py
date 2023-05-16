@@ -18,17 +18,19 @@ class VideoDataset(torch.utils.data.Dataset):
     #
     ##
     def __init__(self,
-                 var_path_data_x, 
-                 var_label_list,
-                 data_y):
+                 var_path_pre_x,
+                 data_pd_y,
+                 var_task):
         #
         ##
         super(VideoDataset, self).__init__()
         #
         ##
-        self.var_path_data_x = var_path_data_x
-        self.var_label_list = var_label_list
-        self.data_y = data_y
+        var_label_list = data_pd_y["label"].to_list()
+        self.var_path_list = [os.path.join(var_path_pre_x, var_label + ".npy") for var_label in var_label_list]
+        #
+        self.data_y = encode_data_y(data_pd_y, var_task)
+        #
         self.var_num_sample = len(var_label_list)
 
     #
@@ -43,9 +45,9 @@ class VideoDataset(torch.utils.data.Dataset):
     def __getitem__(self, var_i):
         #
         ##
-        var_path = os.path.join(self.var_path_data_x, self.var_label_list[var_i] + ".mp4")
-        data_i_x, _, _ = torchvision.io.read_video(var_path, output_format = "TCHW")
-        data_i_y = self.data_y[var_i]
+        data_i_x = torch.from_numpy(np.load(self.var_path_list[var_i]))
+        data_i_x = torch.permute(data_i_x, (1, 0, 2, 3))    # "TCHW" -> "CTHW"
+        data_i_y = torch.from_numpy(self.data_y[var_i])
         #
         return data_i_x, data_i_y
         
@@ -82,33 +84,10 @@ def load_data_x(var_path_data_x,
         #
         print(var_path, data_video.shape, data_video.shape[0] == 90)
         #
-        if data_video.shape[0] != 90:
-            data_error.append(var_path)
+        if data_video.shape[0] != 90: data_error.append(var_path)
+    #
     print(data_error)
         
-    
-
-#
-##
-def split_train_test(var_label_list, 
-                     var_test_size = 0.2, 
-                     var_shuffle = True, 
-                     var_random_state = None):
-    #
-    ##
-    var_index = list(range(len(var_label_list)))
-    ##
-    if var_random_state is not None: random.seed(var_random_state)
-    #
-    if var_shuffle: random.shuffle(var_index)
-    #
-    var_num_test = int(var_test_size * len(var_index))
-    #
-    var_label_list_test = [var_label_list[var_i] for var_i in var_index[:var_num_test]]
-    var_label_list_train = [var_label_list[var_i] for var_i in var_index[var_num_test:]]
-    #
-    return var_label_list_train, var_label_list_test
-
 #
 ##
 def encode_data_y(data_pd_y, var_task):
