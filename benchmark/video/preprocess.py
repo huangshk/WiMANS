@@ -5,7 +5,7 @@ import pandas as pd
 from preset import preset
 import torch
 import torchvision
-from torchvision.models.video import R3D_18_Weights, MViT_V2_S_Weights, Swin3D_T_Weights
+from torchvision.models.video import R3D_18_Weights, MViT_V1_B_Weights, S3D_Weights, MViT_V2_S_Weights, Swin3D_T_Weights
 
 #
 ##
@@ -14,7 +14,7 @@ def preprocess_resnet(var_path_data_x,
                       var_path_cache):
     #
     ##
-    preprocess = R3D_18_Weights.DEFAULT.transforms()
+    preprocess = MViT_V1_B_Weights.DEFAULT.transforms()
     #
     data_pd_y = pd.read_csv(var_path_data_y, dtype = str)
     #
@@ -47,10 +47,10 @@ def preprocess_resnet(var_path_data_x,
 if __name__ == "__main__":
     #
     var_time = time.time()
-    preprocess_resnet("dataset/video", preset["path"]["data_y"], "/data/hwang/Lab/Project/WiMans/dataset/cache/resnet")
+    preprocess_resnet("dataset/video", preset["path"]["data_y"], "/home/hwang/Lab/Project/WiMans/cache/mvit")
     print("Preprocess Time:", time.time() - var_time)
     #
     # var_time = time.time()
-    # data = np.load("/data/hwang/Lab/Project/WiMans/dataset/cache/resnet/act_1_4.npy")
+    # data = np.load("/home/hwang/Lab/Project/WiMans/cache/mvit/act_1_9.npy")
     # print(data.shape, data.dtype)
     # print(time.time()-var_time)
