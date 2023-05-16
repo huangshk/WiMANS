@@ -26,7 +26,6 @@ def run_strf(data_train_x,
     ##
     data_train_x = data_train_x.reshape(data_train_x.shape[0], data_train_x.shape[1], -1)
     data_test_x = data_test_x.reshape(data_test_x.shape[0], data_test_x.shape[1], -1)
-    data_train_y = data_train_y.reshape(data_train_y.shape[0], -1)
     #
     ##
     var_standard_encoder = StandardScaler(with_std = None)
@@ -69,7 +68,7 @@ def run_strf(data_train_x,
         ## model training
         var_time_0 = time.time()
         #
-        model_rf.fit(data_train_ft_x, data_train_y)
+        model_rf.fit(data_train_ft_x, data_train_y.reshape(data_train_y.shape[0], -1))
         #
         var_time_1 = time.time()
         #
@@ -79,11 +78,9 @@ def run_strf(data_train_x,
         #
         var_time_2 = time.time()
         #
-        predict_test_y = predict_test_y.reshape(data_test_y.shape)
-        #
-        ## by_class
+        ##
         data_test_y_c = data_test_y.reshape(-1, data_test_y.shape[-1])
-        predict_test_y_c = predict_test_y.reshape(-1, predict_test_y.shape[-1])
+        predict_test_y_c = predict_test_y.reshape(-1, data_test_y.shape[-1])
         #
         result_acc = accuracy_score(data_test_y_c, predict_test_y_c)
         #
@@ -95,7 +92,8 @@ def run_strf(data_train_x,
         result_accuracy.append(result_acc)
         result_time_train.append(var_time_1 - var_time_0)
         result_time_test.append(var_time_2 - var_time_1)
-        #
+    #
+    ##
     result["accuracy"] = {"avg": np.mean(result_accuracy), "std": np.std(result_accuracy)}
     result["time_train"] = {"avg": np.mean(result_time_train), "std": np.std(result_time_train)}
     result["time_test"] = {"avg": np.mean(result_time_test), "std": np.std(result_time_test)}
