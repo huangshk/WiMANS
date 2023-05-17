@@ -31,6 +31,7 @@ preset = {
         "batch_size": 8,
         "threshold": 0.5,
         "repeat": 1,
+        "frame_stride": 2,
     },
     #
     ##

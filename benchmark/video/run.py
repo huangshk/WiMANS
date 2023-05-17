@@ -31,8 +31,8 @@ def main_0(var_pretrain = True):
                                                        shuffle = True, 
                                                        random_state = 39)
     #
-    data_train_set = VideoDataset(preset["path"]["data_pre_x"], data_train_pd_y, preset["task"], 2)
-    data_test_set = VideoDataset(preset["path"]["data_pre_x"], data_test_pd_y, preset["task"], 2)
+    data_train_set = VideoDataset(preset["path"]["data_pre_x"], data_train_pd_y, preset["task"], preset["nn"]["frame_stride"])
+    data_test_set = VideoDataset(preset["path"]["data_pre_x"], data_test_pd_y, preset["task"], preset["nn"]["frame_stride"])
     #
     ##
     # run_model = run_resnet
@@ -80,6 +80,7 @@ if __name__ == "__main__":
     preset["task"] = "identity"
     preset["nn"]["repeat"] = 1
     preset["nn"]["epoch"] = 10
+    preset["nn"]["lr"] = 1e-3
     preset["data"]["environment"] = ["classroom"]
     preset["path"]["save_result"] = "result_identity_s3d_classroom_pre.json"
     preset["path"]["save_model"] = "model_identity_s3d_classroom.pt"
@@ -87,6 +88,7 @@ if __name__ == "__main__":
     # #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
+    preset["nn"]["lr"] = 1e-4
     preset["path"]["save_result"] = "result_identity_s3d_classroom.json"
     main_0(var_pretrain = False)
 
@@ -95,6 +97,7 @@ if __name__ == "__main__":
     preset["task"] = "location"
     preset["nn"]["repeat"] = 1
     preset["nn"]["epoch"] = 10
+    preset["nn"]["lr"] = 1e-3
     preset["data"]["environment"] = ["classroom"]
     preset["path"]["save_result"] = "result_location_s3d_classroom_pre.json"
     preset["path"]["save_model"] = "model_location_s3d_classroom.pt"
@@ -102,6 +105,7 @@ if __name__ == "__main__":
     # #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
+    preset["nn"]["lr"] = 1e-4
     preset["path"]["save_result"] = "result_location_s3d_classroom.json"
     main_0(var_pretrain = False)
 
@@ -109,6 +113,7 @@ if __name__ == "__main__":
     preset["task"] = "activity"
     preset["nn"]["repeat"] = 1
     preset["nn"]["epoch"] = 10
+    preset["nn"]["lr"] = 1e-3
     preset["data"]["environment"] = ["classroom"]
     preset["path"]["save_result"] = "result_activity_s3d_classroom_pre.json"
     preset["path"]["save_model"] = "model_activity_s3d_classroom.pt"
@@ -116,6 +121,7 @@ if __name__ == "__main__":
     # #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
+    preset["nn"]["lr"] = 1e-4
     preset["path"]["save_result"] = "result_activity_s3d_classroom.json"
     main_0(var_pretrain = False)
 
