@@ -20,7 +20,8 @@ class VideoDataset(torch.utils.data.Dataset):
     def __init__(self,
                  var_path_pre_x,
                  data_pd_y,
-                 var_task):
+                 var_task,
+                 var_frame_step = 1):
         #
         ##
         super(VideoDataset, self).__init__()
@@ -32,6 +33,8 @@ class VideoDataset(torch.utils.data.Dataset):
         self.data_y = encode_data_y(data_pd_y, var_task)
         #
         self.var_num_sample = len(var_label_list)
+        #
+        self.var_frame_step = var_frame_step
 
     #
     ##
@@ -46,7 +49,7 @@ class VideoDataset(torch.utils.data.Dataset):
         #
         ##
         data_i_x = torch.from_numpy(np.load(self.var_path_list[var_i]))
-        data_i_x = torch.permute(data_i_x, (1, 0, 2, 3))    # "TCHW" -> "CTHW"
+        data_i_x = torch.permute(data_i_x[::self.var_frame_step], (1, 0, 2, 3))    # "TCHW" -> "CTHW"
         data_i_y = torch.from_numpy(self.data_y[var_i])
         #
         return data_i_x, data_i_y
