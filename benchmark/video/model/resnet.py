@@ -1,23 +1,12 @@
 import time
 import torch
 import numpy as np
-from torchvision.models.video.resnet import BasicBlock, Conv3DSimple, BasicStem, VideoResNet
+from torchvision.models.video import resnet
 
 from ptflops import get_model_complexity_info
 from preset import preset
 
 from train import train, test
-
-#
-##
-def create_resnet(var_num_class):
-    #
-    ##
-    return VideoResNet(BasicBlock, 
-                       [Conv3DSimple] * 4, 
-                       [2, 2, 2, 2], 
-                       BasicStem, 
-                       num_classes = var_num_class)
 
 #
 ##
@@ -46,7 +35,7 @@ def run_resnet(data_train_set,
     result_time_test = []
     #
     ##
-    var_macs, var_params = get_model_complexity_info(create_resnet(var_y_shape[-1]), 
+    var_macs, var_params = get_model_complexity_info(resnet.r3d_18(num_classes = var_y_shape[-1]), 
                                                      var_x_shape, as_strings = False)
     #
     print("Parameters:", var_params, "- FLOPs:", var_macs * 2)
@@ -59,7 +48,7 @@ def run_resnet(data_train_set,
         #
         torch.random.manual_seed(var_r + 39)
         #
-        model_resnet = create_resnet(var_y_shape[-1]).to(device)
+        model_resnet = resnet.r3d_18(num_classes = var_y_shape[-1]).to(device)
         #
         if var_weight is not None:  model_resnet.load_state_dict(torch.load(var_weight))
         #
