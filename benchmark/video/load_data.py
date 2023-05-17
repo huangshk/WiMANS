@@ -21,7 +21,7 @@ class VideoDataset(torch.utils.data.Dataset):
                  var_path_pre_x,
                  data_pd_y,
                  var_task,
-                 var_frame_step = 1):
+                 var_frame_stride):
         #
         ##
         super(VideoDataset, self).__init__()
@@ -34,7 +34,10 @@ class VideoDataset(torch.utils.data.Dataset):
         #
         self.var_num_sample = len(var_label_list)
         #
-        self.var_frame_step = var_frame_step
+        self.var_frame_stride = var_frame_stride
+        #
+        self.data_example_x = np.swapaxes(np.load(self.var_path_list[0])[::var_frame_stride], 1, 0)
+        self.data_example_y = self.data_y[0]
 
     #
     ##
@@ -48,9 +51,13 @@ class VideoDataset(torch.utils.data.Dataset):
     def __getitem__(self, var_i):
         #
         ##
-        data_i_x = torch.from_numpy(np.load(self.var_path_list[var_i]))
-        data_i_x = torch.permute(data_i_x[::self.var_frame_step], (1, 0, 2, 3))    # "TCHW" -> "CTHW"
-        data_i_y = torch.from_numpy(self.data_y[var_i])
+        # data_i_x = torch.from_numpy(np.load(self.var_path_list[var_i])[::self.var_frame_stride])
+        # data_i_x = torch.permute(data_i_x, (1, 0, 2, 3))    # "TCHW" -> "CTHW"
+        # data_i_y = torch.from_numpy(self.data_y[var_i])
+        #
+        ## "TCHW" -> "CTHW"
+        data_i_x = np.swapaxes(np.load(self.var_path_list[var_i])[::self.var_frame_stride], 1, 0)
+        data_i_y = self.data_y[var_i]
         #
         return data_i_x, data_i_y
         
