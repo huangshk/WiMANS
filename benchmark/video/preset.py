@@ -9,10 +9,10 @@ preset = {
     ##
     "path": {
         "data_x": "dataset/video",
-        "data_pre_x": "dataset/cache/resnet",
+        "data_pre_x": "/home/hwang/Lab/Project/WiMans/cache/s3d/classroom",
         "data_y": "dataset/annotation.csv",
-        "save_result": "result_identity_resnet_classroom.json",
-        "save_model": "model_identity_resnet_classroom.pt",
+        "save_result": "result_identity_s3d_classroom_pre.json",
+        "save_model": "model_identity_s3d_classroom.pt",
     },
     #
     ##
@@ -27,10 +27,10 @@ preset = {
     ##
     "nn": {
         "lr": 1e-3, # 1e-3
-        "epoch": 1,
+        "epoch": 10,
         "batch_size": 8,
         "threshold": 0.5,
-        "repeat": 10,
+        "repeat": 1,
     },
     #
     ##
