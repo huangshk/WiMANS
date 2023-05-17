@@ -6,6 +6,8 @@
 ##
 from .resnet import run_resnet
 from .s3d import run_s3d
+from .mvit_v1 import run_mvit_v1
 
 __all__ = ["run_resnet",
-           "run_s3d"]
+           "run_s3d",
+           "run_mvit_v1"]
