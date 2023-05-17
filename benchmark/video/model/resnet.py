@@ -1,18 +1,19 @@
 import time
 import torch
 import numpy as np
-from torchvision.models.video import resnet
-
 from ptflops import get_model_complexity_info
+from torchvision.models.video.resnet import r3d_18
+#
+##
 from preset import preset
-
 from train import train, test
+from load_data import VideoDataset
 
 #
 ##
-def run_resnet(data_train_set,
-               data_test_set,
-               var_repeat,
+def run_resnet(data_train_set: VideoDataset,
+               data_test_set: VideoDataset,
+               var_repeat: int,
                var_weight = None):
     #
     ##
@@ -22,8 +23,8 @@ def run_resnet(data_train_set,
     ## ============================================ Preprocess ============================================
     #
     ##
-    var_x_shape = data_train_set[0][0].numpy().shape
-    var_y_shape = data_train_set[0][1].numpy().reshape(-1).shape
+    var_x_shape = data_train_set.data_example_x.shape
+    var_y_shape = data_train_set.data_example_y.reshape(-1).shape
     #
     ##
     ## ============================================ Preprocess ============================================
@@ -35,7 +36,7 @@ def run_resnet(data_train_set,
     result_time_test = []
     #
     ##
-    var_macs, var_params = get_model_complexity_info(resnet.r3d_18(num_classes = var_y_shape[-1]), 
+    var_macs, var_params = get_model_complexity_info(r3d_18(num_classes = var_y_shape[-1]), 
                                                      var_x_shape, as_strings = False)
     #
     print("Parameters:", var_params, "- FLOPs:", var_macs * 2)
@@ -48,7 +49,7 @@ def run_resnet(data_train_set,
         #
         torch.random.manual_seed(var_r + 39)
         #
-        model_resnet = resnet.r3d_18(num_classes = var_y_shape[-1]).to(device)
+        model_resnet = r3d_18(num_classes = var_y_shape[-1]).to(device)
         #
         if var_weight is not None:  model_resnet.load_state_dict(torch.load(var_weight))
         #
