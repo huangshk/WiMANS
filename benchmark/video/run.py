@@ -39,7 +39,8 @@ def main_0(var_pretrain = True):
     # run_model = run_resnet
     # run_model = run_s3d
     # run_model = run_mvit_v1
-    run_model = run_mvit_v2
+    # run_model = run_mvit_v2
+    run_model = run_swin_t
     #
     ##
     if var_pretrain:
@@ -86,14 +87,14 @@ if __name__ == "__main__":
     preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["classroom"]
     #
-    preset["path"]["save_result"] = "result_identity_mvitv2_classroom_pre.json"
-    preset["path"]["save_model"] = "model_identity_mvitv2_classroom.pt"
+    preset["path"]["save_result"] = "result_identity_swint_classroom_pre.json"
+    preset["path"]["save_model"] = "model_identity_swint_classroom.pt"
     main_0(var_pretrain = True)
     #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
     preset["nn"]["lr"] = 1e-5
-    preset["path"]["save_result"] = "result_identity_mvitv2_classroom.json"
+    preset["path"]["save_result"] = "result_identity_swint_classroom.json"
     main_0(var_pretrain = False)
 
     #
@@ -102,14 +103,14 @@ if __name__ == "__main__":
     preset["nn"]["epoch"] = 10
     preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["classroom"]
-    preset["path"]["save_result"] = "result_location_mvitv2_classroom_pre.json"
-    preset["path"]["save_model"] = "model_location_mvitv2_classroom.pt"
+    preset["path"]["save_result"] = "result_location_swint_classroom_pre.json"
+    preset["path"]["save_model"] = "model_location_swint_classroom.pt"
     main_0(var_pretrain = True)
     # #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
     preset["nn"]["lr"] = 1e-5
-    preset["path"]["save_result"] = "result_location_mvitv2_classroom.json"
+    preset["path"]["save_result"] = "result_location_swint_classroom.json"
     main_0(var_pretrain = False)
 
     #
@@ -118,14 +119,14 @@ if __name__ == "__main__":
     preset["nn"]["epoch"] = 10
     preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["classroom"]
-    preset["path"]["save_result"] = "result_activity_mvitv2_classroom_pre.json"
-    preset["path"]["save_model"] = "model_activity_mvitv2_classroom.pt"
+    preset["path"]["save_result"] = "result_activity_swint_classroom_pre.json"
+    preset["path"]["save_model"] = "model_activity_swint_classroom.pt"
     main_0(var_pretrain = True)
     # #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
     preset["nn"]["lr"] = 1e-5
-    preset["path"]["save_result"] = "result_activity_mvitv2_classroom.json"
+    preset["path"]["save_result"] = "result_activity_swint_classroom.json"
     main_0(var_pretrain = False)
 
 
@@ -138,14 +139,14 @@ if __name__ == "__main__":
     preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["meeting_room"]
     #
-    preset["path"]["save_result"] = "result_identity_mvitv2_meeting_pre.json"
-    preset["path"]["save_model"] = "model_identity_mvitv2_meeting.pt"
+    preset["path"]["save_result"] = "result_identity_swint_meeting_pre.json"
+    preset["path"]["save_model"] = "model_identity_swint_meeting.pt"
     main_0(var_pretrain = True)
     #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
     preset["nn"]["lr"] = 1e-5
-    preset["path"]["save_result"] = "result_identity_mvitv2_meeting.json"
+    preset["path"]["save_result"] = "result_identity_swint_meeting.json"
     main_0(var_pretrain = False)
 
     #
@@ -154,14 +155,14 @@ if __name__ == "__main__":
     preset["nn"]["epoch"] = 10
     preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["meeting_room"]
-    preset["path"]["save_result"] = "result_location_mvitv2_meeting_pre.json"
-    preset["path"]["save_model"] = "model_location_mvitv2_meeting.pt"
+    preset["path"]["save_result"] = "result_location_swint_meeting_pre.json"
+    preset["path"]["save_model"] = "model_location_swint_meeting.pt"
     main_0(var_pretrain = True)
     #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
     preset["nn"]["lr"] = 1e-5
-    preset["path"]["save_result"] = "result_location_mvitv2_meeting.json"
+    preset["path"]["save_result"] = "result_location_swint_meeting.json"
     main_0(var_pretrain = False)
 
     #
@@ -170,14 +171,14 @@ if __name__ == "__main__":
     preset["nn"]["epoch"] = 10
     preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["meeting_room"]
-    preset["path"]["save_result"] = "result_activity_mvitv2_meeting_pre.json"
-    preset["path"]["save_model"] = "model_activity_mvitv2_meeting.pt"
+    preset["path"]["save_result"] = "result_activity_swint_meeting_pre.json"
+    preset["path"]["save_model"] = "model_activity_swint_meeting.pt"
     main_0(var_pretrain = True)
     # #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
     preset["nn"]["lr"] = 1e-5
-    preset["path"]["save_result"] = "result_activity_mvitv2_meeting.json"
+    preset["path"]["save_result"] = "result_activity_swint_meeting.json"
     main_0(var_pretrain = False)
 
 
@@ -189,14 +190,14 @@ if __name__ == "__main__":
     preset["nn"]["epoch"] = 10
     preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["empty_room"]
-    preset["path"]["save_result"] = "result_identity_mvitv2_empty_pre.json"
-    preset["path"]["save_model"] = "model_identity_mvitv2_empty.pt"
+    preset["path"]["save_result"] = "result_identity_swint_empty_pre.json"
+    preset["path"]["save_model"] = "model_identity_swint_empty.pt"
     main_0(var_pretrain = True)
     #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
     preset["nn"]["lr"] = 1e-5
-    preset["path"]["save_result"] = "result_identity_mvitv2_empty.json"
+    preset["path"]["save_result"] = "result_identity_swint_empty.json"
     main_0(var_pretrain = False)
 
     #
@@ -205,14 +206,14 @@ if __name__ == "__main__":
     preset["nn"]["epoch"] = 10
     preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["empty_room"]
-    preset["path"]["save_result"] = "result_location_mvitv2_empty_pre.json"
-    preset["path"]["save_model"] = "model_location_mvitv2_empty.pt"
+    preset["path"]["save_result"] = "result_location_swint_empty_pre.json"
+    preset["path"]["save_model"] = "model_location_swint_empty.pt"
     main_0(var_pretrain = True)
     # #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
     preset["nn"]["lr"] = 1e-5
-    preset["path"]["save_result"] = "result_location_mvitv2_empty.json"
+    preset["path"]["save_result"] = "result_location_swint_empty.json"
     main_0(var_pretrain = False)
 
     #
@@ -221,12 +222,12 @@ if __name__ == "__main__":
     preset["nn"]["epoch"] = 10
     preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["empty_room"]
-    preset["path"]["save_result"] = "result_activity_mvitv2_empty_pre.json"
-    preset["path"]["save_model"] = "model_activity_mvitv2_empty.pt"
+    preset["path"]["save_result"] = "result_activity_swint_empty_pre.json"
+    preset["path"]["save_model"] = "model_activity_swint_empty.pt"
     main_0(var_pretrain = True)
     # #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
     preset["nn"]["lr"] = 1e-5
-    preset["path"]["save_result"] = "result_activity_mvitv2_empty.json"
+    preset["path"]["save_result"] = "result_activity_swint_empty.json"
     main_0(var_pretrain = False)
