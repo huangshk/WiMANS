@@ -9,10 +9,10 @@ preset = {
     ##
     "path": {
         "data_x": "dataset/video",
-        "data_pre_x": "/home/hwang/Lab/Project/WiMans/cache/s3d/classroom",
+        "data_pre_x": "/home/hwang/Lab/Project/WiMans/cache/mvit",
         "data_y": "dataset/annotation.csv",
-        "save_result": "result_identity_s3d_classroom_pre.json",
-        "save_model": "model_identity_s3d_classroom.pt",
+        "save_result": "result_identity_mvit_classroom_pre.json",
+        "save_model": "model_identity_mvit_classroom.pt",
     },
     #
     ##
@@ -26,12 +26,12 @@ preset = {
     #
     ##
     "nn": {
-        "lr": 1e-3, # 1e-3
+        "lr": 1e-4, # 1e-3
         "epoch": 10,
         "batch_size": 8,
         "threshold": 0.5,
         "repeat": 1,
-        "frame_stride": 2,
+        "frame_stride": 6,
     },
     #
     ##

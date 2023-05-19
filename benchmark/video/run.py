@@ -13,6 +13,7 @@ from model import *
 from preset import preset
 from load_data import load_data_y, VideoDataset
 
+torch.backends.cudnn.benchmark = True
 
 #
 ##
@@ -36,7 +37,9 @@ def main_0(var_pretrain = True):
     #
     ##
     # run_model = run_resnet
-    run_model = run_s3d
+    # run_model = run_s3d
+    # run_model = run_mvit_v1
+    run_model = run_mvit_v2
     #
     ##
     if var_pretrain:
@@ -80,48 +83,150 @@ if __name__ == "__main__":
     preset["task"] = "identity"
     preset["nn"]["repeat"] = 1
     preset["nn"]["epoch"] = 10
-    preset["nn"]["lr"] = 1e-3
+    preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["classroom"]
-    preset["path"]["save_result"] = "result_identity_s3d_classroom_pre.json"
-    preset["path"]["save_model"] = "model_identity_s3d_classroom.pt"
+    #
+    preset["path"]["save_result"] = "result_identity_mvitv2_classroom_pre.json"
+    preset["path"]["save_model"] = "model_identity_mvitv2_classroom.pt"
     main_0(var_pretrain = True)
-    # #
+    #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
-    preset["nn"]["lr"] = 1e-4
-    preset["path"]["save_result"] = "result_identity_s3d_classroom.json"
+    preset["nn"]["lr"] = 1e-5
+    preset["path"]["save_result"] = "result_identity_mvitv2_classroom.json"
     main_0(var_pretrain = False)
-
 
     #
     preset["task"] = "location"
     preset["nn"]["repeat"] = 1
     preset["nn"]["epoch"] = 10
-    preset["nn"]["lr"] = 1e-3
+    preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["classroom"]
-    preset["path"]["save_result"] = "result_location_s3d_classroom_pre.json"
-    preset["path"]["save_model"] = "model_location_s3d_classroom.pt"
+    preset["path"]["save_result"] = "result_location_mvitv2_classroom_pre.json"
+    preset["path"]["save_model"] = "model_location_mvitv2_classroom.pt"
     main_0(var_pretrain = True)
     # #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
-    preset["nn"]["lr"] = 1e-4
-    preset["path"]["save_result"] = "result_location_s3d_classroom.json"
+    preset["nn"]["lr"] = 1e-5
+    preset["path"]["save_result"] = "result_location_mvitv2_classroom.json"
     main_0(var_pretrain = False)
 
     #
     preset["task"] = "activity"
     preset["nn"]["repeat"] = 1
     preset["nn"]["epoch"] = 10
-    preset["nn"]["lr"] = 1e-3
+    preset["nn"]["lr"] = 1e-4
     preset["data"]["environment"] = ["classroom"]
-    preset["path"]["save_result"] = "result_activity_s3d_classroom_pre.json"
-    preset["path"]["save_model"] = "model_activity_s3d_classroom.pt"
+    preset["path"]["save_result"] = "result_activity_mvitv2_classroom_pre.json"
+    preset["path"]["save_model"] = "model_activity_mvitv2_classroom.pt"
     main_0(var_pretrain = True)
     # #
     preset["nn"]["repeat"] = 10
     preset["nn"]["epoch"] = 1
-    preset["nn"]["lr"] = 1e-4
-    preset["path"]["save_result"] = "result_activity_s3d_classroom.json"
+    preset["nn"]["lr"] = 1e-5
+    preset["path"]["save_result"] = "result_activity_mvitv2_classroom.json"
     main_0(var_pretrain = False)
 
+
+
+
+    #
+    preset["task"] = "identity"
+    preset["nn"]["repeat"] = 1
+    preset["nn"]["epoch"] = 10
+    preset["nn"]["lr"] = 1e-4
+    preset["data"]["environment"] = ["meeting_room"]
+    #
+    preset["path"]["save_result"] = "result_identity_mvitv2_meeting_pre.json"
+    preset["path"]["save_model"] = "model_identity_mvitv2_meeting.pt"
+    main_0(var_pretrain = True)
+    #
+    preset["nn"]["repeat"] = 10
+    preset["nn"]["epoch"] = 1
+    preset["nn"]["lr"] = 1e-5
+    preset["path"]["save_result"] = "result_identity_mvitv2_meeting.json"
+    main_0(var_pretrain = False)
+
+    #
+    preset["task"] = "location"
+    preset["nn"]["repeat"] = 1
+    preset["nn"]["epoch"] = 10
+    preset["nn"]["lr"] = 1e-4
+    preset["data"]["environment"] = ["meeting_room"]
+    preset["path"]["save_result"] = "result_location_mvitv2_meeting_pre.json"
+    preset["path"]["save_model"] = "model_location_mvitv2_meeting.pt"
+    main_0(var_pretrain = True)
+    #
+    preset["nn"]["repeat"] = 10
+    preset["nn"]["epoch"] = 1
+    preset["nn"]["lr"] = 1e-5
+    preset["path"]["save_result"] = "result_location_mvitv2_meeting.json"
+    main_0(var_pretrain = False)
+
+    #
+    preset["task"] = "activity"
+    preset["nn"]["repeat"] = 1
+    preset["nn"]["epoch"] = 10
+    preset["nn"]["lr"] = 1e-4
+    preset["data"]["environment"] = ["meeting_room"]
+    preset["path"]["save_result"] = "result_activity_mvitv2_meeting_pre.json"
+    preset["path"]["save_model"] = "model_activity_mvitv2_meeting.pt"
+    main_0(var_pretrain = True)
+    # #
+    preset["nn"]["repeat"] = 10
+    preset["nn"]["epoch"] = 1
+    preset["nn"]["lr"] = 1e-5
+    preset["path"]["save_result"] = "result_activity_mvitv2_meeting.json"
+    main_0(var_pretrain = False)
+
+
+
+
+    #
+    preset["task"] = "identity"
+    preset["nn"]["repeat"] = 1
+    preset["nn"]["epoch"] = 10
+    preset["nn"]["lr"] = 1e-4
+    preset["data"]["environment"] = ["empty_room"]
+    preset["path"]["save_result"] = "result_identity_mvitv2_empty_pre.json"
+    preset["path"]["save_model"] = "model_identity_mvitv2_empty.pt"
+    main_0(var_pretrain = True)
+    #
+    preset["nn"]["repeat"] = 10
+    preset["nn"]["epoch"] = 1
+    preset["nn"]["lr"] = 1e-5
+    preset["path"]["save_result"] = "result_identity_mvitv2_empty.json"
+    main_0(var_pretrain = False)
+
+    #
+    preset["task"] = "location"
+    preset["nn"]["repeat"] = 1
+    preset["nn"]["epoch"] = 10
+    preset["nn"]["lr"] = 1e-4
+    preset["data"]["environment"] = ["empty_room"]
+    preset["path"]["save_result"] = "result_location_mvitv2_empty_pre.json"
+    preset["path"]["save_model"] = "model_location_mvitv2_empty.pt"
+    main_0(var_pretrain = True)
+    # #
+    preset["nn"]["repeat"] = 10
+    preset["nn"]["epoch"] = 1
+    preset["nn"]["lr"] = 1e-5
+    preset["path"]["save_result"] = "result_location_mvitv2_empty.json"
+    main_0(var_pretrain = False)
+
+    #
+    preset["task"] = "activity"
+    preset["nn"]["repeat"] = 1
+    preset["nn"]["epoch"] = 10
+    preset["nn"]["lr"] = 1e-4
+    preset["data"]["environment"] = ["empty_room"]
+    preset["path"]["save_result"] = "result_activity_mvitv2_empty_pre.json"
+    preset["path"]["save_model"] = "model_activity_mvitv2_empty.pt"
+    main_0(var_pretrain = True)
+    # #
+    preset["nn"]["repeat"] = 10
+    preset["nn"]["epoch"] = 1
+    preset["nn"]["lr"] = 1e-5
+    preset["path"]["save_result"] = "result_activity_mvitv2_empty.json"
+    main_0(var_pretrain = False)
