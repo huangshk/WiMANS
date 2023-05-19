@@ -5,7 +5,7 @@ import pandas as pd
 from preset import preset
 import torch
 import torchvision
-from torchvision.models.video import R3D_18_Weights, MViT_V1_B_Weights, S3D_Weights, MViT_V2_S_Weights, Swin3D_T_Weights
+from torchvision.models.video import R3D_18_Weights, S3D_Weights, MViT_V1_B_Weights, Swin3D_T_Weights
 
 #
 ##
@@ -18,11 +18,14 @@ def preprocess_video(var_path_data_x,
     if var_target == "ResNet":
         transform = R3D_18_Weights.DEFAULT.transforms()
     #
+    elif var_target == "S3D":
+        transform = S3D_Weights.DEFAULT.transforms()
+    #
     elif var_target == "MViTv1":
         transform = MViT_V1_B_Weights.DEFAULT.transforms()
     #
-    elif var_target == "S3D":
-        transform = S3D_Weights.DEFAULT.transforms()
+    elif var_target == "Swin":
+        transform = Swin3D_T_Weights.DEFAULT.transforms()
     #
     ##
     data_pd_y = pd.read_csv(var_path_data_y, dtype = str)
@@ -58,8 +61,8 @@ if __name__ == "__main__":
     var_time = time.time()
     preprocess_video(preset["path"]["data_x"], 
                      preset["path"]["data_y"], 
-                     "MViTv1",
-                     "/home/hwang/Lab/Project/WiMans/cache/mvit")
+                     "Swin",
+                     "/home/hwang/Lab/Project/WiMans/cache/swin")
     print("Preprocess Time:", time.time() - var_time)
     #
     # var_time = time.time()
