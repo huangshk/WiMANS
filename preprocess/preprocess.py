@@ -40,4 +40,4 @@ def extract_csi_amp(var_dir_mat, var_dir_amp):
 if __name__ == "__main__":
     #
     ##
-    extract_csi_amp("./data/csi/mat", "./data/csi/amp")
+    extract_csi_amp("./dataset/wifi_csi/mat", "./dataset/wifi_csi/amp")
