@@ -1,6 +1,6 @@
 """
 [file]          lstm.py
-[description]   
+[description]   implement and evaluate the WiFi-based model LSTM
 """
 #
 ##

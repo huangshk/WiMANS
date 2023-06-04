@@ -1,6 +1,6 @@
 """
 [file]          that.py
-[description]   
+[description]   implement and evaluate the WiFi-based model THAT
 """
 #
 ##
@@ -14,8 +14,8 @@ from sklearn.metrics import classification_report, accuracy_score
 #
 from train import train
 from preset import preset
-#
-# torch.backends.cudnn.benchmark = True
+
+
 
 
 
@@ -86,11 +86,6 @@ class Gaussian_Position(torch.nn.Module):
         var_output = var_input + var_position_encoding.unsqueeze(0)
         #
         return var_output
-
-
-
-
-
 
 
 
@@ -173,11 +168,6 @@ class Encoder(torch.nn.Module):
         #
         return var_output
     
-
-
-
-
-
 
 
 
@@ -317,14 +307,6 @@ class THAT(torch.nn.Module):
         return var_output
 
         
-
-
-
-
-
-
-
-
 
 
 

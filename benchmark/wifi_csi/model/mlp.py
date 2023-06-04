@@ -1,6 +1,6 @@
 """
 [file]          mlp.py
-[description]   
+[description]   implement and evaluate the WiFi-based model MLP
 """
 #
 ##

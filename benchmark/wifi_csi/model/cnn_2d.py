@@ -1,6 +1,6 @@
 """
 [file]          cnn_2d.py
-[description]   
+[description]   implement and evaluate the WiFi-based model CNN-2D
 """
 #
 ##

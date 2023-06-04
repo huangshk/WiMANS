@@ -1,6 +1,6 @@
 """
 [file]          ablstm.py
-[description]   
+[description]   implement and evaluate the WiFi-based model ABLSTM
 """
 #
 ##

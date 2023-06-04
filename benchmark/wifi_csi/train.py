@@ -1,6 +1,6 @@
 """
 [file]          train.py
-[description]   
+[description]   function to train WiFi-based models
 """
 #
 ##
@@ -12,7 +12,6 @@ from torch import device
 from torch.nn import Module
 from torch.optim import Optimizer
 from torch.utils.data import TensorDataset, DataLoader
-from numpy import ndarray
 from copy import deepcopy
 from sklearn.metrics import accuracy_score
 
@@ -32,6 +31,23 @@ def train(model: Module,
           var_batch_size: int,
           var_epochs: int,
           device: device):
+    
+    """
+    [description]
+    : generic training function for WiFi-based models
+    [parameter]
+    : model: Pytorch model to train
+    : optimizer: optimizer to train the model (e.g., Adam)
+    : loss: loss function to train the model (e.g., BCEWithLogitsLoss)
+    : data_train_set: training set
+    : data_test_set: test set
+    : var_threshold: threshold to binarize the sigmoid outputs
+    : var_batch_size: batch size of each training step
+    : var_epochs: number of epochs to train the model
+    : device: device (cuda or cpu) to train the model
+    [return]
+    : var_best_weight: the weights of the trained model
+    """
     #
     ##
     data_train_loader = DataLoader(data_train_set, var_batch_size, shuffle = True, pin_memory = True)
@@ -44,7 +60,8 @@ def train(model: Module,
     ##
     for var_epoch in range(var_epochs):
         #
-        ##
+        ## ---------------------------------------- Train -----------------------------------------
+        #
         var_time_e0 = time.time()
         #
         model.train()
@@ -58,7 +75,8 @@ def train(model: Module,
             #
             predict_train_y = model(data_batch_x)
             #
-            var_loss_train = loss(predict_train_y, data_batch_y.reshape(data_batch_y.shape[0], -1).float())
+            var_loss_train = loss(predict_train_y, 
+                                  data_batch_y.reshape(data_batch_y.shape[0], -1).float())
             #
             optimizer.zero_grad()
             #
@@ -77,7 +95,8 @@ def train(model: Module,
         var_accuracy_train = accuracy_score(data_batch_y.astype(int), 
                                             predict_train_y.astype(int))
         #
-        ##
+        ## -------------------------------------- Evaluate ----------------------------------------
+        #
         model.eval()
         #
         with torch.no_grad():
@@ -89,7 +108,8 @@ def train(model: Module,
             #
             predict_test_y = model(data_test_x)
             #
-            var_loss_test = loss(predict_test_y, data_test_y.reshape(data_test_y.shape[0], -1).float())
+            var_loss_test = loss(predict_test_y, 
+                                 data_test_y.reshape(data_test_y.shape[0], -1).float())
             #
             predict_test_y = (torch.sigmoid(predict_test_y) > var_threshold).float()
             #
@@ -102,7 +122,8 @@ def train(model: Module,
             var_accuracy_test = accuracy_score(data_test_y.astype(int), 
                                                predict_test_y.astype(int))
         #
-        ##
+        ## ---------------------------------------- Print -----------------------------------------
+        #
         print(f"Epoch {var_epoch}/{var_epochs}",
               "- %.6fs"%(time.time() - var_time_e0),
               "- Loss %.6f"%var_loss_train.cpu(),
@@ -118,4 +139,3 @@ def train(model: Module,
     #
     ##
     return var_best_weight
-        

@@ -1,26 +1,50 @@
 """
 [file]          run.py
-[description]   
+[description]   run WiFi-based models
 """
 #
 ##
 import json
-
+import argparse
 from sklearn.model_selection import train_test_split
-
+#
 from model import *
 from preset import preset
 from load_data import load_data_x, load_data_y, encode_data_y
 
+#
+##
+def parse_args():
+    """
+    [description]
+    : parse the arguments from input
+    """
+    #
+    ##
+    var_args = argparse.ArgumentParser()
+    #
+    var_args.add_argument("--model", default = preset["model"], type = str)
+    var_args.add_argument("--task", default = preset["task"], type = str)
+    var_args.add_argument("--repeat", default = preset["repeat"], type = int)
+    #
+    return var_args.parse_args()
 
 #
 ##
-def main_0():
+def run():
+    """
+    [description]
+    : run WiFi-based models
+    """
     #
-    ##
-    print(preset)
+    ## parse the arguments from input
+    var_args = parse_args()
     #
-    ##
+    var_task = var_args.task
+    var_model = var_args.model
+    var_repeat = var_args.repeat
+    #
+    ## load the annotation file as labels
     data_pd_y = load_data_y(preset["path"]["data_y"],
                             var_environment = preset["data"]["environment"], 
                             var_wifi_band = preset["data"]["wifi_band"], 
@@ -28,30 +52,60 @@ def main_0():
     #
     var_label_list = data_pd_y["label"].to_list()
     #
+    ## load CSI amplitude
     data_x = load_data_x(preset["path"]["data_x"], var_label_list)
     #
-    data_y = encode_data_y(data_pd_y, preset["task"])
-
+    ## encode labels
+    data_y = encode_data_y(data_pd_y, var_task)
     #
-    ##
+    ## a training set (80%) and a test set (20%)
     data_train_x, data_test_x, data_train_y, data_test_y = train_test_split(data_x, data_y, 
                                                                             test_size = 0.2, 
                                                                             shuffle = True, 
                                                                             random_state = 39)
     #
-    # result = run_strf(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
-    # result = run_mlp(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
-    # result = run_lstm(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
-    # result = run_cnn_1d(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
-    # result = run_cnn_2d(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
-    # result = run_cnn_lstm(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
-    # result = run_ablstm(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
-    result = run_that(data_train_x, data_train_y, data_test_x, data_test_y, preset["nn"]["repeat"])
+    ## select and run a WiFi-based model
+    if var_model == "ST-RF":
+        result = run_strf(data_train_x, data_train_y, 
+                          data_test_x, data_test_y, var_repeat)
     #
+    elif var_model == "MLP":
+        result = run_mlp(data_train_x, data_train_y, 
+                         data_test_x, data_test_y, var_repeat)
+    #
+    elif var_model == "LSTM":
+        result = run_lstm(data_train_x, data_train_y, 
+                          data_test_x, data_test_y, var_repeat)
+    #
+    elif var_model == "CNN-1D":
+        result = run_cnn_1d(data_train_x, data_train_y, 
+                            data_test_x, data_test_y, var_repeat)
+    #
+    elif var_model == "CNN-2D":
+        result = run_cnn_2d(data_train_x, data_train_y, 
+                            data_test_x, data_test_y, var_repeat)
+    #
+    elif var_model == "CLSTM":
+        result = run_cnn_lstm(data_train_x, data_train_y, 
+                              data_test_x, data_test_y, var_repeat)
+    #
+    elif var_model == "ABLSTM":
+        result = run_ablstm(data_train_x, data_train_y, 
+                            data_test_x, data_test_y, var_repeat)
+    #
+    elif var_model == "THAT":
+        result = run_that(data_train_x, data_train_y, 
+                          data_test_x, data_test_y, var_repeat)
+    #
+    ##
+    result["model"] = var_model
+    result["task"] = var_task
     result["data"] = preset["data"]
     result["nn"] = preset["nn"]
     #
     print(result)
+    #
+    ## save results
     var_file = open(preset["path"]["save"], 'w')
     json.dump(result, var_file, indent = 4)
 
@@ -60,155 +114,4 @@ def main_0():
 if __name__ == "__main__":
     #
     ##
-    # main_0()
-    #
-    ##
-    preset["data"]["wifi_band"] = None
-    #
-    ##
-    preset["task"] = "activity"
-    #
-    preset["data"]["environment"] = ["classroom"]
-    #
-    preset["data"]["num_users"] = ["0", "1"]
-    preset["path"]["save"] = "result_activity_that_classroom_01.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2"]
-    preset["path"]["save"] = "result_activity_that_classroom_02.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3"]
-    preset["path"]["save"] = "result_activity_that_classroom_03.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3", "4"]
-    preset["path"]["save"] = "result_activity_that_classroom_04.json"
-    main_0()
-    #
-    preset["data"]["environment"] = ["meeting_room"]
-    #
-    preset["data"]["num_users"] = ["0", "1"]
-    preset["path"]["save"] = "result_activity_that_meeting_01.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2"]
-    preset["path"]["save"] = "result_activity_that_meeting_02.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3"]
-    preset["path"]["save"] = "result_activity_that_meeting_03.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3", "4"]
-    preset["path"]["save"] = "result_activity_that_meeting_04.json"
-    main_0()
-    #
-    preset["data"]["environment"] = ["empty_room"]
-    #
-    preset["data"]["num_users"] = ["0", "1"]
-    preset["path"]["save"] = "result_activity_that_empty_01.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2"]
-    preset["path"]["save"] = "result_activity_that_empty_02.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3"]
-    preset["path"]["save"] = "result_activity_that_empty_03.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3", "4"]
-    preset["path"]["save"] = "result_activity_that_empty_04.json"
-    main_0()
-
-
-    #
-    ##
-    preset["task"] = "location"
-    #
-    preset["data"]["environment"] = ["classroom"]
-    #
-    preset["data"]["num_users"] = ["0", "1"]
-    preset["path"]["save"] = "result_location_that_classroom_01.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2"]
-    preset["path"]["save"] = "result_location_that_classroom_02.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3"]
-    preset["path"]["save"] = "result_location_that_classroom_03.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3", "4"]
-    preset["path"]["save"] = "result_location_that_classroom_04.json"
-    main_0()
-    #
-    preset["data"]["environment"] = ["meeting_room"]
-    #
-    preset["data"]["num_users"] = ["0", "1"]
-    preset["path"]["save"] = "result_location_that_meeting_01.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2"]
-    preset["path"]["save"] = "result_location_that_meeting_02.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3"]
-    preset["path"]["save"] = "result_location_that_meeting_03.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3", "4"]
-    preset["path"]["save"] = "result_location_that_meeting_04.json"
-    main_0()
-    #
-    preset["data"]["environment"] = ["empty_room"]
-    #
-    preset["data"]["num_users"] = ["0", "1"]
-    preset["path"]["save"] = "result_location_that_empty_01.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2"]
-    preset["path"]["save"] = "result_location_that_empty_02.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3"]
-    preset["path"]["save"] = "result_location_that_empty_03.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3", "4"]
-    preset["path"]["save"] = "result_location_that_empty_04.json"
-    main_0()
-
-
-    #
-    ##
-    preset["task"] = "identity"
-    #
-    preset["data"]["environment"] = ["classroom"]
-    #
-    preset["data"]["num_users"] = ["0", "1"]
-    preset["path"]["save"] = "result_identity_that_classroom_01.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2"]
-    preset["path"]["save"] = "result_identity_that_classroom_02.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3"]
-    preset["path"]["save"] = "result_identity_that_classroom_03.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3", "4"]
-    preset["path"]["save"] = "result_identity_that_classroom_04.json"
-    main_0()
-    #
-    preset["data"]["environment"] = ["meeting_room"]
-    #
-    preset["data"]["num_users"] = ["0", "1"]
-    preset["path"]["save"] = "result_identity_that_meeting_01.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2"]
-    preset["path"]["save"] = "result_identity_that_meeting_02.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3"]
-    preset["path"]["save"] = "result_identity_that_meeting_03.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3", "4"]
-    preset["path"]["save"] = "result_identity_that_meeting_04.json"
-    main_0()
-    #
-    preset["data"]["environment"] = ["empty_room"]
-    #
-    preset["data"]["num_users"] = ["0", "1"]
-    preset["path"]["save"] = "result_identity_that_empty_01.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2"]
-    preset["path"]["save"] = "result_identity_that_empty_02.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3"]
-    preset["path"]["save"] = "result_identity_that_empty_03.json"
-    main_0()
-    preset["data"]["num_users"] = ["0", "1", "2", "3", "4"]
-    preset["path"]["save"] = "result_identity_that_empty_04.json"
-    main_0()
+    run()

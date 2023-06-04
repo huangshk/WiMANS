@@ -1,6 +1,6 @@
 """
 [file]          __init__.py
-[description]   
+[description]   directory of WiFi-based models
 """
 #
 ##
@@ -13,6 +13,8 @@ from .cnn_lstm import run_cnn_lstm
 from .ablstm import run_ablstm
 from .that import run_that
 
+#
+##
 __all__ = ["run_strf",
            "run_mlp",
            "run_lstm",
