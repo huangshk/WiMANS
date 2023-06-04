@@ -2,6 +2,7 @@
 *.mat
 *.npy
 *.mp4
+*.csv
 *.png
 *.jpg
 *.out
