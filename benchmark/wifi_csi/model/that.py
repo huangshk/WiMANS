@@ -1,6 +1,7 @@
 """
 [file]          that.py
 [description]   implement and evaluate the WiFi-based model THAT
+                https://github.com/windofshadow/THAT
 """
 #
 ##
@@ -15,10 +16,8 @@ from sklearn.metrics import classification_report, accuracy_score
 from train import train
 from preset import preset
 
-
-
-
-
+#
+##
 ## ------------------------------------------------------------------------------------------ ##
 ## ----------------------------------- Gaussian Encoding ------------------------------------ ##
 ## ------------------------------------------------------------------------------------------ ##
@@ -87,10 +86,8 @@ class Gaussian_Position(torch.nn.Module):
         #
         return var_output
 
-
-
-
-
+#
+##
 ## ------------------------------------------------------------------------------------------ ##
 ## --------------------------------------- Encoder ------------------------------------------ ##
 ## ------------------------------------------------------------------------------------------ ##
@@ -130,9 +127,9 @@ class Encoder(torch.nn.Module):
                                         torch.nn.Dropout(0.1),
                                         torch.nn.LeakyReLU())
             layer_cnn.append(layer)
-
+        #
         self.layer_cnn = torch.nn.ModuleList(layer_cnn)
-                
+        #
         self.layer_dropout_1 = torch.nn.Dropout(0.1)
 
     #
@@ -168,10 +165,8 @@ class Encoder(torch.nn.Module):
         #
         return var_output
     
-
-
-
-
+#
+##
 ## ------------------------------------------------------------------------------------------ ##
 ## ---------------------------------------- THAT -------------------------------------------- ##
 ## ------------------------------------------------------------------------------------------ ##
@@ -248,11 +243,10 @@ class THAT(torch.nn.Module):
         ##
         self.layer_output = torch.nn.Linear(256 + 32, var_dim_output)
     
-
-
+    #
+    ##
     def forward(self,
                 var_input):
-        
         #
         ##
         var_t = var_input   # shape (batch_size, time_steps, features)
@@ -306,10 +300,6 @@ class THAT(torch.nn.Module):
         ##
         return var_output
 
-        
-
-
-
 #
 ##
 def run_that(data_train_x,
@@ -317,6 +307,18 @@ def run_that(data_train_x,
              data_test_x,
              data_test_y,
              var_repeat = 10):
+    """
+    [description]
+    : run the WiFi-based model THAT
+    [parameter]
+    : data_train_x: numpy array, CSI amplitude to train the model
+    : data_train_y: numpy array, labels to train the model
+    : data_test_x: numpy array, CSI amplitude to test the model
+    : data_test_y: numpy array, labels to test the model
+    : var_repeat: int, number of repeated experiments
+    [return]
+    : result: dict, the results of experiments
+    """
     #
     ##
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

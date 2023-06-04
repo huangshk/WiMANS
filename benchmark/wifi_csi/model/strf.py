@@ -19,6 +19,18 @@ def run_strf(data_train_x,
              data_test_x,
              data_test_y,
              var_repeat = 10):
+    """
+    [description]
+    : run the WiFi-based model ST-RF
+    [parameter]
+    : data_train_x: numpy array, CSI amplitude to train the model
+    : data_train_y: numpy array, labels to train the model
+    : data_test_x: numpy array, CSI amplitude to test the model
+    : data_test_y: numpy array, labels to test the model
+    : var_repeat: int, number of repeated experiments
+    [return]
+    : result: dict, the results of experiments
+    """
     #
     ##
     ## ============================================ Preprocess ============================================
@@ -60,7 +72,7 @@ def run_strf(data_train_x,
     ##
     for var_r in range(var_repeat):
         #
-        ## model define
+        ## define model
         model_rf = RandomForestClassifier(n_estimators = 10, 
                                           random_state = var_r + 39, 
                                           bootstrap = False) 

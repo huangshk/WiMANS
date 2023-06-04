@@ -17,6 +17,9 @@ from preset import preset
 
 #
 ##
+## ------------------------------------------------------------------------------------------ ##
+## --------------------------------------- CLSTM -------------------------------------------- ##
+## ------------------------------------------------------------------------------------------ ##
 class CNN_LSTM(torch.nn.Module):
     #
     ##
@@ -82,11 +85,11 @@ class CNN_LSTM(torch.nn.Module):
         var_t = self.layer_cnn_1d_0(var_t)
         var_t = self.layer_leakyrelu(var_t)
         var_t = self.layer_norm_0(var_t)
-        
+        #
         var_t = self.layer_cnn_1d_1(var_t)
         var_t = self.layer_leakyrelu(var_t)
         var_t = self.layer_norm_1(var_t)
-
+        #
         var_t = self.layer_cnn_1d_2(var_t)
         var_t = self.layer_leakyrelu(var_t)
         var_t = self.layer_norm_2(var_t)
@@ -96,18 +99,15 @@ class CNN_LSTM(torch.nn.Module):
         var_t, _ = self.layer_lstm(var_t)
         #
         var_t = var_t[:, -1, :]
-        
+        #
         var_t = self.layer_dropout(var_t)
         #
         var_t = self.layer_linear(var_t)
-
+        #
         var_output = var_t
         #
         return var_output
      
-
-
-
 #
 ##
 def run_cnn_lstm(data_train_x,
@@ -115,6 +115,18 @@ def run_cnn_lstm(data_train_x,
                  data_test_x,
                  data_test_y,
                  var_repeat = 10):
+    """
+    [description]
+    : run the WiFi-based model CLSTM
+    [parameter]
+    : data_train_x: numpy array, CSI amplitude to train the model
+    : data_train_y: numpy array, labels to train the model
+    : data_test_x: numpy array, CSI amplitude to test the model
+    : data_test_y: numpy array, labels to test the model
+    : var_repeat: int, number of repeated experiments
+    [return]
+    : result: dict, the results of experiments
+    """
     #
     ##
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

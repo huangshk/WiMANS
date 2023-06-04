@@ -15,10 +15,11 @@ from sklearn.metrics import classification_report, accuracy_score
 from train import train
 from preset import preset
 
-
-
 #
 ##
+## ------------------------------------------------------------------------------------------ ##
+## --------------------------------------- CNN-1D ------------------------------------------- ##
+## ------------------------------------------------------------------------------------------ ##
 class CNN_1D(torch.nn.Module):
     #
     ##
@@ -96,8 +97,6 @@ class CNN_1D(torch.nn.Module):
         #
         return var_output
 
-
-
 #
 ##
 def run_cnn_1d(data_train_x,
@@ -105,6 +104,18 @@ def run_cnn_1d(data_train_x,
                data_test_x,
                data_test_y,
                var_repeat = 10):
+    """
+    [description]
+    : run the WiFi-based model CNN-1D
+    [parameter]
+    : data_train_x: numpy array, CSI amplitude to train the model
+    : data_train_y: numpy array, labels to train the model
+    : data_test_x: numpy array, CSI amplitude to test the model
+    : data_test_y: numpy array, labels to test the model
+    : var_repeat: int, number of repeated experiments
+    [return]
+    : result: dict, the results of experiments
+    """
     #
     ##
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

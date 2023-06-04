@@ -1,11 +1,11 @@
 *.pt
+*.mat
 *.npy
+*.mp4
 *.png
 *.jpg
 *.out
 *.json
 
-data/
-dataset/
 result/
 __pycache__/
