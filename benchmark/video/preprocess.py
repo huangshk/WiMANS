@@ -1,30 +1,45 @@
+"""
+[file]          preprocess.py
+[description]   preprocess video data
+"""
 import os
 import time
+import argparse
 import numpy as np
 import pandas as pd
-from preset import preset
-import torch
-import torchvision
+import torch, torchvision
+#
 from torchvision.models.video import R3D_18_Weights, S3D_Weights, MViT_V1_B_Weights, Swin3D_T_Weights
+#
+from preset import preset
 
 #
 ##
 def preprocess_video(var_path_data_x, 
                      var_path_data_y,
-                     var_target,
-                     var_path_save):
+                     var_model,
+                     var_path_data_pre_x):
+    """
+    [description]
+    : preprocess video data according to the video-based model
+    [parameter]
+    : var_path_data_x: string, the directory to read raw video files (*.mp4)
+    : var_path_data_y: string, the path of the annotation file
+    : var_model: string, the model for which the videos should be preprocessed
+    : var_path_data_pre_x: string, the directory to save preprocessed videos (*.npy)
+    """
     #
     ##
-    if var_target == "ResNet":
+    if var_model == "ResNet":
         transform = R3D_18_Weights.DEFAULT.transforms()
     #
-    elif var_target == "S3D":
+    elif var_model == "S3D":
         transform = S3D_Weights.DEFAULT.transforms()
     #
-    elif var_target == "MViTv1":
+    elif var_model == "MViT-v1" or var_model == "MViT-v2":
         transform = MViT_V1_B_Weights.DEFAULT.transforms()
     #
-    elif var_target == "Swin":
+    elif var_model == "Swin-T" or var_model == "Swin-S":
         transform = Swin3D_T_Weights.DEFAULT.transforms()
     #
     ##
@@ -48,24 +63,38 @@ def preprocess_video(var_path_data_x,
         #
         print(var_label, data_video_x.shape, data_pre_x.shape)
         #
-        np.save(os.path.join(var_path_save, var_label + ".npy"), data_pre_x)
-        #
-        # if var_i >=20: break
+        np.save(os.path.join(var_path_data_pre_x, var_label + ".npy"), data_pre_x)
     
-
+#
+##
+def parse_args():
+    """
+    [description]
+    : parse the arguments from input
+    """
+    #
+    ##
+    var_args = argparse.ArgumentParser()
+    #
+    var_args.add_argument("--path_data_x", default = preset["path"]["data_x"], type = str)
+    var_args.add_argument("--path_data_y", default = preset["path"]["data_y"], type = str)
+    var_args.add_argument("--model", default = preset["model"], type = str)
+    var_args.add_argument("--path_data_pre_x", default = preset["path"]["data_pre_x"], type = str)
+    #
+    return var_args.parse_args()
 
 #
 ##
 if __name__ == "__main__":
     #
-    var_time = time.time()
-    preprocess_video(preset["path"]["data_x"], 
-                     preset["path"]["data_y"], 
-                     "Swin",
-                     "/home/hwang/Lab/Project/WiMans/cache/swin")
-    print("Preprocess Time:", time.time() - var_time)
+    ##
+    var_args = parse_args()
     #
-    # var_time = time.time()
-    # data = np.load("/home/hwang/Lab/Project/WiMans/cache/mvit/act_1_9.npy")
-    # print(data.shape, data.dtype)
-    # print(time.time()-var_time)
+    var_time = time.time()
+    #
+    preprocess_video(var_path_data_x = var_args.path_data_x, 
+                     var_path_data_y = var_args.path_data_y,
+                     var_model = var_args.model,
+                     var_path_data_pre_x = var_args.path_data_pre_x)
+    #
+    print("Preprocess Time:", time.time() - var_time)

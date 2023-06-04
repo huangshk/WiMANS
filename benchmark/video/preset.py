@@ -1,42 +1,48 @@
 """
 [file]          preset.py
-[description]   
+[description]   default settings of video-based models
 """
 #
 ##
 preset = {
     #
-    ##
+    ## define the model
+    "model": "Swin-T",                                  # identity, activity, location
+    #
+    ## define the task
+    "task": "identity",                                 # identity, activity, location
+    #
+    ## number of repeated experiments
+    "repeat": 10,
+    #
+    ## path of data
     "path": {
-        "data_x": "dataset/video",
-        "data_pre_x": "/home/hwang/Lab/Project/WiMans/cache/mvit",
-        "data_y": "dataset/annotation.csv",
-        "save_result": "result_identity_mvit_classroom_pre.json",
-        "save_model": "model_identity_mvit_classroom.pt",
+        "data_x": "dataset/video",                      # directory of video files 
+        "data_pre_x": "dataset/cache/resnet",           # directory of preprocessed video files 
+        "data_y": "dataset/annotation.csv",             # path of the annotation file
+        "save_result": "result.json",                   # path to save the results
+        "save_model": None,                             # path to save/load the model
     },
     #
-    ##
+    ## data selection for experiments
     "data": {
-        "num_users": ["0", "1", "2", "3", "4", "5"],        # "0", "1", "2", "3", "4", "5"
-        "environment": ["classroom"],                       # "classroom", "meeting_room", "empty_room"
+        "num_users": ["0", "1", "2", "3", "4", "5"],    # select the number(s) of users, (e.g., ["0", "1"], ["2", "3", "4", "5"])
+        "environment": ["classroom"],                   # select the environment(s) (e.g., ["classroom"], ["meeting_room"], ["empty_room"])
     },
     #
-    ##
-    "task": "identity",                                     # identity, activity, location
-    #
-    ##
+    ## hyperparameters of models
     "nn": {
-        "lr": 1e-4, # 1e-3
-        "epoch": 10,
-        "batch_size": 8,
-        "threshold": 0.5,
-        "repeat": 1,
-        "frame_stride": 6,
+        "lr": 1e-4,                                     # learning rate
+        "epoch": 20,                                    # number of epochs
+        "batch_size": 8,                                # batch size
+        "threshold": 0.5,                               # threshold to binarize the sigmoid outputs
+        # "repeat": 1,
+        "frame_stride": 1,                              # stride to downsample video frames
     },
     #
-    ##
+    ## the encoding of activities and locations
     "encoding": {
-        "activity": {
+        "activity": {                                   # the encoding of different activities
             "nan":      [0, 0, 0, 0, 0, 0, 0, 0, 0],
             "nothing":  [1, 0, 0, 0, 0, 0, 0, 0, 0],
             "walk":     [0, 1, 0, 0, 0, 0, 0, 0, 0],
@@ -48,7 +54,7 @@ preset = {
             "sit_down": [0, 0, 0, 0, 0, 0, 0, 1, 0],
             "stand_up": [0, 0, 0, 0, 0, 0, 0, 0, 1],
         },
-        "location": {
+        "location": {                                   # the encoding of different locations
             "nan":  [0, 0, 0, 0, 0],
             "a":    [1, 0, 0, 0, 0],
             "b":    [0, 1, 0, 0, 0],

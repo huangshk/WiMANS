@@ -1,6 +1,6 @@
 """
 [file]          load_data.py
-[description]   functions to load the annotation file and  CSI amplitude, and functions to encode labels
+[description]   load the annotation file and CSI amplitude, and encode labels
 """
 #
 ##

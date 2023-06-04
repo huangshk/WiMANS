@@ -1,6 +1,6 @@
 """
 [file]          preset.py
-[description]   default settings of experiments
+[description]   default settings of WiFi-based models
 """
 #
 ##

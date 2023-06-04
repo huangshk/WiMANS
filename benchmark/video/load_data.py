@@ -1,6 +1,6 @@
 """
 [file]          load_data.py
-[description]   
+[description]   load the annotation file and video files, and encode labels
 """
 #
 ##
@@ -14,6 +14,9 @@ from preset import preset
 
 #
 ##
+## ------------------------------------------------------------------------------------------ ##
+## ------------------------------------ VideoDataset ---------------------------------------- ##
+## ------------------------------------------------------------------------------------------ ##
 class VideoDataset(torch.utils.data.Dataset):
     #
     ##
@@ -28,7 +31,8 @@ class VideoDataset(torch.utils.data.Dataset):
         #
         ##
         var_label_list = data_pd_y["label"].to_list()
-        self.var_path_list = [os.path.join(var_path_pre_x, var_label + ".npy") for var_label in var_label_list]
+        self.var_path_list = [os.path.join(var_path_pre_x, var_label + ".npy") 
+                              for var_label in var_label_list]
         #
         self.data_y = encode_data_y(data_pd_y, var_task)
         #
@@ -50,11 +54,6 @@ class VideoDataset(torch.utils.data.Dataset):
     ##
     def __getitem__(self, var_i):
         #
-        ##
-        # data_i_x = torch.from_numpy(np.load(self.var_path_list[var_i])[::self.var_frame_stride])
-        # data_i_x = torch.permute(data_i_x, (1, 0, 2, 3))    # "TCHW" -> "CTHW"
-        # data_i_y = torch.from_numpy(self.data_y[var_i])
-        #
         ## "TCHW" -> "CTHW"
         data_i_x = np.swapaxes(np.load(self.var_path_list[var_i])[::self.var_frame_stride], 1, 0)
         data_i_y = self.data_y[var_i]
@@ -66,6 +65,17 @@ class VideoDataset(torch.utils.data.Dataset):
 def load_data_y(var_path_data_y,
                 var_environment = None, 
                 var_num_users = None):
+    """
+    [description]
+    : load the annotation file (*.csv) as a pandas dataframe
+    : according to selected environment(s), and number(s) of users
+    [parameter]
+    : var_path_data_y: string, the path of annotation file
+    : var_environment: list, the selected environment(s), e.g., ["classroom"]
+    : var_num_users: list, the selected number(s) of users, e.g., ["0", "1", "2"]
+    [return]
+    : data_pd_y: pandas dataframe, the labels of selected data
+    """
     #
     ##
     data_pd_y = pd.read_csv(var_path_data_y, dtype = str)
@@ -82,6 +92,14 @@ def load_data_y(var_path_data_y,
 ##
 def load_data_x(var_path_data_x, 
                 var_label_list):
+    """
+    [description]
+    : load and check the video files (*.mp4)
+    : according to a label list of selected data
+    [parameter]
+    : var_path_data_x: string, the directory of video files
+    : var_label_list: list, the selected labels
+    """
     #
     ##
     var_path_list = [os.path.join(var_path_data_x, var_label + ".mp4") for var_label in var_label_list]
@@ -100,7 +118,17 @@ def load_data_x(var_path_data_x,
         
 #
 ##
-def encode_data_y(data_pd_y, var_task):
+def encode_data_y(data_pd_y, 
+                  var_task):
+    """
+    [description]
+    : encode labels according to the specific task
+    [parameter]
+    : data_pd_y: pandas dataframe, the labels of different tasks
+    : var_task: string, indicate the task
+    [return]
+    : data_y: numpy array, the label encoding of the task
+    """
     #
     ##
     if var_task == "identity":
@@ -120,6 +148,14 @@ def encode_data_y(data_pd_y, var_task):
 #
 ##
 def encode_identity(data_pd_y):
+    """
+    [description]
+    : encode identity labels in a pandas dataframe
+    [parameter]
+    : data_pd_y: pandas dataframe, the labels of different tasks
+    [return]
+    : data_identity_onehot_y: numpy array, the onehot encoding for identity labels
+    """
     #
     ##
     data_location_pd_y = data_pd_y[["user_1_location", "user_2_location", 
@@ -137,7 +173,17 @@ def encode_identity(data_pd_y):
 
 #
 ##
-def encode_activity(data_pd_y, var_encoding):
+def encode_activity(data_pd_y, 
+                    var_encoding):
+    """
+    [description]
+    : encode activity labels in a pandas dataframe
+    [parameter]
+    : data_pd_y: pandas dataframe, the labels of different tasks
+    : var_encoding: dict, the encoding of different activities
+    [return]
+    : data_activity_onehot_y: numpy array, the onehot encoding for activity labels
+    """
     #
     ##
     data_activity_pd_y = data_pd_y[["user_1_activity", "user_2_activity", 
@@ -152,7 +198,17 @@ def encode_activity(data_pd_y, var_encoding):
 
 #
 ##
-def encode_location(data_pd_y, var_encoding):
+def encode_location(data_pd_y, 
+                    var_encoding):
+    """
+    [description]
+    : encode location labels in a pandas dataframe
+    [parameter]
+    : data_pd_y: pandas dataframe, the labels of different tasks
+    : var_encoding: dict, the encoding of different locations
+    [return]
+    : data_location_onehot_y: numpy array, the onehot encoding for location labels
+    """
     #
     ##
     data_location_pd_y = data_pd_y[["user_1_location", "user_2_location", 

@@ -1,6 +1,6 @@
 """
 [file]          train.py
-[description]   
+[description]   function to train video-based models
 """
 #
 ##
@@ -25,6 +25,23 @@ def train(model: Module,
           var_batch_size: int,
           var_epochs: int,
           device: device):
+    
+    """
+    [description]
+    : generic training function for video-based models
+    [parameter]
+    : model: Pytorch model to train
+    : optimizer: optimizer to train the model (e.g., Adam)
+    : loss: loss function to train the model (e.g., BCEWithLogitsLoss)
+    : data_train_set: training set
+    : data_test_set: test set
+    : var_threshold: threshold to binarize the sigmoid outputs
+    : var_batch_size: batch size of each training step
+    : var_epochs: number of epochs to train the model
+    : device: device (cuda or cpu) to train the model
+    [return]
+    : var_best_weight: the weights of the trained model
+    """
     #
     ##
     data_train_loader = DataLoader(data_train_set, var_batch_size, shuffle = True, num_workers = 4)
@@ -36,7 +53,8 @@ def train(model: Module,
     ##
     for var_epoch in range(var_epochs):
         #
-        ##
+        ## ---------------------------------------- Train -----------------------------------------
+        #
         var_time_e0 = time.time()
         #
         model.train()
@@ -61,9 +79,13 @@ def train(model: Module,
         ##
         result_train_acc, _, _ = test(model, loss, data_train_set, var_threshold, var_batch_size, device)
         #
-        result_test_acc, _, var_loss_test = test(model, loss, data_test_set, var_threshold, var_batch_size, device)
+        ## -------------------------------------- Evaluate ----------------------------------------
         #
-        ##
+        result_test_acc, _, var_loss_test = test(model, loss, data_test_set, 
+                                                 var_threshold, var_batch_size, device)
+        #
+        ## ---------------------------------------- Print -----------------------------------------
+        #
         print(f"Epoch {var_epoch}/{var_epochs}",
               "- %.6fs"%(time.time() - var_time_e0),
               "- Loss %.6f"%var_loss_train.cpu(),
@@ -89,6 +111,21 @@ def test(model: Module,
          var_threshold: float,
          var_batch_size: int,
          device: device):
+    """
+    [description]
+    : generic testing function for video-based models
+    [parameter]
+    : model: Pytorch model to test
+    : loss: loss function to evaluate the model
+    : data_set: dataset to test the model
+    : var_threshold: threshold to binarize the sigmoid outputs
+    : var_batch_size: batch size of testing
+    : device: device (cuda or cpu) to test the model
+    [return]
+    : result_accuracy: model accuracy
+    : result_dict: complete results
+    : var_loss: model loss
+    """
     #
     ##
     data_y = []
@@ -127,7 +164,7 @@ def test(model: Module,
     data_y = data_y.reshape(-1, data_y.shape[-1]).astype(int)
     #
     ## Accuracy
-    result_acc = accuracy_score(data_y, predict_y)
+    result_accuracy = accuracy_score(data_y, predict_y)
     #
     ## Report
     result_dict = classification_report(data_y,
@@ -136,5 +173,5 @@ def test(model: Module,
                                         zero_division = 0, 
                                         output_dict = True)
     #
-    return result_acc, result_dict, var_loss
+    return result_accuracy, result_dict, var_loss
         
