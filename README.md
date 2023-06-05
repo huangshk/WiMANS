@@ -28,8 +28,13 @@ This repository provides all the [data](https://www.kaggle.com/datasets/c4ecbbf6
 - Pandas 1.4.2
 - PyTorch 2.0.1
 
+We suggest to create the environment by installing `environment.yml` with [Annaconda](https://www.anaconda.com/).
 
+```sh
+git clone https://github.com/huangshk/WiMANS.git
+cd WiMANS
 conda env create -f environment.yml
+```
 
 
 
@@ -68,7 +73,7 @@ Please download the WiMANS dataset and extract it under the "dataset" directory.
 
 
 
-## Benchmark Experiments
+## Experiments
 
 ### WiFi-based Models
 
