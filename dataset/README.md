@@ -18,13 +18,13 @@ Please download the WiMANS dataset and extract it under this directory.
     | - annotation.csv        # labels, annotations (e.g., user identities, locations, activities)
     | - wifi_csi
     |   | - mat
-    |   |   |   act_1_1.mat   # raw CSI sample labeled "act_1_1"
-    |   |   |   act_1_2.mat   # raw CSI sample labeled "act_1_2"
-    |   |   |   ...           # totally 11286 raw CSI samples (*.mat files)
+    |   |   | - act_1_1.mat   # raw CSI sample labeled "act_1_1"
+    |   |   | - act_1_2.mat   # raw CSI sample labeled "act_1_2"
+    |   |   | - ...           # totally 11286 raw CSI samples (*.mat files)
     |   | - amp
-    |   |   |   act_1_1.npy   # CSI amplitude labeled "act_1_1"
-    |   |   |   act_1_2.npy   # CSI amplitude labeled "act_1_2"
-    |   |   |   ...           # totally 11286 samples of CSI amplitude (*.npy files)
+    |   |   | - act_1_1.npy   # CSI amplitude labeled "act_1_1"
+    |   |   | - act_1_2.npy   # CSI amplitude labeled "act_1_2"
+    |   |   | - ...           # totally 11286 samples of CSI amplitude (*.npy files)
     | - video
     |   | - act_1_1.mp4       # video sample labeled "act_1_1"
     |   | - act_1_2.mp4       # video sample labeled "act_1_2"

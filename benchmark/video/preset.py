@@ -18,7 +18,7 @@ preset = {
     ## path of data
     "path": {
         "data_x": "dataset/video",                      # directory of video files 
-        "data_pre_x": "dataset/cache/resnet",           # directory of preprocessed video files 
+        "data_pre_x": "dataset/cache",                  # directory of preprocessed video files 
         "data_y": "dataset/annotation.csv",             # path of annotation file
         "save_result": "result.json",                   # path to save results
         "save_model": None,                             # path to save/load model
