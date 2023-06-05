@@ -2,25 +2,18 @@
 
 This repository provides all the [data](https://www.kaggle.com/datasets/c4ecbbf66f200ced9ad8b7d2e3c0371c6e615ef2ee203174f09bcefb7a12d523), source code, and documents of WiMANS. To the best of our knowledge, WiMANS is the first WiFi-based **multi-user** activity sensing dataset based on WiFi Channel State Information (CSI). WiMANS contains 11286 CSI samples of dual WiFi bands (2.4 / 5 GHz) and synchronized videos for reference and unexplored tasks (e.g., multi-user pose estimation). Each 3-second sample includes 0 to 5 users performing identical/different activities simultaneously, annotated with (anonymized) user identities, locations, and activities.
 
-
 <table align = "center">
-  <tr align = "center"><td><img src="visualize/wifi_csi_act_30_25.gif" height="160"/></td> <td><img src="visualize/wifi_csi_act_49_41.gif" height="160"/></td><td><img src="visualize/wifi_csi_act_88_30.gif" height="160"/></td></tr>
-  <tr align = "center"><td><img src="visualize/video_act_30_25.gif" height="160"/></td><td><img src="visualize/video_act_49_41.gif" height="160"/></td><td><img src="visualize/video_act_88_30.gif" height="160"/></td></tr>
-</table>
-
-
-<table align = "center">
-  <tr align = "center"><td>WiFi CSI (5GHz)</td> <td>Video</td></tr>
+  <tr align = "center"><td rowspan="2"> <b>Sample <br/> "act_30_25" </b></td><td>WiFi CSI (5GHz)</td> <td>Video</td></tr>
   <tr align = "center"><td><img src="visualize/wifi_csi_act_30_25.gif" height="180"/></td><td><img src="visualize/video_act_30_25.gif" height="180"/></td></tr>
 </table>
 
 <table align = "center">
-  <tr align = "center"><td>WiFi CSI (2.4GHz)</td> <td>Video</td></tr>
+  <tr align = "center"><td rowspan="2"> <b>Sample <br/> "act_49_41"</b></td><td>WiFi CSI (2.4GHz)</td> <td>Video</td></tr>
   <tr align = "center"><td><img src="visualize/wifi_csi_act_49_41.gif" height="180"/></td><td><img src="visualize/video_act_49_41.gif" height="180"/></td></tr>
 </table>
 
 <table align = "center">
-  <tr align = "center"><td>WiFi CSI (2.4GHz)</td> <td>Video</td></tr>
+  <tr align = "center"><td rowspan="2"> <b>Sample <br/> "act_88_30" </b></td><td>WiFi CSI (2.4GHz)</td> <td>Video</td></tr>
   <tr align = "center"><td><img src="visualize/wifi_csi_act_88_30.gif" height="180"/></td><td><img src="visualize/video_act_88_30.gif" height="180"/></td></tr>
 </table>
 
