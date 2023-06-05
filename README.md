@@ -83,6 +83,34 @@ Please download the WiMANS dataset and extract it under the `dataset` directory.
     |   | - ...               # totally 11286 video samples (*.mp4 files)
     ```
 
+Annotations are saved in the "annotation.csv" file, which can be read using Pandas.
+
+```python
+import pandas as pd
+data_pd_y = pd.read_csv(var_path_data_y, dtype = str)    # "var_path_data_y" is the path of "annotation.csv"
+```
+
+Raw CSI data are saved in "*.mat" files, which can be read using SciPy.
+
+```python
+import scipy.io as scio
+data_mat = scio.loadmat(var_path_mat)    # "var_path_mat" is the path of "*.mat" file
+```
+
+The preprocessed data of CSI amplitude are saved in "*.npy" files, which can be read using NumPy.
+
+```python
+import numpy as np
+data_csi = np.load(var_path)    # "var_path" is the path of "*.ny" file
+```
+
+Video data are saved in "*.mp4" files, which can be read using PyTorch.
+
+```python
+import torchvision
+data_video_x, _, _ = torchvision.io.read_video(var_path, output_format = "TCHW")    # "var_path" is the path of "*.mp4" file
+```
+
 
 
 ## Experiments
