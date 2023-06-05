@@ -38,7 +38,7 @@ This repository presents WiMANS, including [the entire dataset](https://www.kagg
 - Pandas 1.4.2
 - PyTorch 2.0.1
 
-We suggest to create the environment by installing `environment.yml` with [Anaconda](https://www.anaconda.com/).
+We suggest to create the environment by installing `environment.yaml` with [Anaconda](https://www.anaconda.com/).
 
 ```sh
 git clone https://github.com/huangshk/WiMANS.git
