@@ -4,17 +4,17 @@ This repository provides all the [data](https://www.kaggle.com/datasets/c4ecbbf6
 
 <table align = "center">
   <tr align = "center"><td rowspan="2"> <b>Sample <br/> "act_30_25" </b></td><td>WiFi CSI (5GHz)</td> <td>Synchronized Video</td></tr>
-  <tr align = "center"><td><img src="visualize/wifi_csi_act_30_25.gif" height="200"/></td><td><img src="visualize/video_act_30_25.gif" height="200"/></td></tr>
+  <tr align = "center"><td><img src="visualize/wifi_csi_act_30_25.gif" height="188"/></td><td><img src="visualize/video_act_30_25.gif" height="188"></td></tr>
 </table>
 
 <table align = "center">
   <tr align = "center"><td rowspan="2"> <b>Sample <br/> "act_49_41"</b></td><td>WiFi CSI (2.4GHz)</td> <td>Synchronized Video</td></tr>
-  <tr align = "center"><td><img src="visualize/wifi_csi_act_49_41.gif" height="200"/></td><td><img src="visualize/video_act_49_41.gif" height="200"/></td></tr>
+  <tr align = "center"><td><img src="visualize/wifi_csi_act_49_41.gif" height="188"/></td><td><img src="visualize/video_act_49_41.gif" height="188"/></td></tr>
 </table>
 
 <table align = "center">
   <tr align = "center"><td rowspan="2"> <b>Sample <br/> "act_88_30" </b></td><td>WiFi CSI (2.4GHz)</td> <td>Synchronized Video</td></tr>
-  <tr align = "center"><td><img src="visualize/wifi_csi_act_88_30.gif" height="200"/></td><td><img src="visualize/video_act_88_30.gif" height="200"/></td></tr>
+  <tr align = "center"><td><img src="visualize/wifi_csi_act_88_30.gif" height="188"/></td><td><img src="visualize/video_act_88_30.gif" height="188"/></td></tr>
 </table>
 
 
