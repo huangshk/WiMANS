@@ -173,10 +173,6 @@ class Encoder(torch.nn.Module):
 #
 ##
 class THAT(torch.nn.Module):
-    """
-    [description]
-    : model to implement THAT
-    """
     #
     ##
     def __init__(self, 
