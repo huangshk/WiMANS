@@ -175,7 +175,6 @@ preset = {
     },
     ...
 }
-
 ```
 
 We preprocess video data according to the original paper of video-based models. `--path_data_x` defines the input directory of raw videos. `--path_data_y` defines the input directory of labels. `--model` defines the model for which the videos should be preprocessed. `--path_data_pre_x` defines the output directory of preprocessed videos (*.npy).
