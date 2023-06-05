@@ -124,7 +124,7 @@ Edit `benchmark/wifi_csi/preset.py` to select the number(s) of users, WiFi band(
 ```python
 preset = {
     ...
-	"data": {
+    "data": {
         "num_users": ["0", "1", "2", "3", "4", "5"],# e.g., ["0", "1"], ["2", "3", "4", "5"]
         "wifi_band": ["2.4"],                       # e.g., ["2.4"], ["5"], ["2.4", "5"]
         "environment": ["classroom"],               # e.g., ["classroom"], ["meeting_room"], ["empty_room"]
