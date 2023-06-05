@@ -2,10 +2,7 @@
 
 
 
-
-<center>
-<img src="visualize/video_act_30_25.gif" height="180" title="hahahahahaha"/>  <img src="visualize/wifi_csi_act_30_25.gif" height="180"/>
-</center>
+<center><img src="visualize/video_act_30_25.gif" height="180"/>  <img src="visualize/wifi_csi_act_30_25.gif" height="180"/></center>
 
 <center>
 <img src="visualize/video_act_49_41.gif" height="180"/>  <img src="visualize/wifi_csi_act_49_41.gif" height="180"/>
