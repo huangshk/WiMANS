@@ -43,7 +43,7 @@ We suggest to create the environment by installing `environment.yaml` with [Anac
 ```sh
 git clone https://github.com/huangshk/WiMANS.git
 cd WiMANS
-conda env create -f environment.yml
+conda env create -f environment.yaml
 ```
 
 
