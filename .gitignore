@@ -1,4 +1,5 @@
 *.pt
+*.dat
 *.mat
 *.npy
 *.mp4

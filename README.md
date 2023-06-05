@@ -1,5 +1,9 @@
 # WiMANS: A Benchmark Dataset for WiFi-based Multi-user Activity Sensing
 
+
+![select-models](video_act_30_25.gif)
+![select-models](wifi_act_30_25.gif)
+
 ```
 mkdir dataset/wifi_csi/amp
 python benchmark/wifi_csi/preprocess.py --dir_mat="dataset/wifi_csi/mat" --dir_amp="dataset/wifi_csi/amp"
