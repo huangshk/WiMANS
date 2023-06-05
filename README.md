@@ -21,6 +21,15 @@ This repository provides all the [data](https://www.kaggle.com/datasets/c4ecbbf6
 
 ## Environment
 
+- Ubuntu 20.04
+- Python 3.9.12
+- SciPy 1.7.3
+- NumPy 1.21.5
+- Pandas 1.4.2
+- PyTorch 2.0.1
+
+
+
 
 
 ## Dataset Directory
