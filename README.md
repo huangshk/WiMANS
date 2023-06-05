@@ -11,13 +11,13 @@
 </table>
 
 <table align = "center">
-  <tr align = "center"><td colspan="2"><b>Sample "act_49_41"<\b></td>
+  <tr align = "center"><td colspan="2"><b>Sample "act_49_41"</b></td>
   <tr align = "center"><td>WiFi CSI (2.4GHz) Data</td> <td>Video Data</td></tr>
   <tr align = "center"><td><img src="visualize/wifi_csi_act_49_41.gif" height="200"/></td><td><img src="visualize/video_act_49_41.gif" height="200"/></td></tr>
 </table>
 
 <table align = "center">
-  <tr align = "center"><td colspan="2"><b>Sample "act_88_30"<\b></td>
+  <tr align = "center"><td colspan="2"><b>Sample "act_88_30"</b></td>
   <tr align = "center"><td>WiFi CSI (2.4GHz) Data</td> <td>Video Data</td></tr>
   <tr align = "center"><td><img src="visualize/wifi_csi_act_88_30.gif" height="200"/></td><td><img src="visualize/video_act_88_30.gif" height="200"/></td></tr>
 </table>
