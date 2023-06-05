@@ -4,8 +4,8 @@ This repository provides all the [data](https://www.kaggle.com/datasets/c4ecbbf6
 
 
 <table align = "center">
-  <tr align = "center"><td><img src="visualize/wifi_csi_act_30_25.gif" height="180"/></td> <td><img src="visualize/wifi_csi_act_49_41.gif" height="180"/></td><td><img src="visualize/wifi_csi_act_88_30.gif" height="180"/></td></tr>
-  <tr align = "center"><td><img src="visualize/video_act_30_25.gif" height="180"/></td><td><img src="visualize/video_act_49_41.gif" height="180"/></td><td><img src="visualize/video_act_88_30.gif" height="180"/></td></tr>
+  <tr align = "center"><td><img src="visualize/wifi_csi_act_30_25.gif" height="160"/></td> <td><img src="visualize/wifi_csi_act_49_41.gif" height="160"/></td><td><img src="visualize/wifi_csi_act_88_30.gif" height="160"/></td></tr>
+  <tr align = "center"><td><img src="visualize/video_act_30_25.gif" height="160"/></td><td><img src="visualize/video_act_49_41.gif" height="160"/></td><td><img src="visualize/video_act_88_30.gif" height="160"/></td></tr>
 </table>
 
 
