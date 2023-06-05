@@ -1,16 +1,22 @@
 # WiMANS: A Benchmark Dataset for WiFi-based Multi-user Activity Sensing
 
-<div align = "center">
-<img src="visualize/video_act_30_25.gif" height="200"/>    <img src="visualize/wifi_csi_act_30_25.gif" height="200"/>
-</div>
+<table align = "center">
+  <tr align = "center"><td colspan="2">Sample "act_30_25"</td>
+  <tr align = "center"><td>Video Data</td> <td>WiFi CSI (5GHz) Data</td></tr>
+  <tr align = "center"><td><img src="visualize/video_act_30_25.gif" height="200"/></td><td><img src="visualize/wifi_csi_act_30_25.gif" height="200"/></td></tr>
+</table>
 
+<table align = "center">
+  <tr align = "center"><td colspan="2">Sample "act_49_41"</td>
+  <tr align = "center"><td>Video Data</td> <td>WiFi CSI (2.4GHz) Data</td></tr>
+  <tr align = "center"><td><img src="visualize/video_act_49_41.gif" height="200"/></td><td><img src="visualize/wifi_csi_act_49_41.gif" height="200"/></td></tr>
+</table>
 
-<img src="visualize/video_act_49_41.gif" height="200"/>    <img src="visualize/wifi_csi_act_49_41.gif" height="200"/>
-
-
-
-<img src="visualize/video_act_88_30.gif" height="200"/>    <img src="visualize/wifi_csi_act_88_30.gif" height="200"/>
-
+<table align = "center">
+  <tr align = "center"><td colspan="2">Sample "act_88_30"</td>
+  <tr align = "center"><td>Video Data</td> <td>WiFi CSI (2.4GHz) Data</td></tr>
+  <tr align = "center"><td><img src="visualize/video_act_88_30.gif" height="200"/></td><td><img src="visualize/wifi_csi_act_88_30.gif" height="200"/></td></tr>
+</table>
 
 
 ```
