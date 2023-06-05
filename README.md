@@ -54,7 +54,7 @@ Please download the WiMANS dataset and extract it under the `dataset` directory.
 
 - Step 1: Download the WiMANS dataset from [[Kaggle]](https://www.kaggle.com/datasets/c4ecbbf66f200ced9ad8b7d2e3c0371c6e615ef2ee203174f09bcefb7a12d523)
 
-- Step 2: Extract the entire WiMANS dataset under this directory
+- Step 2: Extract the entire WiMANS dataset under the `dataset` directory
 
   ```sh
   upzip dataset.zip
@@ -85,28 +85,32 @@ Annotations are saved in the "annotation.csv" file, which can be read using Pand
 
 ```python
 import pandas as pd
-data_pd_y = pd.read_csv(var_path_data_y, dtype = str)    # "var_path_data_y" is the path of "annotation.csv"
+data_pd_y = pd.read_csv(var_path_data_y, dtype = str)
+# "var_path_data_y" is the path of "annotation.csv"
 ```
 
 Raw CSI data are saved in "*.mat" files, which can be read using SciPy.
 
 ```python
 import scipy.io as scio
-data_mat = scio.loadmat(var_path_mat)    # "var_path_mat" is the path of "*.mat" file
+data_mat = scio.loadmat(var_path_mat)
+# "var_path_mat" is the path of "*.mat" file
 ```
 
 The preprocessed data of CSI amplitude are saved in "*.npy" files, which can be read using NumPy.
 
 ```python
 import numpy as np
-data_csi = np.load(var_path)    # "var_path" is the path of "*.ny" file
+data_csi = np.load(var_path)
+# "var_path" is the path of "*.ny" file
 ```
 
 Video data are saved in "*.mp4" files, which can be read using PyTorch.
 
 ```python
 import torchvision
-data_video_x, _, _ = torchvision.io.read_video(var_path, output_format = "TCHW")    # "var_path" is the path of "*.mp4" file
+data_video_x, _, _ = torchvision.io.read_video(var_path, output_format = "TCHW")
+# "var_path" is the path of "*.mp4" file
 ```
 
 
@@ -158,7 +162,7 @@ The following code repeats experiments 10 times to run the MLP model for WiFi-ba
 python benchmark/wifi_csi/run.py --model="MLP" --task="activity" --repeat=10
 ```
 
-After experiments, the results will be saved in the `result.json` file, which can be modified in `benchmark/wifi_csi/preset.py`.
+After experiments, the results will be saved in `result.json`, which can be modified in `benchmark/wifi_csi/preset.py`.
 
 ### Video-based Models
 
@@ -170,8 +174,8 @@ Edit `benchmark/video/preset.py` to select the number(s) of users and environmen
 preset = {
     ...
     "data": {
-        "num_users": ["0", "1", "2", "3", "4", "5"],    # e.g., ["0", "1"], ["2", "3", "4", "5"]
-        "environment": ["classroom"],                   # e.g., ["classroom"], ["meeting_room"], ["empty_room"]
+        "num_users": ["0", "1", "2", "3", "4", "5"],# e.g., ["0", "1"], ["2", "3", "4", "5"]
+        "environment": ["classroom"],               # e.g., ["classroom"], ["meeting_room"], ["empty_room"]
     },
     ...
 }
@@ -202,7 +206,7 @@ The following code repeats experiments 10 times to run the ResNet model for vide
 python benchmark/video/run.py --model="ResNet" --task="activity" --repeat=10
 ```
 
-After experiments, the results will be saved in the `result.json` file, which can be modified in `benchmark/video/preset.py`.
+After experiments, the results will be saved in `result.json`, which can be modified in `benchmark/video/preset.py`.
 
 
 
