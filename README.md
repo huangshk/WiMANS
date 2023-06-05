@@ -102,7 +102,7 @@ The preprocessed data of CSI amplitude are saved in "*.npy" files, which can be 
 ```python
 import numpy as np
 data_csi = np.load(var_path)
-# "var_path" is the path of "*.ny" file
+# "var_path" is the path of "*.npy" file
 ```
 
 Video data are saved in "*.mp4" files, which can be read using PyTorch.
