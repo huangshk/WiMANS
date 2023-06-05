@@ -83,7 +83,7 @@ def run():
     #
     ## run WiFi-based model
     result = run_model(data_train_x, data_train_y, 
-                      data_test_x, data_test_y, var_repeat)
+                       data_test_x, data_test_y, var_repeat)
     #
     ##
     result["model"] = var_model
