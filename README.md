@@ -29,6 +29,7 @@ This repository provides all the [data](https://www.kaggle.com/datasets/c4ecbbf6
 - PyTorch 2.0.1
 
 
+conda env create -f environment.yml
 
 
 
