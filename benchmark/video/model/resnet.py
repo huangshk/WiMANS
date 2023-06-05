@@ -1,13 +1,53 @@
+"""
+[file]          resnet.py
+[description]   implement and evaluate video-based model ResNet
+"""
+#
+##
 import time
 import torch
 import numpy as np
 from ptflops import get_model_complexity_info
-from torchvision.models.video.resnet import r3d_18
+from torchvision.models.video.resnet import r3d_18, R3D_18_Weights
 #
-##
 from preset import preset
 from train import train, test
 from load_data import VideoDataset
+
+#
+##
+## ------------------------------------------------------------------------------------------ ##
+## --------------------------------------- ResNet ------------------------------------------- ##
+## ------------------------------------------------------------------------------------------ ##
+class ResNet(torch.nn.Module):
+    #
+    ##
+    def __init__(self,
+                 var_y_shape):
+        #
+        ##
+        super(ResNet, self).__init__()
+        #
+        var_dim_output = var_y_shape[-1]
+        #
+        self.layer_resnet = r3d_18(weights = R3D_18_Weights.KINETICS400_V1)
+        #
+        self.layer_linear = torch.nn.Linear(400, var_dim_output)
+
+    #
+    ##
+    def forward(self,
+                var_input):
+        #
+        var_t = var_input
+        #
+        var_t = self.layer_resnet(var_t)
+        #
+        var_t = self.layer_linear(var_t)
+        #
+        var_output = var_t
+        #
+        return var_output
 
 #
 ##
@@ -15,6 +55,18 @@ def run_resnet(data_train_set: VideoDataset,
                data_test_set: VideoDataset,
                var_repeat: int,
                var_weight = None):
+    """
+    [description]
+    : run video-based model ResNet
+    [parameter]
+    : data_train_set: VideoDataset, training set of video samples and labels
+    : data_test_set: VideoDataset, test set of video samples and labels
+    : var_repeat: int, number of repeated experiments
+    : var_weight: dict, weights to initialize model
+    [return]
+    : result: dict, results of experiments
+    : var_best_weight: dict, weights of trained model
+    """
     #
     ##
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -36,7 +88,7 @@ def run_resnet(data_train_set: VideoDataset,
     result_time_test = []
     #
     ##
-    var_macs, var_params = get_model_complexity_info(r3d_18(num_classes = var_y_shape[-1]), 
+    var_macs, var_params = get_model_complexity_info(ResNet(var_y_shape), 
                                                      var_x_shape, as_strings = False)
     #
     print("Parameters:", var_params, "- FLOPs:", var_macs * 2)
@@ -49,7 +101,7 @@ def run_resnet(data_train_set: VideoDataset,
         #
         torch.random.manual_seed(var_r + 39)
         #
-        model_resnet = r3d_18(num_classes = var_y_shape[-1]).to(device)
+        model_resnet = ResNet(var_y_shape).to(device)
         #
         if var_weight is not None:  model_resnet.load_state_dict(torch.load(var_weight))
         #

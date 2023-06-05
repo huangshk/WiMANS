@@ -1,6 +1,6 @@
 """
 [file]          that.py
-[description]   implement and evaluate the WiFi-based model THAT
+[description]   implement and evaluate WiFi-based model THAT
                 https://github.com/windofshadow/THAT
 """
 #
@@ -309,15 +309,15 @@ def run_that(data_train_x,
              var_repeat = 10):
     """
     [description]
-    : run the WiFi-based model THAT
+    : run WiFi-based model THAT
     [parameter]
-    : data_train_x: numpy array, CSI amplitude to train the model
-    : data_train_y: numpy array, labels to train the model
-    : data_test_x: numpy array, CSI amplitude to test the model
-    : data_test_y: numpy array, labels to test the model
+    : data_train_x: numpy array, CSI amplitude to train model
+    : data_train_y: numpy array, labels to train model
+    : data_test_x: numpy array, CSI amplitude to test model
+    : data_test_y: numpy array, labels to test model
     : var_repeat: int, number of repeated experiments
     [return]
-    : result: dict, the results of experiments
+    : result: dict, results of experiments
     """
     #
     ##

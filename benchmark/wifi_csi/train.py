@@ -37,16 +37,16 @@ def train(model: Module,
     : generic training function for WiFi-based models
     [parameter]
     : model: Pytorch model to train
-    : optimizer: optimizer to train the model (e.g., Adam)
-    : loss: loss function to train the model (e.g., BCEWithLogitsLoss)
+    : optimizer: optimizer to train model (e.g., Adam)
+    : loss: loss function to train model (e.g., BCEWithLogitsLoss)
     : data_train_set: training set
     : data_test_set: test set
-    : var_threshold: threshold to binarize the sigmoid outputs
+    : var_threshold: threshold to binarize sigmoid outputs
     : var_batch_size: batch size of each training step
-    : var_epochs: number of epochs to train the model
-    : device: device (cuda or cpu) to train the model
+    : var_epochs: number of epochs to train model
+    : device: device (cuda or cpu) to train model
     [return]
-    : var_best_weight: the weights of the trained model
+    : var_best_weight: weights of trained model
     """
     #
     ##

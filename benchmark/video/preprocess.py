@@ -9,8 +9,7 @@ import numpy as np
 import pandas as pd
 import torch, torchvision
 #
-from torchvision.models.video import R3D_18_Weights, S3D_Weights, MViT_V1_B_Weights, Swin3D_T_Weights
-#
+from torchvision.models.video import R3D_18_Weights, S3D_Weights, MViT_V1_B_Weights, MViT_V2_S_Weights, Swin3D_T_Weights, Swin3D_S_Weights
 from preset import preset
 
 #
@@ -21,12 +20,12 @@ def preprocess_video(var_path_data_x,
                      var_path_data_pre_x):
     """
     [description]
-    : preprocess video data according to the video-based model
+    : preprocess video data for video-based models
     [parameter]
-    : var_path_data_x: string, the directory to read raw video files (*.mp4)
-    : var_path_data_y: string, the path of the annotation file
-    : var_model: string, the model for which the videos should be preprocessed
-    : var_path_data_pre_x: string, the directory to save preprocessed videos (*.npy)
+    : var_path_data_x: string, directory to read raw video files (*.mp4)
+    : var_path_data_y: string, path of annotation file
+    : var_model: string, model for which videos should be preprocessed
+    : var_path_data_pre_x: string, directory to save preprocessed videos (*.npy)
     """
     #
     ##
@@ -36,11 +35,17 @@ def preprocess_video(var_path_data_x,
     elif var_model == "S3D":
         transform = S3D_Weights.DEFAULT.transforms()
     #
-    elif var_model == "MViT-v1" or var_model == "MViT-v2":
+    elif var_model == "MViT-v1":
         transform = MViT_V1_B_Weights.DEFAULT.transforms()
     #
-    elif var_model == "Swin-T" or var_model == "Swin-S":
+    elif var_model == "MViT-v2":
+        transform = MViT_V2_S_Weights.DEFAULT.transforms()
+    #
+    elif var_model == "Swin-T":
         transform = Swin3D_T_Weights.DEFAULT.transforms()
+    #
+    elif var_model == "Swin-S":
+        transform = Swin3D_S_Weights.DEFAULT.transforms()
     #
     ##
     data_pd_y = pd.read_csv(var_path_data_y, dtype = str)
@@ -70,7 +75,7 @@ def preprocess_video(var_path_data_x,
 def parse_args():
     """
     [description]
-    : parse the arguments from input
+    : parse arguments from input
     """
     #
     ##

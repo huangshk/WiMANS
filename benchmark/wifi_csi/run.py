@@ -17,7 +17,7 @@ from load_data import load_data_x, load_data_y, encode_data_y
 def parse_args():
     """
     [description]
-    : parse the arguments from input
+    : parse arguments from input
     """
     #
     ##
@@ -37,14 +37,14 @@ def run():
     : run WiFi-based models
     """
     #
-    ## parse the arguments from input
+    ## parse arguments from input
     var_args = parse_args()
     #
     var_task = var_args.task
     var_model = var_args.model
     var_repeat = var_args.repeat
     #
-    ## load the annotation file as labels
+    ## load annotation file as labels
     data_pd_y = load_data_y(preset["path"]["data_y"],
                             var_environment = preset["data"]["environment"], 
                             var_wifi_band = preset["data"]["wifi_band"], 
@@ -64,38 +64,26 @@ def run():
                                                                             shuffle = True, 
                                                                             random_state = 39)
     #
-    ## select and run a WiFi-based model
-    if var_model == "ST-RF":
-        result = run_strf(data_train_x, data_train_y, 
-                          data_test_x, data_test_y, var_repeat)
+    ## select a WiFi-based model
+    if var_model == "ST-RF": run_model = run_strf
     #
-    elif var_model == "MLP":
-        result = run_mlp(data_train_x, data_train_y, 
-                         data_test_x, data_test_y, var_repeat)
+    elif var_model == "MLP": run_model = run_mlp
     #
-    elif var_model == "LSTM":
-        result = run_lstm(data_train_x, data_train_y, 
-                          data_test_x, data_test_y, var_repeat)
+    elif var_model == "LSTM": run_model = run_lstm
     #
-    elif var_model == "CNN-1D":
-        result = run_cnn_1d(data_train_x, data_train_y, 
-                            data_test_x, data_test_y, var_repeat)
+    elif var_model == "CNN-1D": run_model = run_cnn_1d
     #
-    elif var_model == "CNN-2D":
-        result = run_cnn_2d(data_train_x, data_train_y, 
-                            data_test_x, data_test_y, var_repeat)
+    elif var_model == "CNN-2D": run_model = run_cnn_2d
     #
-    elif var_model == "CLSTM":
-        result = run_cnn_lstm(data_train_x, data_train_y, 
-                              data_test_x, data_test_y, var_repeat)
+    elif var_model == "CLSTM": run_model = run_cnn_lstm
     #
-    elif var_model == "ABLSTM":
-        result = run_ablstm(data_train_x, data_train_y, 
-                            data_test_x, data_test_y, var_repeat)
+    elif var_model == "ABLSTM": run_model = run_ablstm
     #
-    elif var_model == "THAT":
-        result = run_that(data_train_x, data_train_y, 
-                          data_test_x, data_test_y, var_repeat)
+    elif var_model == "THAT": run_model = run_that
+    #
+    ## run WiFi-based model
+    result = run_model(data_train_x, data_train_y, 
+                      data_test_x, data_test_y, var_repeat)
     #
     ##
     result["model"] = var_model

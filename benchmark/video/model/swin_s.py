@@ -1,17 +1,24 @@
+"""
+[file]          swin_s.py
+[description]   implement and evaluate video-based model Swin-S
+"""
+#
+##
 import time
 import torch
 import numpy as np
 from ptflops import get_model_complexity_info
 from torchvision.models.video.swin_transformer import swin3d_s, Swin3D_S_Weights
 #
-##
 from preset import preset
 from train import train, test
 from load_data import VideoDataset
 
-
 #
 ##
+## ------------------------------------------------------------------------------------------ ##
+## --------------------------------------- Swin-S ------------------------------------------- ##
+## ------------------------------------------------------------------------------------------ ##
 class SwinS(torch.nn.Module):
     #
     ##
@@ -49,6 +56,18 @@ def run_swin_s(data_train_set: VideoDataset,
                data_test_set: VideoDataset,
                var_repeat: int,
                var_weight = None):
+    """
+    [description]
+    : run video-based model Swin-S
+    [parameter]
+    : data_train_set: VideoDataset, training set of video samples and labels
+    : data_test_set: VideoDataset, test set of video samples and labels
+    : var_repeat: int, number of repeated experiments
+    : var_weight: dict, weights to initialize model
+    [return]
+    : result: dict, results of experiments
+    : var_best_weight: dict, weights of trained model
+    """
     #
     ##
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

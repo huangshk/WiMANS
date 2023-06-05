@@ -47,15 +47,23 @@ dataset
     
     
 
-```
+```sh
 mkdir dataset/wifi_csi/amp
 python benchmark/wifi_csi/preprocess.py --dir_mat="dataset/wifi_csi/mat" --dir_amp="dataset/wifi_csi/amp"
+```
 
-python benchmark/wifi_csi/run.py --model="MLP" --task="activity" --repeat=2
+
+```sh
+python benchmark/wifi_csi/run.py --model="MLP" --task="activity" --repeat=10
 ```
     
     
 ## Video-based Human Sensing
+```sh
+python benchmark/video/preprocess.py --path_data_x="dataset/video" --path_data_y="dataset/annotation.csv" --model="ResNet" --path_data_pre_x="dataset/cache/test"
 ```
-python benchmark/video/preprocess.py --path_data_x="dataset/video" --path_data_y="dataset/annotation.csv" --model="Swin-T" --path_data_pre_x="dataset/cache/test"
+
+```sh
+python benchmark/video/run.py --model="ResNet" --task="activity" --repeat=10
 ```
+

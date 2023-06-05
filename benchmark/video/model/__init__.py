@@ -1,6 +1,6 @@
 """
 [file]          __init__.py
-[description]   
+[description]   directory of video-based models
 """
 #
 ##
@@ -11,6 +11,8 @@ from .mvit_v2 import run_mvit_v2
 from .swin_t import run_swin_t
 from .swin_s import run_swin_s
 
+#
+##
 __all__ = ["run_resnet",
            "run_s3d",
            "run_mvit_v1",

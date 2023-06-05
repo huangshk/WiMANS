@@ -1,17 +1,24 @@
+"""
+[file]          mvit_v2.py
+[description]   implement and evaluate video-based model MViT-v2
+"""
+#
+##
 import time
 import torch
 import numpy as np
 from ptflops import get_model_complexity_info
 from torchvision.models.video.mvit import mvit_v2_s, MViT_V2_S_Weights, PositionalEncoding
 #
-##
 from preset import preset
 from train import train, test
 from load_data import VideoDataset
 
-
 #
 ##
+## ------------------------------------------------------------------------------------------ ##
+## --------------------------------------- MViT-v2 ------------------------------------------ ##
+## ------------------------------------------------------------------------------------------ ##
 class MViTv2(torch.nn.Module):
     #
     ##
@@ -61,6 +68,18 @@ def run_mvit_v2(data_train_set: VideoDataset,
                 data_test_set: VideoDataset,
                 var_repeat: int,
                 var_weight = None):
+    """
+    [description]
+    : run video-based model MViT-v2
+    [parameter]
+    : data_train_set: VideoDataset, training set of video samples and labels
+    : data_test_set: VideoDataset, test set of video samples and labels
+    : var_repeat: int, number of repeated experiments
+    : var_weight: dict, weights to initialize model
+    [return]
+    : result: dict, results of experiments
+    : var_best_weight: dict, weights of trained model
+    """
     #
     ##
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

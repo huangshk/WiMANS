@@ -14,7 +14,7 @@ import scipy.io as scio
 def mat_to_amp(data_mat):
     """
     [description]
-    : calculate the amplitude of raw WiFi CSI data
+    : calculate amplitude of raw WiFi CSI data
     [parameter]
     : data_mat: dict, raw WiFi CSI data from *.mat files
     [return]
@@ -36,10 +36,10 @@ def extract_csi_amp(var_dir_mat,
                     var_dir_amp):
     """
     [description]
-    : read raw WiFi CSI files (*.mat), calcuate CSI amplitude, and save the amplitude (*.npy)
+    : read raw WiFi CSI files (*.mat), calcuate CSI amplitude, and save amplitude (*.npy)
     [parameter]
-    : var_dir_mat: string, the directory to read raw WiFi CSI files (*.mat)
-    : var_dir_amp: string, the directory to save WiFi CSI amplitude (*.npy)
+    : var_dir_mat: string, directory to read raw WiFi CSI files (*.mat)
+    : var_dir_amp: string, directory to save WiFi CSI amplitude (*.npy)
     """
     #
     ##
@@ -63,7 +63,7 @@ def extract_csi_amp(var_dir_mat,
 def parse_args():
     """
     [description]
-    : parse the arguments from input
+    : parse arguments from input
     """
     #
     ##

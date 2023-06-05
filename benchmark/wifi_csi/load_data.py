@@ -1,6 +1,6 @@
 """
 [file]          load_data.py
-[description]   load the annotation file and CSI amplitude, and encode labels
+[description]   load annotation file and CSI amplitude, and encode labels
 """
 #
 ##
@@ -18,15 +18,15 @@ def load_data_y(var_path_data_y,
                 var_num_users = None):
     """
     [description]
-    : load the annotation file (*.csv) as a pandas dataframe
+    : load annotation file (*.csv) as a pandas dataframe
     : according to selected environment(s), WiFi band(s), and number(s) of users
     [parameter]
-    : var_path_data_y: string, the path of annotation file
-    : var_environment: list, the selected environment(s), e.g., ["classroom"]
-    : var_wifi_band: list, the selected WiFi band(s), e.g., ["2.4"]
-    : var_num_users: list, the selected number(s) of users, e.g., ["0", "1", "2"]
+    : var_path_data_y: string, path of annotation file
+    : var_environment: list, selected environment(s), e.g., ["classroom"]
+    : var_wifi_band: list, selected WiFi band(s), e.g., ["2.4"]
+    : var_num_users: list, selected number(s) of users, e.g., ["0", "1", "2"]
     [return]
-    : data_pd_y: pandas dataframe, the labels of selected data
+    : data_pd_y: pandas dataframe, labels of selected data
     """
     #
     ##
@@ -49,13 +49,13 @@ def load_data_x(var_path_data_x,
                 var_label_list):
     """
     [description]
-    : load the CSI amplitude (*.npy)
+    : load CSI amplitude (*.npy)
     : according to a label list of selected data
     [parameter]
-    : var_path_data_x: string, the directory of CSI amplitude files
-    : var_label_list: list, the selected labels
+    : var_path_data_x: string, directory of CSI amplitude files
+    : var_label_list: list, selected labels
     [return]
-    : data_x: numpy array, the CSI amplitude
+    : data_x: numpy array, CSI amplitude
     """
     #
     ##
@@ -83,12 +83,12 @@ def encode_data_y(data_pd_y,
                   var_task):
     """
     [description]
-    : encode labels according to the specific task
+    : encode labels according to specific task
     [parameter]
-    : data_pd_y: pandas dataframe, the labels of different tasks
-    : var_task: string, indicate the task
+    : data_pd_y: pandas dataframe, labels of different tasks
+    : var_task: string, indicate task
     [return]
-    : data_y: numpy array, the label encoding of the task
+    : data_y: numpy array, label encoding of task
     """
     #
     ##
@@ -113,9 +113,9 @@ def encode_identity(data_pd_y):
     [description]
     : encode identity labels in a pandas dataframe
     [parameter]
-    : data_pd_y: pandas dataframe, the labels of different tasks
+    : data_pd_y: pandas dataframe, labels of different tasks
     [return]
-    : data_identity_onehot_y: numpy array, the onehot encoding for identity labels
+    : data_identity_onehot_y: numpy array, onehot encoding for identity labels
     """
     #
     ##
@@ -140,10 +140,10 @@ def encode_activity(data_pd_y,
     [description]
     : encode activity labels in a pandas dataframe
     [parameter]
-    : data_pd_y: pandas dataframe, the labels of different tasks
-    : var_encoding: dict, the encoding of different activities
+    : data_pd_y: pandas dataframe, labels of different tasks
+    : var_encoding: dict, encoding of different activities
     [return]
-    : data_activity_onehot_y: numpy array, the onehot encoding for activity labels
+    : data_activity_onehot_y: numpy array, onehot encoding for activity labels
     """
     #
     ##
@@ -165,10 +165,10 @@ def encode_location(data_pd_y,
     [description]
     : encode location labels in a pandas dataframe
     [parameter]
-    : data_pd_y: pandas dataframe, the labels of different tasks
-    : var_encoding: dict, the encoding of different locations
+    : data_pd_y: pandas dataframe, labels of different tasks
+    : var_encoding: dict, encoding of different locations
     [return]
-    : data_location_onehot_y: numpy array, the onehot encoding for location labels
+    : data_location_onehot_y: numpy array, onehot encoding for location labels
     """
     #
     ##
@@ -187,7 +187,7 @@ def encode_location(data_pd_y,
 def test_load_data_y():
     """
     [description]
-    : test the load_data_y() function
+    : test load_data_y() function
     """
     #
     ##
@@ -208,7 +208,7 @@ def test_load_data_y():
 def test_load_data_x():
     """
     [description]
-    : test the load_data_x() function
+    : test load_data_x() function
     """
     #
     ##
@@ -228,7 +228,7 @@ def test_load_data_x():
 def test_encode_identity():
     """
     [description]
-    : test the encode_identity() function
+    : test encode_identity() function
     """
     #
     ##
@@ -245,7 +245,7 @@ def test_encode_identity():
 def test_encode_activity():
     """
     [description]
-    : test the encode_activity() function
+    : test encode_activity() function
     """
     #
     ##
@@ -262,7 +262,7 @@ def test_encode_activity():
 def test_encode_location():
     """
     [description]
-    : test the encode_location() function
+    : test encode_location() function
     """
     #
     ##
