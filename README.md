@@ -8,8 +8,6 @@
   <a href="#Contact-Us">Contact Us</a>
 </p>
 
-
-
 ## Introduction
 
 This repository presents WiMANS, including [the entire dataset](https://www.kaggle.com/datasets/c4ecbbf66f200ced9ad8b7d2e3c0371c6e615ef2ee203174f09bcefb7a12d523), source code, and documents. To the best of our knowledge, WiMANS is the first WiFi-based **multi-user** activity sensing dataset based on WiFi Channel State Information (CSI). WiMANS contains 11286 CSI samples of dual WiFi bands (2.4 / 5 GHz) and synchronized videos for reference and unexplored tasks (e.g., multi-user pose estimation). Each 3-second sample includes 0 to 5 users performing identical/different activities simultaneously, annotated with (anonymized) user identities, locations, and activities.
