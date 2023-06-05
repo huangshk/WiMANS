@@ -1,16 +1,15 @@
 # WiMANS: A Benchmark Dataset for WiFi-based Multi-user Activity Sensing
 
+<div align = "center">
+<img src="visualize/video_act_30_25.gif" height="200"/>    <img src="visualize/wifi_csi_act_30_25.gif" height="200"/>
+</div>
 
 
-<center><img src="visualize/video_act_30_25.gif" height="180"/>  <img src="visualize/wifi_csi_act_30_25.gif" height="180"/></center>
+<img src="visualize/video_act_49_41.gif" height="200"/>    <img src="visualize/wifi_csi_act_49_41.gif" height="200"/>
 
-<center>
-<img src="visualize/video_act_49_41.gif" height="180"/>  <img src="visualize/wifi_csi_act_49_41.gif" height="180"/>
-</center>
 
-<center>
-<img src="visualize/video_act_88_30.gif" height="180"/>  <img src="visualize/wifi_csi_act_88_30.gif" height="180"/>
-</center>
+
+<img src="visualize/video_act_88_30.gif" height="200"/>    <img src="visualize/wifi_csi_act_88_30.gif" height="200"/>
 
 
 
