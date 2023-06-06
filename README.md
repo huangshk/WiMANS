@@ -139,7 +139,7 @@ preset = {
 }
 ```
 
-**(Optional)** We use `benchmark/wifi_csi/preprocess.py` to calculate the amplitude of raw WiFi CSI. `--dir_mat` defines the input directory of raw WiFi CSI. `--dir_amp` defines the output directory of CSI amplitude. The following code uses the raw WiFi CSI in `dataset/wifi_csi/mat` to calculate the amplitude and save the amplitude files to `dataset/wifi_csi/amp`.
+**(Optional)** We use `benchmark/wifi_csi/preprocess.py` to calculate the amplitude of raw WiFi CSI. `--dir_mat` defines the input directory of raw WiFi CSI. `--dir_amp` defines the output directory of CSI amplitude. The following code uses the raw WiFi CSI in `dataset/wifi_csi/mat` to calculate the amplitude and saves the amplitude files to `dataset/wifi_csi/amp`.
 
 ```sh
 python benchmark/wifi_csi/preprocess.py --dir_mat="dataset/wifi_csi/mat" --dir_amp="dataset/wifi_csi/amp"
@@ -182,11 +182,11 @@ preset = {
 }
 ```
 
-We preprocess video data according to the original paper of video-based models. `--path_data_x` defines the input directory of raw videos. `--path_data_y` defines the path of annotation file. `--model` defines the model for which the videos should be preprocessed. `--path_data_pre_x` defines the output directory of preprocessed videos (*.npy).
+We preprocess video data according to the original papers of video-based models. `--path_data_x` defines the input directory of raw videos. `--path_data_y` defines the path of annotation file. `--model` defines the model for which the videos should be preprocessed. `--path_data_pre_x` defines the output directory of preprocessed videos (*.npy).
 
 - `--model`: "ResNet", "S3D", "MViT-v1", "MViT-v2", "Swin-T", "Swin-S"
 
-The following code preprocesses videos in `dataset/video` for the ResNet model and save preprocessed files to `dataset/cache`.
+The following code preprocesses videos in `dataset/video` for the ResNet model and saves preprocessed files to `dataset/cache`.
 
 ```sh
 python benchmark/video/preprocess.py --path_data_x="dataset/video" --path_data_y="dataset/annotation.csv" --model="ResNet" --path_data_pre_x="dataset/cache"
