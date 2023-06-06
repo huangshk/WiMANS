@@ -139,7 +139,7 @@ preset = {
 }
 ```
 
-**(Optional)** We use `benchmark/wifi_csi/preprocess.py` to calculating  the amplitude of raw WiFi CSI. `--dir_mat` defines the input directory of raw WiFi CSI. `--dir_amp` defines the output directory of CSI amplitude. The following code uses the raw WiFi CSI in `dataset/wifi_csi/mat` to calculate the amplitude and save the amplitude files to `dataset/wifi_csi/amp`.
+**(Optional)** We use `benchmark/wifi_csi/preprocess.py` to calculate the amplitude of raw WiFi CSI. `--dir_mat` defines the input directory of raw WiFi CSI. `--dir_amp` defines the output directory of CSI amplitude. The following code uses the raw WiFi CSI in `dataset/wifi_csi/mat` to calculate the amplitude and save the amplitude files to `dataset/wifi_csi/amp`.
 
 ```sh
 python benchmark/wifi_csi/preprocess.py --dir_mat="dataset/wifi_csi/mat" --dir_amp="dataset/wifi_csi/amp"
