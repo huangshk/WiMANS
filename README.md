@@ -4,7 +4,7 @@
   <a href="#Introduction">Introduction</a> |
   <a href="#Environment">Environment</a> |
   <a href="#Dataset">Dataset</a> |
-  <a href="#Experiments">Experiments</a> |
+  <a href="#Experiments">Experiments</a>
 </p>
 
 ## Introduction
