@@ -1,8 +1,8 @@
 # Dataset Directory
 
-Please download the WiMANS dataset and extract it under this directory.
+Please extract the WiMANS dataset under this directory.
 
-- Step 1: Download the WiMANS dataset from [[Kaggle]](https://www.kaggle.com/datasets/c4ecbbf66f200ced9ad8b7d2e3c0371c6e615ef2ee203174f09bcefb7a12d523)
+- Step 1: Download the WiMANS dataset
 
 - Step 2: Extract the entire WiMANS dataset under this directory
 
