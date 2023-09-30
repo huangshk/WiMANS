@@ -5,7 +5,6 @@
   <a href="#Environment">Environment</a> |
   <a href="#Dataset">Dataset</a> |
   <a href="#Experiments">Experiments</a> |
-  <a href="#Contact-Us">Contact Us</a>
 </p>
 
 ## Introduction
@@ -209,11 +208,3 @@ python benchmark/video/run.py --model="ResNet" --task="activity" --repeat=10
 
 After experiments, the results will be saved in `result.json`, which can be modified in `benchmark/video/preset.py`.
 
-
-
-## Contact Us
-
-Please feel free to contact us if you have any questions about WiMANS.
-
-- Shuokang Huang: s.huang21@imperial.ac.uk
-- Professor Julie McCann: j.mccann@imperial.ac.uk
