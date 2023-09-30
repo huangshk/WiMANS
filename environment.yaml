@@ -503,4 +503,4 @@ dependencies:
     - opencv-python==4.7.0.72
     - ptflops==0.7
     - wget==3.2
-prefix: /home/hwang/anaconda3/envs/WiMANS
+prefix: /home/user/anaconda3/envs/WiMANS
