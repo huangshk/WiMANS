@@ -1,0 +1,12 @@
+*.pt
+*.dat
+*.mat
+*.npy
+*.mp4
+*.png
+*.jpg
+*.out
+*.json
+
+result/
+__pycache__/
