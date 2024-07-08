@@ -2,7 +2,7 @@
 
 Please extract the WiMANS dataset under this directory.
 
-- Step 1: Download the WiMANS dataset
+- Step 1: Download the WiMANS dataset from [[Kaggle]](https://www.kaggle.com/datasets/shuokanghuang/wimans)
 
 - Step 2: Extract the entire WiMANS dataset under this directory
 

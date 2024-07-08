@@ -11,7 +11,7 @@
 
 ## Introduction
 
-This repository presents WiMANS, including the [dataset](https://kaggle.com/datasets/b81588248f5ae9bdb94e732b0bd32b8d009111a50d7d47dbd66ce5cbcdd6894b), source code, and documents. To the best of our knowledge, WiMANS is the first WiFi-based **multi-user** activity sensing dataset based on WiFi Channel State Information (CSI). WiMANS contains 11286 CSI samples of dual WiFi bands (2.4 / 5 GHz) and synchronized videos for reference and unexplored tasks (e.g., multi-user pose estimation). Each 3-second sample includes 0 to 5 users performing identical/different activities simultaneously, annotated with (anonymized) user identities, locations, and activities.
+This repository presents WiMANS, including the [dataset](https://www.kaggle.com/datasets/shuokanghuang/wimans), source code, and documents. To the best of our knowledge, WiMANS is the first WiFi-based **multi-user** activity sensing dataset based on WiFi Channel State Information (CSI). WiMANS contains 11286 CSI samples of dual WiFi bands (2.4 / 5 GHz) and synchronized videos for reference and unexplored tasks (e.g., multi-user pose estimation). Each 3-second sample includes 0 to 5 users performing identical/different activities simultaneously, annotated with (anonymized) user identities, locations, and activities.
 
 <table align = "center">
   <tr align = "center"><td rowspan="2"> <b>Sample <br/> "act_30_25" </b></td><td>WiFi CSI (5GHz)</td> <td>Synchronized Video</td></tr>
@@ -52,7 +52,7 @@ conda activate WiMANS
 
 Please extract the WiMANS dataset under the `dataset` directory.
 
-- Step 1: Download the WiMANS dataset from [[Kaggle]](https://kaggle.com/datasets/b81588248f5ae9bdb94e732b0bd32b8d009111a50d7d47dbd66ce5cbcdd6894b)
+- Step 1: Download the WiMANS dataset from [[Kaggle]](https://www.kaggle.com/datasets/shuokanghuang/wimans)
 
 - Step 2: Extract the entire WiMANS dataset under the `dataset` directory
 
